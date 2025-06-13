@@ -12,10 +12,8 @@ const LoginForm = ({ userType }) => {
     showPassword: false
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add form validation and submission logic here
-  };
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -25,8 +23,48 @@ const LoginForm = ({ userType }) => {
     }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage('');
+
+    // Basic Validation
+    if (!formData.email || !formData.password) {
+      setMessage('Email and password are required.');
+      setLoading(false);
+      return;
+    }
+
+    try {
+      // Replace with your actual backend API
+      const response = await fetch('https://your-backend-api.com/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage('Login successful!');
+        // Save token or redirect user here
+      } else {
+        setMessage(data.error || 'Login failed.');
+      }
+    } catch (err) {
+      console.error(err);
+      setMessage('Something went wrong.');
+    }
+
+    setLoading(false);
+  };
+
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Email Field */}
       <div>
         <label htmlFor="email" className="block text-sm text-gray-600 mb-1">
           {userType === 'student' ? 'Student ID or Email' : 'Email Address'}
@@ -41,12 +79,13 @@ const LoginForm = ({ userType }) => {
             id="email"
             value={formData.email}
             onChange={handleChange}
-            className={`w-full pl-10 pr-3 py-2.5 border rounded-xl focus:outline-none focus:border-[#3666F6] focus:ring-1 focus:ring-[#3666F6]/20`}
+            className="w-full pl-10 pr-3 py-2.5 border rounded-xl focus:outline-none focus:border-[#3666F6] focus:ring-1 focus:ring-[#3666F6]/20"
             placeholder={userType === 'student' ? 'Enter your student ID or email' : 'Enter your email address'}
           />
         </div>
       </div>
 
+      {/* Password Field */}
       <div>
         <div className="flex justify-between items-center mb-1">
           <label htmlFor="password" className="block text-sm text-gray-600">
@@ -66,7 +105,7 @@ const LoginForm = ({ userType }) => {
             id="password"
             value={formData.password}
             onChange={handleChange}
-            className={`w-full pl-10 pr-10 py-2.5 border rounded-xl focus:outline-none focus:border-[#3666F6] focus:ring-1 focus:ring-[#3666F6]/20`}
+            className="w-full pl-10 pr-10 py-2.5 border rounded-xl focus:outline-none focus:border-[#3666F6] focus:ring-1 focus:ring-[#3666F6]/20"
             placeholder="Enter your password"
           />
           <button
@@ -83,6 +122,7 @@ const LoginForm = ({ userType }) => {
         </div>
       </div>
 
+      {/* Remember Me */}
       <div className="flex items-center space-x-2">
         <input
           type="checkbox"
@@ -97,13 +137,23 @@ const LoginForm = ({ userType }) => {
         </label>
       </div>
 
+      {/* Submit Button */}
       <button
         type="submit"
+        disabled={loading}
         className="w-full bg-[#3666F6] text-white py-2 rounded hover:bg-blue-700 transition-colors"
       >
-        Login
+        {loading ? 'Logging in...' : 'Login'}
       </button>
 
+      {/* Message */}
+      {message && (
+        <p className="text-sm text-center text-red-500 mt-2">
+          {message}
+        </p>
+      )}
+
+      {/* Social Login Buttons */}
       <div className="mt-6">
         <p className="text-center text-sm text-gray-500 mb-4">or continue with</p>
         <div className="flex justify-center space-x-4">
@@ -119,12 +169,6 @@ const LoginForm = ({ userType }) => {
           >
             <BsMicrosoft className="w-5 h-5 text-[#00A4EF]" />
           </button>
-          {/* <button
-            type="button"
-            className="p-2.5 border border-gray-200 rounded hover:bg-gray-50 transition-colors flex items-center justify-center"
-          >
-            <FaApple className="w-5 h-5 text-gray-900" />
-          </button> */}
         </div>
       </div>
     </form>
