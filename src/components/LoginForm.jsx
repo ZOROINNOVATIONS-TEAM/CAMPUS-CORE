@@ -8,8 +8,8 @@ function LoginForm() {
 
   const handleChange = (e) => {
     setFormData({
-      ...formData, // keeps the other field unchanged
-      [e.target.name]: e.target.value, // updates only the field being typed
+      ...formData, 
+      [e.target.name]: e.target.value, 
     });
   };
 
