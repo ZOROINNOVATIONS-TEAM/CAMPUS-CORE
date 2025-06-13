@@ -12,32 +12,32 @@ const login_schema_email = z.object({
 });
 
 const login_schema_userid = z.object({
-  userid: z.string(),
+  rollno: z.string(),
   password: z.string().min(8),
 });
 
 router.post('/login', async (req, res) =>
 {
   var user: db.User|null;
-  var pass: string;
+  var upass: string;
   
   try
   {
-    const {uid, upass} = req.body;
+    const {id, pass} = req.body;
     
     try
     {
-      if (uid.includes('@')) //treat as email
+      if (id.includes('@')) //treat as email
       {
-        const {email, password} = login_schema_email.parse({email:uid, password:upass});
-        user = db.get_user_from_email(email);
-        pass = password;
+        const {email, password} = login_schema_email.parse({email:id, password:pass});
+        user = await db.get_user_from_email(email);
+        upass = password;
       }
       else
       {
-        const {userid, password} = login_schema_userid.parse({userid:uid, password:upass});
-        user = db.get_user_from_userid(userid);
-        pass = password;
+        const {rollno, password} = login_schema_userid.parse({rollno:id, password:pass});
+        user = await db.get_user_from_rollno(rollno);
+        upass = password;
       }
     }
     catch (err) {
@@ -50,11 +50,11 @@ router.post('/login', async (req, res) =>
     return;
   }
   
-  if (user && pass)
+  if (user && upass)
   {
-    if (await auth.verify_password_hash(user.userid, pass, user.pass))
+    if (await auth.verify_password_hash(user.name, upass, user.pass_hash))
     {
-      const session_token = auth.jwt_create(user.userid);
+      const session_token = auth.jwt_create(user._id!, user.type);
       res.cookie('session_token', session_token, {expires: new Date(Date.now() + 15*24*3600*1000)}); // 15d expiry, also enforced by jwt
       res.sendStatus(200);
     }

@@ -8,6 +8,26 @@ import login from '#routes/login.ts';
 import user_info from '#routes/user_info.ts';
 import admin_register from '#routes/admin/register.ts';
 
+import * as db from '#lib/db.ts';
+import * as auth from '#lib/auth.ts';
+
+// DB TESTING CODE
+
+// const password = 'password';
+// const user: db.User = {
+//    name: 'test user',
+//    pass_hash: await auth.calc_password_hash('test user', password),
+//    type: 'student',
+//    email: 'test@example.com',
+//    rollno: 'ABC123',
+// };
+//const uid = await db.add_user(user);
+
+//console.log(await db.get_user_from_rollno('abc123'));
+//console.log(await db.get_user_from_email('test@example.coM'));
+//console.log(await db.get_user_from_token(await auth.jwt_create(uid, user.type)));
+//console.log(await db.get_user_from_uid(uid));
+
 const app = express();
 app.use(cookieParser());
 app.use(express.json());

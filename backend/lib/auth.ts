@@ -1,9 +1,9 @@
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 
-export async function calc_password_hash(uid: string, pass: string): Promise<string>
+export async function calc_password_hash(name: string, pass: string): Promise<string>
 {
-  return argon2.hash(uid+pass, {
+  return argon2.hash(name+pass, {
     timeCost: 10,
     parallelism: 1,
     memoryCost: 1024,//KiB
@@ -12,11 +12,11 @@ export async function calc_password_hash(uid: string, pass: string): Promise<str
   });
 }
 
-export async function verify_password_hash(uid: string, pass: string, pass_hash: string): Promise<boolean>
+export async function verify_password_hash(name: string, pass: string, pass_hash: string): Promise<boolean>
 {
   try
   {
-    let result = await argon2.verify(pass_hash, uid+pass, {
+    let result = await argon2.verify(pass_hash, name+pass, {
       secret: Buffer.from(process.env.ARGON2_PEPPER!)
     });
     return result;
@@ -28,20 +28,20 @@ export async function verify_password_hash(uid: string, pass: string, pass_hash:
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export function jwt_create(uid: string): string
+export function jwt_create(uid: string, type: string): string
 {
-  return jwt.sign({uid}, process.env.JWT_SECRET!, {expiresIn: '15d'});
+  return jwt.sign({uid, type}, process.env.JWT_SECRET!, {expiresIn: '15d'});
 }
 
 // if this returns null, token is either invalid or expired and client should delete the session cookie
-export function jwt_decode_uid(token: string): string|null
+export function jwt_decode(token: string): {uid:string, type:string}|null
 {
   try
   {
     let result = jwt.verify(token, process.env.JWT_SECRET!) as jwt.JwtPayload;
     
-    if (result.uid)
-      return result.uid;
+    if (result.uid && result.type)
+      return {uid: result.uid, type: result.type};
     else
       return null;
   }
