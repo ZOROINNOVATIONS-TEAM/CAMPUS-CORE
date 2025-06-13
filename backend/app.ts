@@ -1,18 +1,21 @@
 import 'dotenv/config';
 import express from 'express';
-import mongoose from 'mongoose';
-import * as auth from './auth.ts';
+import cookieParser from 'cookie-parser';
 
-mongoose.connect(process.env.MONGODB_URL!)
-        .then(() => console.log('DB Connected'));
+import { faculty_only, admin_only } from '#lib/middlewares.ts';
+
+import login from '#routes/login.ts';
+import user_info from '#routes/user_info.ts';
+import admin_register from '#routes/admin/register.ts';
 
 const app = express();
-const port = 8080;
+app.use(cookieParser());
+app.use(express.json());
 
-app.get('/', (req, res) => {
-   res.send('Hello World!')
-})
+app.use('/api/v1', login);
+app.use('/api/v1', user_info);
+app.use('/api/v1', admin_only, admin_register);
 
-app.listen(port, () => {
-   console.log(`Express running on port ${port}`)
+app.listen(process.env.PORT, () => {
+   console.log(`Express running on port ${process.env.PORT}`);
 })
