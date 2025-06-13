@@ -6,7 +6,7 @@ import { faculty_only, admin_only } from '#lib/middlewares.ts';
 
 import login from '#routes/login.ts';
 import user_info from '#routes/user_info.ts';
-import admin_register from '#routes/admin/register.ts';
+import admin_create_user from '#routes/admin/create_user.ts';
 
 import * as db from '#lib/db.ts';
 import * as auth from '#lib/auth.ts';
@@ -17,11 +17,11 @@ import * as auth from '#lib/auth.ts';
 // const user: db.User = {
 //    name: 'test user',
 //    pass_hash: await auth.calc_password_hash('test user', password),
-//    type: 'student',
+//    type: 'admin',
 //    email: 'test@example.com',
 //    rollno: 'ABC123',
 // };
-//const uid = await db.add_user(user);
+// const uid = await db.add_user(user);
 
 //console.log(await db.get_user_from_rollno('abc123'));
 //console.log(await db.get_user_from_email('test@example.coM'));
@@ -34,7 +34,7 @@ app.use(express.json());
 
 app.use('/api/v1', login);
 app.use('/api/v1', user_info);
-app.use('/api/v1', admin_only, admin_register);
+app.use('/api/v1', admin_only, admin_create_user);
 
 app.listen(process.env.PORT, () => {
    console.log(`Express running on port ${process.env.PORT}`);
