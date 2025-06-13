@@ -3,7 +3,7 @@ import * as auth from '#lib/auth.ts';
 
 const db = await mongoose.connect(process.env.MONGODB_URL!);
 
-interface User
+export interface User
 {
   userid: string, // this is the unique key, same as rollno for students, faculty and admin can have something like FC0001, ADM001
   email: string,
