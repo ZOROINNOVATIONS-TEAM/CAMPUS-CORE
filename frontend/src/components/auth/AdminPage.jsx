@@ -4,10 +4,9 @@ import smartCampusLogo from '../../assets/images/logo.png';
 
 // import RegisterForm from './RegisterForm';
 import TabButton from './TabButton';
-import LoginForm from './LoginForm';
+import AdminForm from '../AdminForm';
 
-
-const AuthPage = () => {
+const AdminPage = () => {
 const [activeTab, setActiveTab] = useState('register'); // 🟢 default to Register tab
   // const [isLogin, setIsLogin] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -121,7 +120,7 @@ const [activeTab, setActiveTab] = useState('register'); // 🟢 default to Regis
               isTransitioning ? 'opacity-0' : 'opacity-100'
             }`}
           >
-            <LoginForm userType={activeTab} />
+            <AdminForm userType={activeTab} />
           </div>
         </div>
       </div>
@@ -129,4 +128,4 @@ const [activeTab, setActiveTab] = useState('register'); // 🟢 default to Regis
   );
 };
 
-export default AuthPage;
+export default AdminPage;
