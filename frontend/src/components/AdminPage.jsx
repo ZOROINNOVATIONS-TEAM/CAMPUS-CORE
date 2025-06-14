@@ -1,10 +1,11 @@
 import { AcademicCapIcon, ChartBarIcon, ClockIcon, UserGroupIcon, UserIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
-import smartCampusLogo from '../../assets/images/logo.png';
+
+import TabButton from './TabButton';
+import AdminForm from './AdminForm';
 
 // import RegisterForm from './RegisterForm';
-import TabButton from './TabButton';
-import AdminForm from '../AdminForm';
+
 
 const AdminPage = () => {
 const [activeTab, setActiveTab] = useState('register'); // 🟢 default to Register tab
@@ -36,7 +37,7 @@ const [activeTab, setActiveTab] = useState('register'); // 🟢 default to Regis
             <div className="flex flex-col items-center">
               <div className="w-full flex justify-center mb-8">
                 <img 
-                  src={smartCampusLogo} 
+                  src=".\src\assets\images\logo.png"
                   alt="Campus Core Logo" 
                   className="h-24 w-auto animate-float" 
                 />
@@ -90,7 +91,7 @@ const [activeTab, setActiveTab] = useState('register'); // 🟢 default to Regis
           {/* Mobile Logo */}
           <div className="lg:hidden flex justify-center mb-8">
             <img 
-              src={smartCampusLogo} 
+            src=".\src\assets\images\logo.png"
               alt="Campus Core Logo" 
               className="h-20 w-auto" 
             />
