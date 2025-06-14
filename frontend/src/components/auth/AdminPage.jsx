@@ -1,13 +1,14 @@
 import { AcademicCapIcon, ChartBarIcon, ClockIcon, UserGroupIcon, UserIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
-import LoginForm from './LoginForm';
+
 import TabButton from './TabButton';
+import AdminForm from './AdminForm';
 
 // import RegisterForm from './RegisterForm';
 
 
-const AuthPage = () => {
-const [activeTab, setActiveTab] = useState('register'); 
+const AdminPage = () => {
+const [activeTab, setActiveTab] = useState('register'); // 
   // const [isLogin, setIsLogin] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -36,7 +37,7 @@ const [activeTab, setActiveTab] = useState('register');
             <div className="flex flex-col items-center">
               <div className="w-full flex justify-center mb-8">
                 <img 
-                 src=".\src\assets\images\logo.png"
+                  src=".\src\assets\images\logo.png"
                   alt="Campus Core Logo" 
                   className="h-24 w-auto animate-float" 
                 />
@@ -90,7 +91,7 @@ const [activeTab, setActiveTab] = useState('register');
           {/* Mobile Logo */}
           <div className="lg:hidden flex justify-center mb-8">
             <img 
-             src=".\src\assets\images\logo.png" 
+            src=".\src\assets\images\logo.png"
               alt="Campus Core Logo" 
               className="h-20 w-auto" 
             />
@@ -120,7 +121,7 @@ const [activeTab, setActiveTab] = useState('register');
               isTransitioning ? 'opacity-0' : 'opacity-100'
             }`}
           >
-            <LoginForm userType={activeTab} />
+            <AdminForm userType={activeTab} />
           </div>
         </div>
       </div>
@@ -128,4 +129,4 @@ const [activeTab, setActiveTab] = useState('register');
   );
 };
 
-export default AuthPage;
+export default AdminPage;
