@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import { BsMicrosoft } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
 import { HiEye, HiEyeOff, HiOutlineMail } from 'react-icons/hi';
 import { RiLockPasswordLine } from 'react-icons/ri';
+import { MdBusiness } from 'react-icons/md';
 
 const AdminForm = ({ userType }) => {
   const [formData, setFormData] = useState({
     fullName: '',
+    organization: '',
     email: '',
     password: '',
     rememberMe: false,
@@ -30,12 +31,12 @@ const AdminForm = ({ userType }) => {
     setMessage('');
 
     if (userType === 'register') {
-      if (!formData.fullName || !formData.email) {
-        setMessage('Full Name and Email are required.');
+      if (!formData.fullName || !formData.email || !formData.organization) {
+        setMessage('Full Name, Email, and Organization Name are required.');
         setLoading(false);
         return;
       }
-      console.log('Registering:', formData.fullName, formData.email);
+      console.log('Registering:', formData.fullName, formData.email, formData.organization);
       setMessage('Registration successful!');
     } else {
       if (!formData.email || !formData.password) {
@@ -59,22 +60,47 @@ const AdminForm = ({ userType }) => {
       )}
 
       {userType === 'register' && (
-        <div>
-          <label htmlFor="fullName" className="block text-sm text-gray-500 mb-1">
-            Full Name
-          </label>
-          <input
-            type="text"
-            name="fullName"
-            id="fullName"
-            value={formData.fullName}
-            onChange={handleChange}
-            className="w-full px-3 py-2.5 border rounded-xl focus:outline-none focus:border-[#3666F6] focus:ring-1 focus:ring-[#3666F6]/20"
-            placeholder="Enter your full name"
-          />
-        </div>
+        <>
+          {/* Full Name */}
+          <div>
+            <label htmlFor="fullName" className="block text-sm text-gray-500 mb-1">
+              Full Name
+            </label>
+            <input
+              type="text"
+              name="fullName"
+              id="fullName"
+              value={formData.fullName}
+              onChange={handleChange}
+              className="w-full px-3 py-2.5 border rounded-xl focus:outline-none focus:border-[#3666F6] focus:ring-1 focus:ring-[#3666F6]/20"
+              placeholder="Enter your full name"
+            />
+          </div>
+
+          {/* Organization Name */}
+          <div>
+            <label htmlFor="organization" className="block text-sm text-gray-500 mb-1">
+              Organization Name
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <MdBusiness className="h-5 w-5 text-gray-400" />
+              </div>
+              <input
+                type="text"
+                name="organization"
+                id="organization"
+                value={formData.organization}
+                onChange={handleChange}
+                className="w-full pl-10 pr-3 py-2.5 border rounded-xl focus:outline-none focus:border-[#3666F6] focus:ring-1 focus:ring-[#3666F6]/20"
+                placeholder="Enter your organization"
+              />
+            </div>
+          </div>
+        </>
       )}
 
+      {/* Email */}
       <div>
         <label htmlFor="email" className="block text-sm text-gray-500 mb-1">
           {userType === 'register' ? 'Email Address' : 'Student ID or Email'}
@@ -95,6 +121,7 @@ const AdminForm = ({ userType }) => {
         </div>
       </div>
 
+      {/* Password (only for login) */}
       {userType === 'login' && (
         <>
           <div>
@@ -121,14 +148,21 @@ const AdminForm = ({ userType }) => {
               />
               <button
                 type="button"
-                onClick={() => setFormData(prev => ({ ...prev, showPassword: !prev.showPassword }))}
+                onClick={() =>
+                  setFormData((prev) => ({ ...prev, showPassword: !prev.showPassword }))
+                }
                 className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
               >
-                {formData.showPassword ? <HiEyeOff className="h-5 w-5" /> : <HiEye className="h-5 w-5" />}
+                {formData.showPassword ? (
+                  <HiEyeOff className="h-5 w-5" />
+                ) : (
+                  <HiEye className="h-5 w-5" />
+                )}
               </button>
             </div>
           </div>
 
+          {/* Remember Me */}
           <div className="flex items-center space-x-2">
             <input
               type="checkbox"
@@ -145,6 +179,7 @@ const AdminForm = ({ userType }) => {
         </>
       )}
 
+      {/* Submit Button */}
       <button
         type="submit"
         disabled={loading}
@@ -155,31 +190,24 @@ const AdminForm = ({ userType }) => {
             ? 'Registering...'
             : 'Logging in...'
           : userType === 'register'
-            ? 'Register'
-            : 'Login'}
+          ? 'Register'
+          : 'Login'}
       </button>
 
       {message && (
-        <p className="text-sm text-center text-red-500 mt-2">
-          {message}
-        </p>
+        <p className="text-sm text-center text-red-500 mt-2">{message}</p>
       )}
 
-      {/* Social login buttons shown in both login & register */}
+      {/* Google Login */}
       <div className="mt-6">
         <p className="text-center text-sm text-white mb-4">or continue with</p>
-        <div className="flex justify-center space-x-4">
+        <div className="flex justify-center">
           <button
             type="button"
-            className="p-2.5 border border-gray-200 rounded hover:bg-gray-50 transition-colors flex items-center justify-center"
+            className="flex items-center gap-3 px-4 py-2 border border-gray-300 rounded-full shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition"
           >
             <FcGoogle className="w-5 h-5" />
-          </button>
-          <button
-            type="button"
-            className="p-2.5 border border-gray-200 rounded hover:bg-gray-50 transition-colors flex items-center justify-center"
-          >
-            <BsMicrosoft className="w-5 h-5 text-[#00A4EF]" />
+            <span>Log In with Google</span>
           </button>
         </div>
       </div>
