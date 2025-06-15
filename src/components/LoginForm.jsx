@@ -9,7 +9,15 @@ function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Submitted Data:', formData);
+
+    // 🔐 Dummy login check
+    if (formData.username === 'student' && formData.password === '1234') {
+      localStorage.setItem('token', 'dummy-auth-token'); // pretend to save JWT
+      alert('Login successful! ✅');
+      console.log('Redirect to Dashboard'); // will use useNavigate in Day 4
+    } else {
+      alert('❌ Invalid credentials. Try again.');
+    }
   };
 
   return (
@@ -26,7 +34,6 @@ function LoginForm() {
             value={formData.username}
             onChange={handleChange}
             className="w-full px-3 py-2 rounded-md border border-gray-300 bg-gray-50 text-gray-800 focus:border-violet-600"
-
             required
           />
         </div>
@@ -39,8 +46,7 @@ function LoginForm() {
             placeholder="Password"
             value={formData.password}
             onChange={handleChange}
-          className="w-full px-3 py-2 rounded-md border border-gray-300 bg-gray-50 text-gray-800 focus:border-violet-600"
-
+            className="w-full px-3 py-2 rounded-md border border-gray-300 bg-gray-50 text-gray-800 focus:border-violet-600"
             required
           />
           <div className="flex justify-end text-xs text-gray-600">
@@ -52,6 +58,7 @@ function LoginForm() {
         </button>
       </form>
 
+      {/* social login UI */}
       <div className="flex items-center pt-4 space-x-1">
         <div className="flex-1 h-px sm:w-16 bg-gray-300"></div>
         <p className="px-3 text-sm text-gray-600">Login with social accounts</p>
@@ -59,14 +66,13 @@ function LoginForm() {
       </div>
 
       <div className="flex justify-center space-x-4">
-        <button className="p-3 rounded-sm" aria-label="Log in with Google">🟥</button>
-        <button className="p-3 rounded-sm" aria-label="Log in with Twitter">🟦</button>
-        <button className="p-3 rounded-sm" aria-label="Log in with GitHub">⬛</button>
+        <button className="p-3 rounded-sm">🟥</button>
+        <button className="p-3 rounded-sm">🟦</button>
+        <button className="p-3 rounded-sm">⬛</button>
       </div>
 
       <p className="text-xs text-center sm:px-6 text-gray-600">
-        Don't have an account?{' '}
-        <a href="#" className="underline text-gray-800">Sign up</a>
+        Don't have an account? <a href="#" className="underline text-gray-800">Sign up</a>
       </p>
     </div>
   );
