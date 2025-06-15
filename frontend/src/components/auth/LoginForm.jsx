@@ -2,8 +2,11 @@ import { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { HiEye, HiEyeOff, HiOutlineMail } from 'react-icons/hi';
 import { RiLockPasswordLine } from 'react-icons/ri';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = ({ userType }) => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -47,7 +50,7 @@ const LoginForm = ({ userType }) => {
 
       if (response.ok) {
         setMessage('Login successful!');
-        // redirect or save token
+        navigate('/dashboard'); // ✅ Redirect to dashboard
       } else {
         setMessage(data.error || 'Login failed.');
       }
@@ -107,7 +110,9 @@ const LoginForm = ({ userType }) => {
           />
           <button
             type="button"
-            onClick={() => setFormData(prev => ({ ...prev, showPassword: !prev.showPassword }))}
+            onClick={() =>
+              setFormData(prev => ({ ...prev, showPassword: !prev.showPassword }))
+            }
             className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
           >
             {formData.showPassword ? <HiEyeOff className="h-5 w-5" /> : <HiEye className="h-5 w-5" />}
