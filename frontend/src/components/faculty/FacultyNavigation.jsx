@@ -1,17 +1,17 @@
-import { BellIcon, BookOpenIcon, CalendarIcon, ChartBarIcon, ChatBubbleLeftIcon, HomeIcon, UserGroupIcon } from '@heroicons/react/24/outline';
+import { AcademicCapIcon, BriefcaseIcon, CalendarIcon, ChartBarIcon, ClipboardDocumentIcon, HomeIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import { Link, useLocation } from 'react-router-dom';
 
 const navigationItems = [
-  { name: 'Home', icon: HomeIcon, href: '/dashboard' },
-  { name: 'Schedule', icon: CalendarIcon, href: '/dashboard/schedule' },
-  { name: 'Course Setup', icon: BookOpenIcon, href: '/dashboard/courses' },
-  { name: 'Analytics', icon: ChartBarIcon, href: '/dashboard/analytics' },
-  { name: 'Notification', icon: BellIcon, href: '/dashboard/notifications' },
-  { name: 'Message', icon: ChatBubbleLeftIcon, href: '/dashboard/messages' },
-  { name: 'Mentor', icon: UserGroupIcon, href: '/dashboard/mentor' },
+  { name: 'Home', icon: HomeIcon, href: '/faculty/dashboard' },
+  { name: 'Exam', icon: AcademicCapIcon, href: '/faculty/exam' },
+  { name: 'Course Setup', icon: CalendarIcon, href: '/faculty/courses' },
+  { name: 'Grading', icon: ChartBarIcon, href: '/faculty/grading' },
+  { name: 'Assignment', icon: ClipboardDocumentIcon, href: '/faculty/assignment' },
+  { name: 'Duties', icon: BriefcaseIcon, href: '/faculty/duties' },
+  { name: 'Mentor', icon: UserGroupIcon, href: '/faculty/mentor' },
 ];
 
-const Navigation = () => {
+const FacultyNavigation = () => {
   const location = useLocation();
 
   return (
@@ -38,4 +38,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default FacultyNavigation;

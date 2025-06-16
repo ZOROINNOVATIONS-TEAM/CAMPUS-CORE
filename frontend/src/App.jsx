@@ -2,8 +2,9 @@ import { Route, Routes } from "react-router-dom";
 import './App.css';
 import AdminPage from "./components/auth/AdminPage";
 import AuthPage from './components/auth/AuthPage';
-import ProtectedRoute from "./components/auth/ProtectedRoute";
-import Dashboard from './pages/AdminDashboard';
+import ProtectedRoute from "./components/ProtectedRoutes/ProtectedRoute";
+import AdminDashboard from './pages/AdminDashboard';
+import FacultyDashboard from './pages/FacultyDashboard';
 
 function App() {
   return (
@@ -13,17 +14,10 @@ function App() {
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/admin/dashboard/*" element={
           // <ProtectedRoute>
-            <Dashboard isAdmin={true} />
-          /* </ProtectedRoute> */
+            <AdminDashboard />
+          // </ProtectedRoute>
         } />
-        <Route
-          path="/dashboard/*"
-          element={
-            <ProtectedRoute>
-              {/* <Dashboard isAdmin={false} /> */}
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/faculty/dashboard/*" element={<FacultyDashboard />} />
       </Routes>
     </div>
   );

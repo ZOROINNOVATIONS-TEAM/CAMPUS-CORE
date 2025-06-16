@@ -1,37 +1,37 @@
 import { ClockIcon, MapPinIcon } from '@heroicons/react/24/outline';
 
-const scheduleItems = [
-  {
-    id: 1,
-    subject: 'Introduction to Computer Science',
-    time: '10:00 AM - 11:30 AM',
-    location: 'Room 101',
-    status: 'Completed',
-  },
-  {
-    id: 2,
-    subject: 'Advanced Mathematics',
-    time: '12:00 PM - 1:30 PM',
-    location: 'Room 202',
-    status: 'Upcoming',
-  },
-  {
-    id: 3,
-    subject: 'Physics Laboratory',
-    time: '2:00 PM - 3:30 PM',
-    location: 'Lab Building',
-    status: 'Upcoming',
-  },
-  {
-    id: 4,
-    subject: 'English Literature',
-    time: '4:00 PM - 5:30 PM',
-    location: 'Room 305',
-    status: 'Upcoming',
-  },
-];
+const FacultySchedule = () => {
+  const scheduleItems = [
+    {
+      id: 1,
+      subject: 'Introduction to Computer Science',
+      time: '10:00 AM - 11:30 AM',
+      location: 'Room 101',
+      status: 'Completed',
+    },
+    {
+      id: 2,
+      subject: 'Advanced Mathematics',
+      time: '12:00 PM - 1:30 PM',
+      location: 'Room 202',
+      status: 'Upcoming',
+    },
+    {
+      id: 3,
+      subject: 'Physics Laboratory',
+      time: '2:00 PM - 3:30 PM',
+      location: 'Lab Building',
+      status: 'Upcoming',
+    },
+    {
+      id: 4,
+      subject: 'English Literature',
+      time: '4:00 PM - 5:30 PM',
+      location: 'Room 305',
+      status: 'Upcoming',
+    },
+  ];
 
-const TodaySchedule = () => {
   return (
     <div className="bg-white rounded-lg shadow-sm p-6">
       <div className="flex items-center justify-between mb-6">
@@ -74,4 +74,4 @@ const TodaySchedule = () => {
   );
 };
 
-export default TodaySchedule;
+export default FacultySchedule;

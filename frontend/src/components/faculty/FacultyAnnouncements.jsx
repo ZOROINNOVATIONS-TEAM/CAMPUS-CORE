@@ -1,29 +1,29 @@
 
-const announcements = [
-  {
-    id: 1,
-    title: 'Campus Closure Notice',
-    content: 'Due to renovations on building B, this campus will be closed on Saturday, June 24. All scheduled classes will be conducted online.',
-    type: 'Important',
-    date: 'June 15, 2024',
-  },
-  {
-    id: 2,
-    title: 'Summer Registration Open',
-    content: 'Please complete your registration by June 20 to secure your seat.',
-    type: 'Action Required',
-    date: 'June 14, 2024',
-  },
-  {
-    id: 3,
-    title: 'Library Extended Hours',
-    content: 'The library will extend its opening hours during the examination period (8AM - 10PM) starting next week.',
-    type: 'Information',
-    date: 'June 13, 2024',
-  },
-];
+const FacultyAnnouncements = () => {
+  const announcements = [
+    {
+      id: 1,
+      title: 'Campus Closure Notice',
+      content: 'Due to renovations on building B, this campus will be closed on Saturday, June 24. All scheduled classes will be conducted online.',
+      type: 'Important',
+      date: 'June 15, 2025',
+    },
+    {
+      id: 2,
+      title: 'Summer Registration Open',
+      content: 'Please complete your registration by June 20 to secure your seat.',
+      type: 'Action Required',
+      date: 'June 14, 2025',
+    },
+    {
+      id: 3,
+      title: 'Library Extended Hours',
+      content: 'The library will extend its opening hours during the examination period (8AM - 10PM) starting next week.',
+      type: 'Information',
+      date: 'June 13, 2025',
+    },
+  ];
 
-const Announcements = () => {
   return (
     <div className="bg-white rounded-lg shadow-sm p-6">
       <div className="flex items-center justify-between mb-6">
@@ -68,4 +68,4 @@ const Announcements = () => {
   );
 };
 
-export default Announcements;
+export default FacultyAnnouncements;

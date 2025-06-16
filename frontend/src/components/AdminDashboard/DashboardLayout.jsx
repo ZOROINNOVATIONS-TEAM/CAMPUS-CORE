@@ -10,6 +10,7 @@ import {
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import { Link } from 'react-router-dom';
 
+
 const navigationItems = [
   { name: 'Home', icon: HomeIcon, href: '/admin/dashboard/*' },
   { name: 'Schedule', icon: CalendarIcon, href: '/admin/dashboard/*' },
@@ -29,7 +30,7 @@ const DashboardLayout = ({ children }) => {
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
             <Link to="/dashboard">
-              <img src="/images/conectsiksha.png" alt="Campus Core" className="h-10 w-auto" />
+              <img src="frontend\src\assets\images\logo.png" alt="Campus Core" className="h-10 w-auto" />
             </Link>
 
             {/* Icons */}
