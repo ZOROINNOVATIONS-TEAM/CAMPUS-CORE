@@ -2,21 +2,22 @@ import { Route, Routes } from "react-router-dom";
 import './App.css';
 import AuthPage from "./components/AuthPage";
 import AdminPage from "./components/AdminPage";
-import ProtectedRoute from "./components/ProtectedRoute";
+import StudentDashboard from "./pages/StudentDashboard ";
+import AdminDashboard from "./pages/AdminDashboard";
+
+
 
 function App() {
   return (
     <div>
       <Routes>
         <Route path="/" element={<AuthPage />} />
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
-              <AdminPage />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/admin" element={<AdminPage/>} />
+        <Route path="/StudentDash" element={<StudentDashboard/>} />
+        <Route path="/AdminDash" element={<AdminDashboard/>} />
+
+
+
       </Routes>
     </div>
   );
