@@ -1,4 +1,3 @@
-// src/pages/StudentDashboard.jsx
 import React, { useState } from 'react';
 import {
   Bell,
