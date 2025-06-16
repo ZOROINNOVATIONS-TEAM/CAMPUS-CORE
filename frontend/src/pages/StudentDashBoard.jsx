@@ -1,8 +1,58 @@
+// src/pages/StudentDashboard.jsx
 import React, { useState } from 'react';
-import { Bell, User } from 'lucide-react';
+import {
+  Bell,
+  User,
+  Home,
+  FileText,
+  BookOpen,
+  BarChart2,
+  ClipboardList,
+  ClipboardCheck,
+  Users,
+} from 'lucide-react';
+import {
+  BarChart,
+  Bar,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  CartesianGrid,
+  Legend,
+} from 'recharts';
 import logo from '../assets/images/logo.png';
 
-const tabs = ['Home', 'Exam', 'Course Setup', 'Grading', 'Assignment', 'Duties', 'Mentor'];
+const tabs = [
+  { label: 'Home', icon: <Home className="w-4 h-4 mr-1" /> },
+  { label: 'Schedule', icon: <FileText className="w-4 h-4 mr-1" /> },
+  { label: 'Course Setup', icon: <BookOpen className="w-4 h-4 mr-1" /> },
+  { label: 'Analytics', icon: <BarChart2 className="w-4 h-4 mr-1" /> },
+  { label: 'Notification', icon: <ClipboardList className="w-4 h-4 mr-1" /> },
+  { label: 'Message', icon: <ClipboardCheck className="w-4 h-4 mr-1" /> },
+  { label: 'Mentor', icon: <Users className="w-4 h-4 mr-1" /> },
+];
+
+const barChartData = [
+  { week: 'Week 1', present: 85, late: 10, absent: 5 },
+  { week: 'Week 2', present: 80, late: 12, absent: 8 },
+  { week: 'Week 3', present: 90, late: 5, absent: 5 },
+  { week: 'Week 4', present: 85, late: 10, absent: 5 },
+  { week: 'Week 5', present: 83, late: 12, absent: 5 },
+  { week: 'Week 6', present: 87, late: 8, absent: 5 },
+  { week: 'Week 7', present: 85, late: 10, absent: 5 },
+  { week: 'Week 8', present: 85, late: 10, absent: 5 },
+];
+
+const resultChartData = [
+  { subject: "CS", score: 92 },
+  { subject: "Math", score: 75 },
+  { subject: "Physics", score: 85 },
+  { subject: "AI", score: 88 },
+  { subject: "Stats", score: 78 },
+];
 
 const StudentDashboard = () => {
   const [activeTab, setActiveTab] = useState('Home');
@@ -11,89 +61,194 @@ const StudentDashboard = () => {
     switch (activeTab) {
       case 'Home':
         return (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
-            {/* Submit Attendance */}
-            <div className="col-span-2 bg-white rounded-lg shadow p-4 md:p-6">
-              <h3 className="text-lg font-semibold mb-4">Submit Attendance</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 text-center mb-6 gap-4">
-                <div className="bg-blue-100 p-4 rounded-xl">
-                  <p className="text-xl font-bold">65%</p>
-                  <p className="text-sm">Student Present</p>
+          <>
+            {/* Attendance & Recent Results */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+              {/* Attendance Summary */}
+              <div className="lg:col-span-2 bg-white rounded-lg shadow p-6">
+                <h3 className="font-semibold text-base mb-4 flex justify-between items-center">
+                  Attendance Summary
+                  <span className="text-sm text-blue-600 cursor-pointer">View Details</span>
+                </h3>
+                <div className="flex gap-4 mb-6 text-sm">
+                  <div className="bg-blue-100 text-blue-800 px-3 py-2 rounded-md">85% Present</div>
+                  <div className="bg-yellow-100 text-yellow-800 px-3 py-2 rounded-md">10% Late</div>
+                  <div className="bg-red-100 text-red-800 px-3 py-2 rounded-md">5% Absent</div>
                 </div>
-                <div className="bg-yellow-100 p-4 rounded-xl">
-                  <p className="text-xl font-bold">21%</p>
-                  <p className="text-sm">Student Late</p>
-                </div>
-                <div className="bg-red-100 p-4 rounded-xl">
-                  <p className="text-xl font-bold">9%</p>
-                  <p className="text-sm">Student Absent</p>
-                </div>
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={barChartData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="week" />
+                    <YAxis />
+                    <Tooltip />
+                    <Bar dataKey="present" stackId="a" fill="#3B82F6" />
+                    <Bar dataKey="late" stackId="a" fill="#FACC15" />
+                    <Bar dataKey="absent" stackId="a" fill="#EF4444" />
+                  </BarChart>
+                </ResponsiveContainer>
               </div>
-              <div className="flex flex-col gap-3">
-                <select className="border p-2 rounded text-sm">
-                  <option>Select Class</option>
-                  <option>Dsa</option>
-                  <option>Java</option>
-                  <option>Python</option>
-                </select>
-                <select className="border p-2 rounded text-sm">
-                  <option>Status</option>
-                  <option>Present</option>
-                  <option>Absent</option>
-                  <option>Late</option>
-                </select>
-                <div className="flex justify-end gap-3 mt-3">
-                  <button className="px-4 py-2 border rounded text-sm">Cancel</button>
-                  <button className="px-4 py-2 bg-black text-white rounded text-sm">Submit Attendance</button>
+
+              {/* Recent Results Box */}
+              <div className="bg-white rounded-xl shadow-lg p-6 border border-blue-100">
+                <h3 className="font-semibold text-base mb-4 flex justify-between items-center">
+                  Recent Results
+                  <span className="text-sm text-blue-600 cursor-pointer hover:underline">
+                    All Results
+                  </span>
+                </h3>
+                <div className="grid grid-cols-1 gap-4 mb-6 text-sm">
+                  <div className="flex justify-between p-3 bg-green-50 rounded-lg border-l-4 border-green-500">
+                    <span>Computer Science</span>
+                    <span className="text-green-700 font-semibold">92/100</span>
+                  </div>
+                  <div className="flex justify-between p-3 bg-yellow-50 rounded-lg border-l-4 border-yellow-500">
+                    <span>Advanced Mathematics</span>
+                    <span className="text-yellow-700 font-semibold">75/100</span>
+                  </div>
+                  <div className="flex justify-between p-3 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                    <span>Physics</span>
+                    <span className="text-blue-700 font-semibold">85/100</span>
+                  </div>
+                  <div className="flex justify-between p-3 bg-purple-50 rounded-lg border-l-4 border-purple-500">
+                    <span>Artificial Intelligence</span>
+                    <span className="text-purple-700 font-semibold">88/100</span>
+                  </div>
+                  <div className="flex justify-between p-3 bg-pink-50 rounded-lg border-l-4 border-pink-500">
+                    <span>Statistics</span>
+                    <span className="text-pink-700 font-semibold">78/100</span>
+                  </div>
+                </div>
+                <div className="w-full h-48">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={resultChartData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="subject" />
+                      <YAxis domain={[0, 100]} />
+                      <Tooltip />
+                      <Legend />
+                      <Line type="monotone" dataKey="score" stroke="#3B82F6" strokeWidth={2} dot={{ r: 5 }} activeDot={{ r: 8 }} />
+                    </LineChart>
+                  </ResponsiveContainer>
                 </div>
               </div>
             </div>
 
-            {/* Upcoming Events */}
-            <div className="bg-white rounded-lg shadow p-4">
-              <h3 className="font-semibold mb-4 text-base border-b pb-2">Upcoming Events</h3>
-              <ul className="space-y-3 text-sm">
-                <li className="flex justify-between items-center p-3 rounded border-l-4 border-red-500 bg-red-50">
-                  <span>Applied Science Assignment</span>
-                  <span className="text-gray-600">Jun 14</span>
-                </li>
-                <li className="flex justify-between items-center p-3 rounded border-l-4 border-yellow-500 bg-yellow-50">
-                  <span>Technology Exam</span>
-                  <span className="text-gray-600">Jun 15</span>
-                </li>
-                <li className="flex justify-between items-center p-3 rounded border-l-4 border-green-500 bg-green-50">
-                  <span>AI Workshop</span>
-                  <span className="text-gray-600">Jun 16</span>
-                </li>
-                <li className="flex justify-between items-center p-3 rounded border-l-4 border-blue-500 bg-blue-50">
-                  <span>UX Design Conference</span>
-                  <span className="text-gray-600">Jun 17</span>
-                </li>
-              </ul>
+            {/* Schedule & Announcements */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+              {/* Today's Schedule */}
+              <div className="lg:col-span-2 bg-white rounded-lg shadow p-6">
+                <h3 className="font-semibold text-base mb-4 flex justify-between items-center">
+                  Today's Schedule
+                  <span className="text-sm text-blue-600 cursor-pointer">Full Schedule</span>
+                </h3>
+                <ul className="space-y-3 text-sm">
+                  <li className="p-3 bg-gray-50 rounded border flex justify-between">
+                    <span>Intro to CS</span><span className="text-green-600">Completed</span>
+                  </li>
+                  <li className="p-3 bg-blue-50 rounded border flex justify-between">
+                    <span>Maths</span><span className="text-blue-600">Upcoming</span>
+                  </li>
+                  <li className="p-3 bg-blue-50 rounded border flex justify-between">
+                    <span>Physics Lab</span><span className="text-blue-600">Upcoming</span>
+                  </li>
+                  <li className="p-3 bg-blue-50 rounded border flex justify-between">
+                    <span>English</span><span className="text-blue-600">Upcoming</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Announcements */}
+              <div className="bg-white rounded-lg shadow p-6">
+                <h3 className="font-semibold text-base mb-4 flex justify-between items-center">
+                  Announcements
+                  <span className="text-sm text-blue-600 cursor-pointer">View All</span>
+                </h3>
+                <ul className="space-y-4 text-sm">
+                  <li className="bg-red-50 border-l-4 border-red-500 p-3 rounded">
+                    <p className="font-semibold text-red-700">Campus Closure</p>
+                    <p className="text-xs text-gray-600">Campus closed on June 14.</p>
+                  </li>
+                  <li className="bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded">
+                    <p className="font-semibold text-yellow-700">Registration Open</p>
+                    <p className="text-xs text-gray-600">Register by June 20.</p>
+                  </li>
+                  <li className="bg-blue-50 border-l-4 border-blue-400 p-3 rounded">
+                    <p className="font-semibold text-blue-700">Library Hours</p>
+                    <p className="text-xs text-gray-600">Open till 2 AM (June 20–30).</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </>
+        );
+
+      case 'Schedule':
+        return (
+          <div className="bg-white rounded-lg shadow p-6 mt-6">
+            <h3 className="font-semibold text-base mb-4">Full Class Schedule</h3>
+            <ul className="space-y-4 text-sm">
+              <li>Monday: Computer Science, Maths</li>
+              <li>Tuesday: Physics Lab, English</li>
+              <li>Wednesday: Advanced Maths, AI</li>
+              <li>Thursday: CS Lab, Statistics</li>
+              <li>Friday: Seminar & Presentations</li>
+            </ul>
+          </div>
+        );
+
+      case 'Course Setup':
+        return (
+          <div className="bg-white rounded-lg shadow p-6 mt-6">
+            <h3 className="font-semibold text-base mb-4">Course Setup</h3>
+            <p className="text-sm">You're enrolled in multiple courses this semester. Use the portal to add/drop.</p>
+          </div>
+        );
+
+      case 'Analytics':
+        return (
+          <div className="bg-white rounded-lg shadow p-6 mt-6">
+            <h3 className="font-semibold text-base mb-4">Analytics</h3>
+            <p className="text-sm">Your average performance is 86%. Keep it up!</p>
+          </div>
+        );
+
+      case 'Notification':
+        return (
+          <div className="bg-white rounded-lg shadow p-6 mt-6">
+            <h3 className="font-semibold text-base mb-4">Notifications</h3>
+            <ul className="space-y-3 text-sm">
+              <li>📣 Exam Date Announced – July 10</li>
+              <li>🧾 Fee Payment Due – June 25</li>
+              <li>🎓 Guest Lecture on AI – June 22</li>
+            </ul>
+          </div>
+        );
+
+      case 'Message':
+        return (
+          <div className="bg-white rounded-lg shadow p-6 mt-6">
+            <h3 className="font-semibold text-base mb-4">Messages</h3>
+            <ul className="space-y-4 text-sm">
+              <li className="border rounded p-3">Prof. Sharma: Please review the AI assignment before Friday.</li>
+              <li className="border rounded p-3">Mentor: Congrats on your top performance last week!</li>
+            </ul>
+          </div>
+        );
+
+      case 'Mentor':
+        return (
+          <div className="bg-white rounded-lg shadow p-6 mt-6">
+            <h3 className="font-semibold text-base mb-4">Your Mentor</h3>
+            <div className="text-sm space-y-2">
+              <p><strong>Name:</strong> Dr. Aditi Verma</p>
+              <p><strong>Email:</strong> aditi.verma@campuscore.edu</p>
+              <p><strong>Office Hours:</strong> Mon, Wed 3–5 PM</p>
             </div>
           </div>
         );
 
-      case 'Exam':
-        return <div className="mt-8 bg-white p-6 rounded shadow">📘 <strong>Upcoming Exam:</strong> Technology (Jun 15)</div>;
-
-      case 'Course Setup':
-        return <div className="mt-8 bg-white p-6 rounded shadow">⚙️ <strong>Course:</strong> Add or edit course details here.</div>;
-
-      case 'Grading':
-        return <div className="mt-8 bg-white p-6 rounded shadow">📊 <strong>Grading:</strong> Assign grades to student submissions.</div>;
-
-      case 'Assignment':
-        return <div className="mt-8 bg-white p-6 rounded shadow">📝 <strong>Assignments:</strong> View, create, and manage assignments.</div>;
-
-      case 'Duties':
-        return <div className="mt-8 bg-white p-6 rounded shadow">📋 <strong>Duties:</strong> Monitor invigilation or admin duties.</div>;
-
-      case 'Mentor':
-        return <div className="mt-8 bg-white p-6 rounded shadow">👨‍🏫 <strong>Mentor:</strong> Mentor sessions and progress tracking.</div>;
-
       default:
-        return null;
+        return <div className="mt-6 text-sm text-gray-500">Select a tab to see content.</div>;
     }
   };
 
@@ -105,73 +260,41 @@ const StudentDashboard = () => {
         <div className="flex items-center gap-4">
           <Bell className="w-5 h-5 text-gray-700" />
           <User className="w-5 h-5 text-gray-700" />
-          <span className="font-medium text-sm md:text-base">Stu.Nik</span>
+          <span className="font-medium text-sm md:text-base">Nik</span>
         </div>
       </header>
 
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl p-4 md:p-6 text-white shadow-md">
-        <h2 className="text-lg md:text-xl font-bold">Welcome, Stu.Nik</h2>
-        <p className="text-sm md:text-base">Friday, June 13, 2025 | Spring Semester</p>
-        <p className="mt-2 text-sm md:text-base">
-          Next Class: <span className="font-semibold">Advanced Mathematics</span> in 45 minutes
-        </p>
+      <div className="bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl text-white p-6 mb-6 shadow">
+        <h2 className="text-lg font-semibold">Welcome back, Nik!</h2>
+        <p className="text-sm">Wednesday, June 18, 2025 | Spring Semester 2025</p>
+        <p className="text-sm mt-2">Student ID: S12304566</p>
+        <div className="mt-3 text-sm">
+          <span className="bg-white text-black px-3 py-1 rounded-full">
+            Next Class: <b>Advanced Mathematics</b> in 45 minutes
+          </span>
+        </div>
       </div>
 
-      {/* Nav Tabs */}
-      <nav className="flex flex-wrap justify-center md:justify-around mt-6 gap-3">
-        {tabs.map((tab) => (
+      {/* Tabs */}
+      <nav className="flex flex-wrap justify-center gap-2 md:gap-6 bg-white p-3 rounded-lg shadow">
+        {tabs.map(({ label, icon }) => (
           <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 rounded-full text-sm md:text-base transition-all duration-200 shadow ${
-              activeTab === tab
+            key={label}
+            onClick={() => setActiveTab(label)}
+            className={`flex items-center px-3 py-2 rounded-full text-sm md:text-base transition-all ${
+              activeTab === label
                 ? 'bg-blue-600 text-white font-semibold'
-                : 'bg-white hover:bg-blue-100 text-gray-800'
+                : 'text-gray-800 hover:bg-gray-100'
             }`}
           >
-            {tab}
+            {icon} {label}
           </button>
         ))}
       </nav>
 
       {/* Tab Content */}
       {renderTabContent()}
-
-      {/* Bottom Section for Home Tab */}
-      {activeTab === 'Home' && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
-          {/* Today's Schedule */}
-          <div className="col-span-2 bg-white rounded-lg shadow p-4">
-            <h3 className="font-semibold mb-2 text-base">Today's Class Schedule</h3>
-            <ul className="space-y-3 text-sm">
-              <li className="p-3 bg-gray-50 rounded border">Intro to Computer Science (9:00–10:30 AM) – Room 101</li>
-              <li className="p-3 bg-blue-50 rounded border">Advanced Mathematics (10:40–12:30 PM) – Room 205</li>
-              <li className="p-3 bg-blue-50 rounded border">Physics Lab (2:00–4:00 PM) – Lab B</li>
-              <li className="p-3 bg-blue-50 rounded border">English Literature (4:30–6:00 PM) – Room 305</li>
-            </ul>
-          </div>
-
-          {/* Announcements */}
-          <div className="bg-white rounded-lg shadow p-4">
-            <h3 className="font-semibold mb-4 text-base border-b pb-2">Announcements</h3>
-            <ul className="space-y-4">
-              <li className="bg-red-50 p-3 rounded border-l-4 border-red-500">
-                <p className="font-semibold text-red-700">Campus Closure Notice</p>
-                <p className="text-xs text-gray-600">Due to scheduled maintenance, the campus will be closed on Saturday, June 14.</p>
-              </li>
-              <li className="bg-yellow-50 p-3 rounded border-l-4 border-yellow-400">
-                <p className="font-semibold text-yellow-700">Summer Registration Open</p>
-                <p className="text-xs text-gray-600">Register before June 20 to secure your spot.</p>
-              </li>
-              <li className="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
-                <p className="font-semibold text-blue-700">Library Extended Hours</p>
-                <p className="text-xs text-gray-600">Open from 7 AM to 2 AM from June 20–28.</p>
-              </li>
-            </ul>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
