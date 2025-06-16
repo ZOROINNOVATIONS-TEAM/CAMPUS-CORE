@@ -34,26 +34,23 @@ const LoginForm = ({ userType }) => {
     }
 
     try {
-      const response = await fetch('https://your-backend-api.com/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password
-        })
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setMessage('Login successful!');
-        // redirect or save token
+      // For demo purposes, checking if it's an admin login
+      if (formData.email === 'admin@example.com' && formData.password === 'admin123') {
+        setMessage('Admin login successful!');
+        // Redirect to admin dashboard
+        setTimeout(() => {
+          navigate('/admin/dashboard');
+        }, 1000);
       } else {
-        setMessage(data.error || 'Login failed.');
+        // For regular user login
+        setMessage('Login successful!');
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 1000);
       }
-    } catch (err) {
-      console.error(err);
-      setMessage('Something went wrong.');
+    } catch (error) {
+      console.error(error);
+      setMessage('Login failed. Please check your credentials.');
     }
 
     setLoading(false);

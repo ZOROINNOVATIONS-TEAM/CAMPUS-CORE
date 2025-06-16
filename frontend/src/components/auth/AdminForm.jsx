@@ -3,8 +3,15 @@ import { FcGoogle } from 'react-icons/fc';
 import { HiEye, HiEyeOff, HiOutlineMail } from 'react-icons/hi';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { MdBusiness } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 const AdminForm = ({ userType }) => {
+//   const navigate = useNavigate();
+//  const goToAdminLogin = () => {
+//     navigate('/admin/login');
+//   };
+
+
   const [formData, setFormData] = useState({
     fullName: '',
     organization: '',
@@ -31,8 +38,8 @@ const AdminForm = ({ userType }) => {
     setMessage('');
 
     if (userType === 'register') {
-      if (!formData.fullName || !formData.email || !formData.organization) {
-        setMessage('Full Name, Email, and Organization Name are required.');
+      if (!formData.fullName || !formData.email || !formData.organization || !formData.password) {
+        setMessage('All fields are required.');
         setLoading(false);
         return;
       }
@@ -40,7 +47,7 @@ const AdminForm = ({ userType }) => {
       setMessage('Registration successful!');
     } else {
       if (!formData.email || !formData.password) {
-        setMessage('Email/Student ID and Password are required.');
+        setMessage('Email and Password are required.');
         setLoading(false);
         return;
       }
@@ -97,13 +104,43 @@ const AdminForm = ({ userType }) => {
               />
             </div>
           </div>
+
+          {/* Password Field for Register */}
+          <div>
+            <label htmlFor="password" className="block text-sm text-gray-500 mb-1">
+              Password
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <RiLockPasswordLine className="h-5 w-5 text-gray-400" />
+              </div>
+              <input
+                type={formData.showPassword ? 'text' : 'password'}
+                name="password"
+                id="password"
+                value={formData.password}
+                onChange={handleChange}
+                className="w-full pl-10 pr-10 py-2.5 border rounded-xl focus:outline-none focus:border-[#3666F6] focus:ring-1 focus:ring-[#3666F6]/20"
+                placeholder="Enter your password"
+              />
+              <button
+                type="button"
+                onClick={() =>
+                  setFormData((prev) => ({ ...prev, showPassword: !prev.showPassword }))
+                }
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+              >
+                {formData.showPassword ? <HiEyeOff className="h-5 w-5" /> : <HiEye className="h-5 w-5" />}
+              </button>
+            </div>
+          </div>
         </>
       )}
 
       {/* Email */}
       <div>
         <label htmlFor="email" className="block text-sm text-gray-500 mb-1">
-          {userType === 'register' ? 'Email Address' : 'Student ID or Email'}
+          {userType === 'register' ? 'Email Address' : 'Admin Email'}
         </label>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -116,7 +153,7 @@ const AdminForm = ({ userType }) => {
             value={formData.email}
             onChange={handleChange}
             className="w-full pl-10 pr-3 py-2.5 border text-gray-500 rounded-xl focus:outline-none focus:border-[#3666F6] focus:ring-1 focus:ring-[#3666F6]/20"
-            placeholder={userType === 'register' ? 'Enter your email address' : 'Enter your student ID or email'}
+            placeholder={userType === 'register' ? 'Enter your email address' : 'Enter your admin email'}
           />
         </div>
       </div>
@@ -153,11 +190,7 @@ const AdminForm = ({ userType }) => {
                 }
                 className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
               >
-                {formData.showPassword ? (
-                  <HiEyeOff className="h-5 w-5" />
-                ) : (
-                  <HiEye className="h-5 w-5" />
-                )}
+                {formData.showPassword ? <HiEyeOff className="h-5 w-5" /> : <HiEye className="h-5 w-5" />}
               </button>
             </div>
           </div>
