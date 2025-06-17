@@ -7,13 +7,13 @@ import TabButton from './TabButton';
 
 
 const AuthPage = () => {
-const [activeTab, setActiveTab] = useState('register'); 
+const [activeTab, setActiveTab] = useState('student'); 
   // const [isLogin, setIsLogin] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
  const tabs = [
-  { id: 'register', label: 'Register' },
-  { id: 'login', label: 'Login' },
+  { id: 'student', label: 'Student' },
+  { id: 'faculty', label: 'Faculty' },
 ];
 
 

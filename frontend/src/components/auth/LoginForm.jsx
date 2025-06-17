@@ -2,13 +2,15 @@ import { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { HiEye, HiEyeOff, HiOutlineMail } from 'react-icons/hi';
 import { RiLockPasswordLine } from 'react-icons/ri';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = ({ userType }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     rememberMe: false,
-    showPassword: false
+    showPassword: false,
   });
 
   const [message, setMessage] = useState('');
@@ -16,9 +18,9 @@ const LoginForm = ({ userType }) => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === 'checkbox' ? checked : value,
     }));
   };
 
@@ -34,16 +36,14 @@ const LoginForm = ({ userType }) => {
     }
 
     try {
-      // For demo purposes, checking if it's an admin login
-      if (formData.email === 'admin@example.com' && formData.password === 'admin123') {
-        setMessage('Admin login successful!');
-        // Redirect to admin dashboard
+      // Simulate login check based on userType
+      if (userType === 'faculty') {
+        setMessage('Faculty login successful!');
         setTimeout(() => {
-          navigate('/admin/dashboard');
+          navigate('/faculty/dashboard');
         }, 1000);
       } else {
-        // For regular user login
-        setMessage('Login successful!');
+        setMessage('Student login successful!');
         setTimeout(() => {
           navigate('/dashboard');
         }, 1000);
@@ -58,7 +58,12 @@ const LoginForm = ({ userType }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {/* Email Field */}
+      {/* Role Heading */}
+      <h2 className="text-lg font-semibold text-gray-700 text-center mb-2">
+        Logging in as {userType === 'faculty' ? 'faculty' : 'student'}
+      </h2>
+
+      {/* Email */}
       <div>
         <label htmlFor="email" className="block text-sm text-gray-600 mb-1">
           {userType === 'student' ? 'Student ID or Email' : 'Email Address'}
@@ -79,7 +84,7 @@ const LoginForm = ({ userType }) => {
         </div>
       </div>
 
-      {/* Password Field */}
+      {/* Password */}
       <div>
         <div className="flex justify-between items-center mb-1">
           <label htmlFor="password" className="block text-sm text-gray-600">
@@ -104,7 +109,7 @@ const LoginForm = ({ userType }) => {
           />
           <button
             type="button"
-            onClick={() => setFormData(prev => ({ ...prev, showPassword: !prev.showPassword }))}
+            onClick={() => setFormData((prev) => ({ ...prev, showPassword: !prev.showPassword }))}
             className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
           >
             {formData.showPassword ? <HiEyeOff className="h-5 w-5" /> : <HiEye className="h-5 w-5" />}
@@ -127,7 +132,7 @@ const LoginForm = ({ userType }) => {
         </label>
       </div>
 
-      {/* Submit Button */}
+      {/* Submit */}
       <button
         type="submit"
         disabled={loading}
@@ -143,7 +148,7 @@ const LoginForm = ({ userType }) => {
         </p>
       )}
 
-      {/* Social Login */}
+      {/* Google Login */}
       <div className="mt-6">
         <p className="text-center text-sm text-gray-500 mb-4">or continue with</p>
         <div className="flex justify-center">
@@ -155,6 +160,13 @@ const LoginForm = ({ userType }) => {
             <span>Log In with Google</span>
           </button>
         </div>
+      </div>
+
+      {/* Footer */}
+      <div className="mt-6 text-center text-xs text-gray-400">
+        © 2025 Zoro Innovations &nbsp; | &nbsp;
+        <a href="#" className="hover:text-[#3666F6]">Privacy Policy</a> &nbsp; | &nbsp;
+        <a href="#" className="hover:text-[#3666F6]">Terms of Service</a>
       </div>
     </form>
   );
