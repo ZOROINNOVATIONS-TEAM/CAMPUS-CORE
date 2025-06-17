@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import * as auth from '#lib/auth.ts';
+import { strict } from 'assert';
+import { required } from 'zod/v4-mini';
 
 await mongoose.connect(process.env.MONGODB_URL!);
 
@@ -13,6 +15,18 @@ export interface User
   type: string // student, faculty, admin
 }
 
+export interface course
+{
+  _id?: string,
+  name: string,
+  code: string,
+  facultyid : string,
+  description?: string,
+  link?: string,
+  resources?: string[],
+  attendence: string,
+
+}
 const UserSchema = new mongoose.Schema<User>({
   email:     { type: String, required: true, unique: true, lowercase: true },
   pass_hash: { type: String, required: true },
@@ -21,6 +35,19 @@ const UserSchema = new mongoose.Schema<User>({
   type:      { type: String, required: true, enum: ['student','faculty','admin'] },
 });
 const UserModel = mongoose.model('users', UserSchema);
+
+
+const courseSchema = new mongoose.Schema<course>({
+  name: { type: String, required:true},
+  code: { type: String, required:true, unique:true},
+  facultyid: { type: String, required:true, ref: 'users'},
+  description: { type: String, required:false},
+  link: {type: String, required:false},
+  resources: {type: [String],required:false},
+  attendence:{type:String,required:true,ennum:['present','absent']},
+});
+const CourseModel =mongoose.model('courses', courseSchema);
+
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -78,3 +105,32 @@ export async function get_user_from_token(token: string): Promise<User|null>
   
   return null;
 }
+//////////////////////////////////////////////////////////////////////////////
+export async function add_course(course: course, user: User): Promise<string>
+{
+  if (user.type !== 'admin')
+  {
+    throw new Error('Only admin can add courses');
+  }
+  const newdoc = await CourseModel.create(course);
+  return newdoc._id;
+}
+////////////////////////////////////////////////////////////////////////////////
+export async function get_course_from_id(courseid: string): Promise<course|null>
+{
+  return CourseModel.findOne({_id: courseid}).lean<course>().exec();
+}
+export async function get_course_from_name(name: string): Promise<course|null>
+{
+  return CourseModel.findOne({name}).lean<course>().exec();
+}
+export async function get_course_from_code(code: string): Promise<course|null>
+{
+  return CourseModel.findOne({code}).lean<course>().exec();
+}
+///////////////////////////////////////////////////////////////////////////////
+export async function update_course(courseid: string, course: course): Promise<void>
+{
+  await CourseModel.findOneAndUpdate({id: courseid},course, {runValidators: true}).exec();
+}
+//////////////////////////////////////////////////////////////////////////////////////
