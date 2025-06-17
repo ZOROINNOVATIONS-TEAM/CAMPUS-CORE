@@ -20,14 +20,19 @@ import {
   Briefcase,
   Users,
 } from 'lucide-react';
+import CourseSetup from './CourseSetup'; // Adjust path if needed
+import Fees from './Fess';
+import Schedule from './Schedule ';
+import Result from './Result';
+
 
 const tabs = [
   { label: 'Home', icon: Home },
-  { label: 'Exam', icon: FileText },
+  { label: 'Schedule', icon: FileText },
   { label: 'Course Setup', icon: BookOpen },
-  { label: 'Grading', icon: CheckCircle },
-  { label: 'Assignment', icon: ClipboardList },
-  { label: 'Duties', icon: Briefcase },
+  { label: 'Result', icon: CheckCircle },
+  { label: 'Fees', icon: ClipboardList },
+  { label: 'Other', icon: Briefcase },
   { label: 'Mentor', icon: Users },
 ];
 
@@ -41,6 +46,8 @@ const attendanceData = [
   { week: 'Week 7', present: 87, late: 9, absent: 4 },
   { week: 'Week 8', present: 85, late: 10, absent: 5 },
 ];
+
+
 
 const StudentDashboard = () => {
   const [activeTab, setActiveTab] = useState('Home');
@@ -201,11 +208,25 @@ const StudentDashboard = () => {
         </div>
       );
     }
+    if (activeTab === 'Course Setup') {
+    return <CourseSetup/>;
+  }
+ 
+    if (activeTab === 'Fees') {
+    return <Fees/>;
+  }
+    if (activeTab === 'Schedule') {
+    return <Schedule/>;
+  }
+    if (activeTab === 'Result') {
+    return <Result/>;
+  }
+
 
     return (
-      <div className="mt-8 bg-white p-6 rounded-xl shadow-md">
-        <p className="text-gray-800 text-base">📁 Content for <span className="font-semibold">{activeTab}</span> tab.</p>
-      </div>
+       <div className="mt-8 bg-white p-6 rounded-xl shadow-md">
+      <p className="text-gray-800 text-base">📁 Content for <span className="font-semibold">{activeTab}</span> tab.</p>
+    </div>
     );
   };
 
