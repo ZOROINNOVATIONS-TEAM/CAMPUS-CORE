@@ -3,9 +3,10 @@ import './App.css';
 import AuthPage from './components/auth/AuthPage';
 import AdminPage from "./components/auth/AdminPage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-import StudentDashboard from "./pages/StudentDashBoard";
+// import StudentDashboard from "./pages/StudentDashBoard";
 import AdminDashboard from "./pages/AdminDashboard";
 import FacultyDashboard from "./pages/FacultyDashboard";
+import StudentDashboard from "./Student/StudentDashBoard";
 
 function App() {
   return (
