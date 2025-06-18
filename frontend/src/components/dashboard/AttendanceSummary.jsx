@@ -24,7 +24,7 @@ export default function AttendanceSummary() {
       </div>
 
       <div className="grid grid-cols-8 gap-2 text-xs text-center text-gray-600">
-        {[...Array(8)].map((_, week) => (
+        {[...Array(7)].map((_, week) => (
           <div key={week}>
             <div className="h-24 flex flex-col-reverse">
               <div className="bg-red-500 h-[10%] w-full"></div>

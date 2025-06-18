@@ -3,8 +3,12 @@ import './App.css';
 
 import AuthPage from './components/auth/AuthPage';
 import AdminPage from "./components/auth/AdminPage";
-import Dashboard from "./pages/Dashboard"; // ✅ Import your Dashboard page
-// import ProtectedRoute from "./components/auth/ProtectedRoute";
+import Dashboard from "./pages/Dashboard"; 
+import AdminDashboard from "./pages/AdminDashboard";
+import Result from "./pages/Result";
+import FeesPage from "./pages/FeesPage";
+
+
 
 function App() {
   return (
@@ -12,7 +16,12 @@ function App() {
       <Routes>
         <Route path="/" element={<AuthPage />} />
         <Route path="/admin" element={<AdminPage />} />
-        <Route path="/dashboard" element={<Dashboard />} /> {/* ✅ New Route */}
+        <Route path="/dashboard" element={<Dashboard />} /> 
+        <Route path="/AdminDashboard" element={<AdminDashboard />} />
+        <Route path="/fees" element={<FeesPage />} />
+        <Route path="/result" element={<Result />} />
+        
+
       </Routes>
     </div>
   );
