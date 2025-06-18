@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import * as auth from '#lib/auth.ts';
+import * as auth from '#lib/auth.js';
 
 await mongoose.connect(process.env.MONGODB_URL!);
 
@@ -22,8 +22,80 @@ const UserSchema = new mongoose.Schema<User>({
 });
 const UserModel = mongoose.model('users', UserSchema);
 
-/////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////////
+// COURSE SCHEMA
+
+export interface Course {
+  _id?: string;
+  title: string;
+  description: string;
+  resource_link: string;
+  attendance_needed: boolean;
+}
+
+const CourseSchema = new mongoose.Schema<Course>({
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  resource_link: { type: String, required: false },
+  attendance_needed: { type: Boolean, required: true, default: false },
+});
+
+const CourseModel = mongoose.model<Course>('courses', CourseSchema);
+
+
+/////////////////////////////////////////////////////////////////////////////
+// ATTENDANCE SCHEMA
+
+export interface Attendance {
+  _id?: string;
+  course_id: string;
+  student_id: string;
+  date: Date;
+  marked_by: string;
+}
+
+const AttendanceSchema = new mongoose.Schema({
+  course_id: { type: mongoose.Schema.Types.ObjectId, ref: 'courses', required: true },
+  student_id: { type: mongoose.Schema.Types.ObjectId, ref: 'users', required: true },
+  date: { type: Date, required: true },
+  marked_by: { type: mongoose.Schema.Types.ObjectId, ref: 'users', required: true },
+});
+
+const AttendanceModel = mongoose.model<Attendance>('attendances', AttendanceSchema);
+
+
+/////////////////////////////////////////////////////////////////////////////
+// COURSE & ATTENDANCE FUNCTIONS
+
+export async function create_course(data: Course): Promise<string> {
+  const course = new CourseModel(data);
+  const saved = await course.save();
+  return saved._id!.toString();
+}
+
+export async function update_course(course_id: string, data: Partial<Course>): Promise<boolean> {
+  const updated = await CourseModel.findByIdAndUpdate(course_id, data);
+  return !!updated;
+}
+
+export async function register_student_to_course(student_id: string, course_id: string): Promise<boolean> {
+  const course = await CourseModel.findById(course_id);
+  if (!course) throw new Error("Course not found");
+  // You can optionally store registered student IDs if needed
+  return true;
+}
+
+export async function mark_attendance(course_id: string, student_id: string, date: Date, marked_by: string): Promise<string> {
+  const exists = await AttendanceModel.findOne({ course_id, student_id, date });
+  if (exists) throw new Error("Attendance already marked for this date");
+
+  const attendance = new AttendanceModel({ course_id, student_id, date, marked_by });
+  const saved = await attendance.save();
+  return saved._id!.toString();
+}
+/////////////////////////////////////////////////////////////////////////////
+//already made functions 
 export async function add_user(user: User): Promise<string>
 {
   const newdoc = await UserModel.create(user);
@@ -39,7 +111,7 @@ export async function update_email(userid: string, email: string)
 
 export async function update_pass_hash(userid: string, pass_hash: string)
 {
-  await UserModel.findOneAndUpdate({userid}, {pass: pass_hash}, {runValidators: true}).exec();
+await UserModel.findOneAndUpdate({ _id: userid }, { pass_hash }, { runValidators: true }).exec();
 }
 
 /////////////////////////////////////////////////////////////////////////////

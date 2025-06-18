@@ -1,7 +1,7 @@
-import * as db from '#lib/db.ts';
-import * as auth from '#lib/auth.ts';
+import * as db from '#lib/db.js';
+import * as auth from '#lib/auth.js';
 
-async function get_user_type(cookies): Promise<string|null>
+async function get_user_type(cookies: any): Promise<string|null>
 {
   const session_token = cookies['session_token'];
   
@@ -14,7 +14,7 @@ async function get_user_type(cookies): Promise<string|null>
   return null;
 }
 
-export async function faculty_only(req, res, next)
+export async function faculty_only(req: any, res: any, next: any)
 {
   const type = await get_user_type(req.cookies);
   
@@ -24,7 +24,7 @@ export async function faculty_only(req, res, next)
     res.sendStatus(403);
 }
 
-export async function admin_only(req, res, next)
+export async function admin_only(req: any, res: any, next: any)
 {
   const type = await get_user_type(req.cookies);
   
@@ -32,4 +32,10 @@ export async function admin_only(req, res, next)
     next();
   else
     res.sendStatus(403);
+}
+export async function student_only(req:any, res:any, next:any) {
+  const user = await db.get_user_from_token(req.cookies.token);
+  if (user?.type !== 'student') return res.status(403).json({ error: 'Students only' });
+  next();
+  
 }
