@@ -25,41 +25,24 @@ const LoginForm = ({ userType }) => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
     setMessage('');
+    setLoading(true);
 
+    // Basic validation
     if (!formData.email || !formData.password) {
       setMessage('Email and password are required.');
       setLoading(false);
       return;
     }
 
-    try {
-      const response = await fetch('https://your-backend-api.com/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password
-        })
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setMessage('Login successful!');
-        navigate('/dashboard'); // ✅ Redirect to dashboard
-      } else {
-        setMessage(data.error || 'Login failed.');
-      }
-    } catch (err) {
-      console.error(err);
-      setMessage('Something went wrong.');
-    }
-
-    setLoading(false);
+    // Simulate successful login and redirect
+    setTimeout(() => {
+      setLoading(false);
+      setMessage('Login successful!');
+      navigate('/dashboard'); 
+    }, 1000);
   };
 
   return (

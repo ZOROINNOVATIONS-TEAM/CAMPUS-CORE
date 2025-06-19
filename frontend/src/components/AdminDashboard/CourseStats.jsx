@@ -1,6 +1,6 @@
 import React from "react";
 
-function CourseStats() {
+function CourseStats({ onAddNew }) {
   const stats = [
     { label: "Total Courses", value: 48 },
     { label: "Departments", value: 12 },
@@ -18,7 +18,10 @@ function CourseStats() {
           </div>
         ))}
       </div>
-      <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+      <button
+        onClick={onAddNew} // 👈 connected to the handler
+        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg"
+      >
         + Add New Course
       </button>
     </div>
