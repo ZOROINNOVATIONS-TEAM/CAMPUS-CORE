@@ -2,7 +2,7 @@ import express from 'express';
 import * as db from '#lib/db.js';
 const router = express.Router();
 router.post('/mark-attendance', async (req, res) => {
-    const faculty = await db.get_user_from_token(req.cookies.token);
+    const faculty = await db.get_user_from_token(req.cookies.session_token);
     if (!faculty || faculty.type !== 'faculty')
         return res.status(403).json({ error: 'Only faculty allowed' });
     const { course_id, student_id, date } = req.body;

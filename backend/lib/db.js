@@ -7,8 +7,9 @@ const UserSchema = new mongoose.Schema({
     name: { type: String, required: true },
     rollno: { type: String, required: false, unique: true, uppercase: true },
     type: { type: String, required: true, enum: ['student', 'faculty', 'admin'] },
+    courses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'courses' }],
 });
-const UserModel = mongoose.model('users', UserSchema);
+export const UserModel = mongoose.model('users', UserSchema);
 const CourseSchema = new mongoose.Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
@@ -38,7 +39,10 @@ export async function register_student_to_course(student_id, course_id) {
     const course = await CourseModel.findById(course_id);
     if (!course)
         throw new Error("Course not found");
-    // You can optionally store registered student IDs if needed
+    const result = await UserModel.updateOne({ _id: student_id }, { $addToSet: { courses: course._id } });
+    if (result.modifiedCount === 0) {
+        throw new Error("Student is already registered or update failed");
+    }
     return true;
 }
 export async function mark_attendance(course_id, student_id, date, marked_by) {
@@ -50,7 +54,6 @@ export async function mark_attendance(course_id, student_id, date, marked_by) {
     return saved._id.toString();
 }
 /////////////////////////////////////////////////////////////////////////////
-//already made functions 
 export async function add_user(user) {
     const newdoc = await UserModel.create(user);
     return newdoc._id;

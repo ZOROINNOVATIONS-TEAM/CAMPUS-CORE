@@ -1,22 +1,22 @@
 import express from 'express';
 import * as db from '#lib/db.js';
-import * as auth from '#lib/auth.js';
 
 const router = express.Router();
 
-router.post('/register/:course_id', async (req:any, res:any) => {
-  const user = await db.get_user_from_token(req.cookies.token);
-  if (!user || user.type !== 'student') return res.status(403).json({ error: 'Only students allowed' });
+router.post('/register/:course_id', async (req: any, res: any) => {
+   const user = req.user;
+  
 
   try {
     const result = await db.register_student_to_course(user._id!, req.params.course_id);
     res.json({ success: result });
   } catch (err) {
-if (err instanceof Error) {
-  res.status(400).json({ error: err.message });
-} else {
-  res.status(400).json({ error: 'Unknown error occurred' });
-}  }
+    if (err instanceof Error) {
+      res.status(400).json({ error: err.message });
+    } else {
+      res.status(400).json({ error: 'Unknown error occurred' });
+    }
+  }
 });
 
 export default router;

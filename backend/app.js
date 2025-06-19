@@ -25,12 +25,15 @@ import faculty_attendance from '#routes/faculty/attendance.js';
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
+app.use('/api/v1/student', student_only, student_course);
+app.use('/api/v1/faculty', faculty_only, faculty_attendance);
 app.use('/api/v1', login);
 app.use('/api/v1', user_info);
 app.use('/api/v1', admin_only, admin_create_user);
 app.use('/api/v1', admin_only, admin_course);
-app.use('/api/v1', faculty_only, faculty_attendance);
-app.use('/api/v1', student_only, student_course);
+app.use((req, res) => {
+    res.status(404).json({ error: 'Route not found', path: req.originalUrl });
+});
 app.listen(process.env.PORT, () => {
     console.log(`Express running on port ${process.env.PORT}`);
 });
