@@ -9,6 +9,7 @@ import { Announcements } from "../../components/dashboard/student/Announcements"
 import CourseSetup from "../../components/dashboard/student/course/CourseSetup"; 
 import { Mentoring } from "../../components/dashboard/student/Mentoring";
 import FeesPage from "../../components/dashboard/student/fees/FeesPage";
+import ResultsPage from "../../components/dashboard/student/results/ResultsPage";
 
 export default function StudentDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -23,7 +24,7 @@ export default function StudentDashboard() {
 
           <NavTabs activeTab={activeTab} onChange={setActiveTab} />
 
-          {/* Render tab content conditionally */}
+        
           {activeTab === "dashboard" && (
             <div className="p-4 sm:p-6 lg:p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
@@ -52,7 +53,7 @@ export default function StudentDashboard() {
 
           {activeTab === "results" && (
             <div className="p-4 sm:p-6 lg:p-8">
-              <RecentResults />
+              <ResultsPage />
             </div>
           )}
 

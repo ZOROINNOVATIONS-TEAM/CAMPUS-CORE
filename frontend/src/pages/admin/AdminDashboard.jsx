@@ -9,6 +9,8 @@ import { QuickReportsCard } from "../../components/dashboard/admin/QuickReportsC
 import { AnnouncementsCard } from "../../components/dashboard/admin/AnnouncementCard";
 import { UserManagementCard } from "../../components/dashboard/admin/UserManagementCard";
 import { FileText, BarChart2, BookOpen, DollarSign } from "lucide-react";
+import CourseSetupPage from "../../components/dashboard/admin/CourseSetupPage";
+import AnalyticsDashboard from "../../components/dashboard/admin/analytics/AnalyticsDashboard";
 
 
 //Mock data
@@ -101,8 +103,9 @@ export default function AdminDashboard() {
     
           )}
           {activeTab === "schedule" && <div>Schedule content here</div>}
-          {activeTab === "courses" && <div>Course Setup content here</div>}
-          {activeTab === "analytics" && <div>Analytics content here</div>}
+          {activeTab === "courses" && <CourseSetupPage />}
+
+          {activeTab === "analytics" && <AnalyticsDashboard />}
           {activeTab === "notification" && <div>Notifications content here</div>}
           {activeTab === "message" && <div>Messages content here</div>}
           {activeTab === "mentor" && <div>Mentor content here</div>}

@@ -1,14 +1,18 @@
 import { UserPlus, Users } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function UserManagementCard({ users = {}, recent = [] }) {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 sm:p-6 flex flex-col min-h-[220px] w-full">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gray-800">User Management</h3>
-        <button className="flex items-center gap-1 px-3 py-1.5 text-xs bg-blue-600 text-white rounded font-semibold hover:bg-blue-700 transition">
-          <UserPlus className="w-4 h-4" />
-          Register New User
-        </button>
+        <Link
+  to="/admin/manage-users"
+  className="flex items-center gap-1 px-3 py-1.5 text-xs bg-blue-600 text-white rounded font-semibold hover:bg-blue-700 transition"
+>
+  <UserPlus className="w-4 h-4" />
+  Manage Users
+</Link>
       </div>
       <div className="flex gap-3 mb-3">
         <div className="flex-1 bg-blue-50 rounded-lg p-3 flex items-center gap-2">
