@@ -1,5 +1,5 @@
-import * as db from '#lib/db.js';
-import * as auth from '#lib/auth.js';
+import * as db from '#lib/db.ts';
+import * as auth from '#lib/auth.ts';
 import { nextTick } from 'process';
 
 async function get_user_type(cookies: any): Promise<string|null>

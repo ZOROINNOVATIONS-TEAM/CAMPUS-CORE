@@ -1,7 +1,7 @@
 import express from 'express';
 
-import * as db from '#lib/db.js';
-import * as auth from '#lib/auth.js';
+import * as db from '#lib/db.ts';
+import * as auth from '#lib/auth.ts';
 
 const router = express.Router();
 

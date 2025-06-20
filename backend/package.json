@@ -11,19 +11,15 @@
 		"express": "^5.1.0",
 		"jsonwebtoken": "^9.0.2",
 		"mongoose": "^8.15.1",
-		"nodemon": "^3.1.10",
 		"zod": "^3.25.64"
 	},
 	"devDependencies": {
 		"@types/cookie-parser": "^1.4.9",
 		"@types/express": "^5.0.3",
 		"@types/jsonwebtoken": "^9.0.9",
-		"@types/node": "^24.0.1",
-		"ts-node": "^10.9.2",
-		"typescript": "^5.8.3"
+		"@types/node": "^24.0.1"
 	},
 	"scripts": {
-		"build": "tsc",
-		"start": "npm run build && node app.js"
+		"start": "node app.ts"
 	}
 }

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import * as auth from '#lib/auth.js';
+import * as auth from '#lib/auth.ts';
 
 await mongoose.connect(process.env.MONGODB_URL!);
 

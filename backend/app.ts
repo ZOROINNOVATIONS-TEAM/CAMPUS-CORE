@@ -2,17 +2,17 @@ import 'dotenv/config';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 
-import { faculty_only, admin_only, student_only } from '#lib/middlewares.js';
+import { faculty_only, admin_only, student_only } from '#lib/middlewares.ts';
 
-import login from '#routes/login.js';
-import user_info from '#routes/user_info.js';
-import admin_create_user from '#routes/admin/create_user.js';
-import admin_course from '#routes/admin/course.js';
-import student_course from '#routes/student/course.js';
-import faculty_attendance from '#routes/faculty/attendance.js';
+import login from '#routes/login.ts';
+import user_info from '#routes/user_info.ts';
+import admin_create_user from '#routes/admin/create_user.ts';
+import admin_course from '#routes/admin/course.ts';
+import student_course from '#routes/student/course.ts';
+import faculty_attendance from '#routes/faculty/attendance.ts';
 
-import * as db from '#lib/db.js';
-import * as auth from '#lib/auth.js';
+import * as db from '#lib/db.ts';
+import * as auth from '#lib/auth.ts';
 
 // DB TESTING CODE
 
