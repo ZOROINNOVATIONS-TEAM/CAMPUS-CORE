@@ -7,6 +7,7 @@ import {
   ClipboardList,
   BookOpen,
   Receipt,
+  PartyPopper,
 } from "lucide-react";
 
 export function NavTabs({ activeTab, onChange }) {
@@ -16,7 +17,7 @@ export function NavTabs({ activeTab, onChange }) {
     { label: "Results", icon: ClipboardList, target: "results" },
     { label: "Courses", icon: BookOpen, target: "courses" },
     { label: "Fee", icon: Receipt, target:"fees"},
-    { label: "Announcements", icon: Megaphone, target: "announcements" },
+    { label: "Events", icon: PartyPopper, target: "events" },
     { label: "Mentor", icon: Users, target: "mentoring" },
   ];
 

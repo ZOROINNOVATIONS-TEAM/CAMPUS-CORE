@@ -10,6 +10,7 @@ import CourseSetup from "../../components/dashboard/student/course/CourseSetup";
 import { Mentoring } from "../../components/dashboard/student/Mentoring";
 import FeesPage from "../../components/dashboard/student/fees/FeesPage";
 import ResultsPage from "../../components/dashboard/student/results/ResultsPage";
+import EventPage from "../../components/dashboard/student/EventPage";
 
 export default function StudentDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -63,9 +64,9 @@ export default function StudentDashboard() {
             </div>
           )}
 
-          {activeTab === "announcements" && (
+          {activeTab === "events" && (
             <div className="p-4 sm:p-6 lg:p-8">
-              <Announcements />
+              <EventPage />
             </div>
           )}
 
