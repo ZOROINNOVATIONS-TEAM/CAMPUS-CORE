@@ -1,8 +1,8 @@
 import express from 'express';
 import { z } from 'zod';
 
-import * as db from '#lib/db.ts';
-import * as auth from '#lib/auth.ts';
+import * as db from '#lib/db.js';
+import * as auth from '#lib/auth.js';
 
 const router = express.Router();
 
