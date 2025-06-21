@@ -18,11 +18,11 @@ import * as auth from '#lib/auth.ts';
 
 // const password = 'password';
 // const user: db.User = {
-//    name: 'test user',
-//    pass_hash: await auth.calc_password_hash('test user', password),
+//    name: 'Admin',
+//    pass_hash: await auth.calc_password_hash('Admin', password),
 //    type: 'admin',
-//    email: 'test@example.com',
-//    rollno: 'ABC123',
+//    email: 'admin@example.com',
+//    //rollno: 'ABC123',
 // };
 // const uid = await db.add_user(user);
 
