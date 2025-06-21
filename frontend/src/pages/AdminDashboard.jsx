@@ -1,28 +1,51 @@
-import React from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import CourseSetup from '../components/AdminDashboard/CourseSetup';
 import DashboardLayout from '../components/AdminDashboard/DashboardLayout';
-import AttendanceSummary from '../components/AdminDashboard/AttendanceSummary';
-import TodaySchedule from '../components/AdminDashboard/TodaySchedule';
-import RecentResults from '../components/AdminDashboard/RecentResults';
-import Announcements from '../components/AdminDashboard/Announcements';
+import QuickReports from '../components/AdminDashboard/QuickReports';
+import SystemNotifications from '../components/AdminDashboard/SystemNotifications';
+import UpcomingEvents from '../components/AdminDashboard/UpcomingEvents';
+import UserStats from '../components/AdminDashboard/UserStats';
+import Footer from './footer';
 
-const Dashboard = ({ isAdmin = false }) => {
+const HomePage = () => {
+  const currentDate = new Date();
+  const options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+  const formattedDate = currentDate.toLocaleDateString('en-US', options);
+
   return (
-    <DashboardLayout>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Main Content - Left Side */}
-        <div className="lg:col-span-2 space-y-6">
-          <AttendanceSummary />
-          <TodaySchedule />
-        </div>
+    <div className="space-y-6">
+      {/* Welcome Banner */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg p-6 text-white">
+        <h1 className="text-2xl font-semibold mb-2">Welcome, Admin</h1>
+        <p className="text-blue-100">{formattedDate}</p>
+      </div>
 
-        {/* Sidebar - Right Side */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 space-y-6">
+          <UserStats />
+          <QuickReports />
+        </div>
         <div className="space-y-6">
-          <RecentResults />
-          <Announcements />
+          <UpcomingEvents />
+          <SystemNotifications />
         </div>
       </div>
+          <Footer/>
+
+    </div>
+  );
+};
+
+const AdminDashboard = () => {
+  return (
+    <DashboardLayout>
+      <Routes>
+        <Route path="/" element={<Navigate to="home" replace />} />
+        <Route path="home" element={<HomePage />} />
+        <Route path="courses" element={<CourseSetup />} />
+      </Routes>
     </DashboardLayout>
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;

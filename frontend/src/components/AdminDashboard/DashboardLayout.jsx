@@ -12,12 +12,15 @@ import {
 } from '@heroicons/react/24/outline';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import { Link } from 'react-router-dom';
+import { CreditCardIcon } from '@heroicons/react/24/outline';
+
 
 const navigationItems = [
   { name: 'Home', icon: HomeIcon, href: '/admin/dashboard/home' },
   { name: 'Schedule', icon: CalendarIcon, href: '/admin/dashboard/schedule' },
   { name: 'Course Setup', icon: BookOpenIcon, href: '/admin/dashboard/courses' },
   { name: 'Analytics', icon: ChartBarIcon, href: '/admin/dashboard/analytics' },
+  { name: 'Fees', icon: CreditCardIcon, href: '/admin/dashboard/fees' },
   { name: 'Notification', icon: BellIcon, href: '/admin/dashboard/notifications' },
   { name: 'Message', icon: ChatBubbleLeftIcon, href: '/admin/dashboard/messages' },
   { name: 'Mentor', icon: UserGroupIcon, href: '/admin/dashboard/mentors' },
