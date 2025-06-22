@@ -5,6 +5,7 @@ import Navbar from "../components/AdminDashboard/Navbar";
 import CourseStats from "../components/AdminDashboard/CourseStats";
 import CourseGrid from "../components/AdminDashboard/CourseGrid";
 import CourseForm from "../components/AdminDashboard/CourseForm";
+import MapView from "../components/MapView"; 
 
 const AdminDashboard = () => {
   const [courses, setCourses] = useState([
@@ -12,7 +13,7 @@ const AdminDashboard = () => {
     { id: 2, title: "Advanced JS", instructor: "Jane Smith" },
   ]);
   const [editingCourse, setEditingCourse] = useState(null);
-  const [showForm, setShowForm] = useState(false); // 👈 for toggling form
+  const [showForm, setShowForm] = useState(false); 
 
   const handleSubmit = (course) => {
     const exists = courses.find((c) => c.id === course.id);
@@ -22,20 +23,20 @@ const AdminDashboard = () => {
       setCourses([...courses, course]);
     }
     setEditingCourse(null);
-    setShowForm(false); // 👈 hide form after submit
+    setShowForm(false); 
   };
 
   const handleEdit = (course) => {
     setEditingCourse(course);
-    setShowForm(true); // 👈 show form when editing
+    setShowForm(true); 
   };
 
   const handleDelete = (id) =>
     setCourses(courses.filter((course) => course.id !== id));
 
   const handleAddNew = () => {
-    setEditingCourse(null); // clear previous data
-    setShowForm(true); // 👈 show form when Add button clicked
+    setEditingCourse(null); 
+    setShowForm(true); 
   };
 
   return (
@@ -48,6 +49,7 @@ const AdminDashboard = () => {
         <CourseForm onSubmit={handleSubmit} editingCourse={editingCourse} />
       )}
       <CourseGrid courses={courses} onEdit={handleEdit} onDelete={handleDelete} />
+      <MapView />
     </div>
   );
 };
