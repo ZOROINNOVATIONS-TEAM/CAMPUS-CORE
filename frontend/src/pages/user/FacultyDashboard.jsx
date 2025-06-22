@@ -7,13 +7,14 @@ import FacultyUpcomingEventsCard from "../../components/dashboard/faculty/Facult
 import FacultyScheduleCard from "../../components/dashboard/faculty/FacultyScheduleCard";
 import FacultyAnnouncementsCard from "../../components/dashboard/faculty/FacultyAnnouncementsCard";
 import FacultyMapDashboard from "../../components/dashboard/faculty/FacultyMapDashboard";
+import { TopNavigation } from "../../components/dashboard/TopNavigation";
 
 export default function FacultyDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <FacultyTopNavigation />
+      <TopNavigation />
       <div className="px-4 py-4 md:px-10 md:py-6">
         <section id="top" className="min-h-[50vh] p-4 md:p-6 bg-gray-50">
           <FacultyWelcomeBanner

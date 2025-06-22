@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Search, Bell, ChevronDown, LogOut, User, Settings } from "lucide-react";
+import { Search, ChevronDown, LogOut, User, Settings } from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { useDropdownMenu } from "../ui/dropdown-menu";
+import Notification from "../ui/Notification";
 
 
 import {
@@ -79,7 +80,7 @@ export function TopNavigation() {
 
     
         <Button variant="ghost" size="icon">
-          <Bell className="w-5 h-5 text-gray-600" />
+          <Notification />
         </Button>
 
     
