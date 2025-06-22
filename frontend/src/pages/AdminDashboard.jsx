@@ -1,28 +1,22 @@
+// src/pages/AdminDashboard.jsx
 import React from 'react';
-import DashboardLayout from '../components/AdminDashboard/DashboardLayout';
-import AttendanceSummary from '../components/AdminDashboard/AttendanceSummary';
-import TodaySchedule from '../components/AdminDashboard/TodaySchedule';
-import RecentResults from '../components/AdminDashboard/RecentResults';
-import Announcements from '../components/AdminDashboard/Announcements';
 
-const Dashboard = ({ isAdmin = false }) => {
+const AdminDashboard = () => {
   return (
-    <DashboardLayout>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Main Content - Left Side */}
-        <div className="lg:col-span-2 space-y-6">
-          <AttendanceSummary />
-          <TodaySchedule />
-        </div>
-
-        {/* Sidebar - Right Side */}
-        <div className="space-y-6">
-          <RecentResults />
-          <Announcements />
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
+        <h2 className="text-2xl font-bold text-center mb-6">Admin Dashboard</h2>
+        <p className="text-center text-gray-600">
+          Welcome to the Admin Dashboard!
+        </p>
+        <div className="mt-6">
+          <p className="text-center text-sm text-gray-600">
+            Here you can manage users, courses, and settings.
+          </p>
         </div>
       </div>
-    </DashboardLayout>
+    </div>
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;

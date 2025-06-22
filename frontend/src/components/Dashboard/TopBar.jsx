@@ -6,17 +6,16 @@ const Topbar = ({ studentName, studentId }) => {
   const formattedDate = today.toLocaleDateString('en-US', options);
 
   return (
-    <header className="mb-6 md:mb-8">
-      <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
-        Welcome back, {studentName}!
-      </h1>
+    <header className="mb-8">
+      <h1 className="text-3xl font-bold text-gray-900">Welcome back, {studentName}!</h1>
       <p className="text-gray-600 mt-2">
         {formattedDate} | Spring Semester 2025
       </p>
-      <p className="text-gray-600">{studentId}</p>
+      <p className="text-gray-600">Student ID: {studentId}</p>
     </header>
   );
 };
 
 export default Topbar;
+
 
