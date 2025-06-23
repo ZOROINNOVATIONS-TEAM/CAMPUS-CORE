@@ -7,7 +7,7 @@ import { TodaySchedule } from "../../components/dashboard/student/TodaySchedule"
 import { RecentResults } from "../../components/dashboard/student/RecentResults";
 import { Announcements } from "../../components/dashboard/student/Announcements";
 import CourseSetup from "../../components/dashboard/student/course/CourseSetup"; 
-import { Mentoring } from "../../components/dashboard/student/Mentoring";
+import Mentoring from "../../components/dashboard/student/Mentoring";
 import FeesPage from "../../components/dashboard/student/fees/FeesPage";
 import ResultsPage from "../../components/dashboard/student/results/ResultsPage";
 import EventPage from "../../components/dashboard/student/EventPage";

@@ -5,3 +5,10 @@
 body {
   @apply font-sans bg-gray-50 text-gray-800;
 }
+@keyframes slide-up {
+  from { transform: translateY(100%);}
+  to   { transform: translateY(0);}
+}
+.animate-slide-up {
+  animation: slide-up 0.25s cubic-bezier(.25,1,.5,1) both;
+}
