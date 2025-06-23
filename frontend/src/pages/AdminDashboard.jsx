@@ -8,6 +8,10 @@ import UserStats from '../components/AdminDashboard/UserStats';
 import Footer from './footer';
 import AnalyticsDashboard from '../components/AdminDashboard/AnalyticsDashboard';
 import FeesPage from '../components/AdminDashboard/FeesPage';
+import NotificationsPage from '../components/AdminDashboard/NotificationsPage';
+import SchedulePage from '../components/AdminDashboard/SchedulePage';
+import MessagesPage from '../components/AdminDashboard/MessagesPage';
+import MentorPage from '../components/AdminDashboard/MentorPage';
 
 const HomePage = () => {
   const currentDate = new Date();
@@ -47,6 +51,10 @@ const AdminDashboard = () => {
         <Route path="courses" element={<CourseSetup />} />
         <Route path="analytics" element={<AnalyticsDashboard />} />
         <Route path="fees" element={<FeesPage />} />
+        <Route path="notifications" element={<NotificationsPage />} />
+        <Route path="schedule" element={<SchedulePage />} />
+        <Route path="messages" element={<MessagesPage />} />
+        <Route path="mentors" element={<MentorPage/>} />
       </Routes>
     </DashboardLayout>
   );

@@ -1,367 +1,265 @@
 import React, { useState } from "react";
 import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  Tooltip,
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-  Legend,
+  AreaChart, Area, XAxis, YAxis, Tooltip, PieChart, Pie, Cell, ResponsiveContainer, Legend,
 } from "recharts";
 import {
-  FaBookOpen,
-  FaEnvelope,
-  FaPoll,
-  FaCalendarCheck,
-  FaFileDownload,
-  FaSync,
-  FaBell,
+  FaBookOpen, FaEnvelope, FaPoll, FaCalendarAlt, FaChartBar, FaBell,
 } from "react-icons/fa";
 
 const COLORS = ["#3888FF", "#FEBE3E", "#F24C4C"];
+const PIE_COLORS = ["#3888FF", "#FEBE3E", "#F24C4C", "#6c47ff"];
 
-// --- Mock Data ---
-const initialWeeklyActiveUsers = [
-  { week: "Mon", users: 200 },
-  { week: "Tue", users: 400 },
-  { week: "Wed", users: 600 },
-  { week: "Thu", users: 500 },
-  { week: "Fri", users: 700 },
-  { week: "Sat", users: 600 },
-  { week: "Sun", users: 800 },
+const weeklyActiveUsers = [
+  { week: "Mon", users: 200 }, { week: "Tue", users: 400 },
+  { week: "Wed", users: 600 }, { week: "Thu", users: 500 },
+  { week: "Fri", users: 700 }, { week: "Sat", users: 600 }, { week: "Sun", users: 800 },
 ];
-const initialUserDistribution = [
-  { name: "Learner", value: 60 },
-  { name: "Staff", value: 25 },
-  { name: "Admin", value: 15 },
+const userDistribution = [
+  { name: "Learner", value: 60 }, { name: "Staff", value: 25 }, { name: "Admin", value: 15 },
 ];
-const initialStudentSatisfaction = [
-  { sem: "Sem 1", score: 70 },
-  { sem: "Sem 2", score: 80 },
-  { sem: "Sem 3", score: 60 },
-  { sem: "Sem 4", score: 85 },
-  { sem: "Sem 5", score: 78 },
+const studentSatisfaction = [
+  { sem: "Sem 1", score: 70 }, { sem: "Sem 2", score: 80 },
+  { sem: "Sem 3", score: 60 }, { sem: "Sem 4", score: 85 }, { sem: "Sem 5", score: 78 },
 ];
-const initialCoursePopularity = [
-  { name: "Course A", value: 55 },
-  { name: "Course B", value: 25 },
-  { name: "Course C", value: 20 },
+const coursePopularity = [
+  { name: "Course A", value: 55 }, { name: "Course B", value: 25 }, { name: "Course C", value: 20 },
 ];
-const initialActivities = [
+
+const activities = [
   {
-    icon: <FaBookOpen size={28} color="#3888FF" />,
-    title: "New Course Uploaded",
-    desc: "Introduction to Data Science",
-    time: "3 days ago",
+    icon: <FaBookOpen size={40} className="text-blue-600" />,
+    title: "New Course Uploaded", desc: "Intro to Data Science", time: "3 days ago",
   },
   {
-    icon: <FaEnvelope size={28} color="#FEBE3E" />,
-    title: "Email Campaign Sent",
-    desc: "Welcome series to new users",
-    time: "1 week ago",
+    icon: <FaEnvelope size={40} className="text-yellow-400" />,
+    title: "Email Campaign Sent", desc: "Welcome series", time: "1 week ago",
   },
   {
-    icon: <FaPoll size={28} color="#F24C4C" />,
-    title: "Survey Results",
-    desc: "End of Semester Feedback",
-    time: "2 days ago",
+    icon: <FaPoll size={40} className="text-red-500" />,
+    title: "Survey Results", desc: "End of Semester", time: "2 days ago",
   },
   {
-    icon: <FaCalendarCheck size={28} color="#3B57F4" />,
-    title: "Final Exam Schedule",
-    desc: "Download available",
-    time: "5 days ago",
+    icon: <FaCalendarAlt size={40} className="text-indigo-500" />,
+    title: "Final Exam Schedule", desc: "Download available", time: "5 days ago",
   },
 ];
 
-const initialMetrics = [
-  { label: "Total Students", value: 9000 },
-  { label: "New Enrollments", value: 150, note: "+20%", color: "#3888FF" },
-  { label: "Active Courses", value: 45 },
-  { label: "Graduation Rate", value: "95%", note: "↑", color: "#FEBE3E" },
-  { label: "Total Instructors", value: 458 },
+const metrics = [
+  { label: "Total Students", value: "9000", border: "border-blue-500", text: "text-blue-700", sub: "", subColor: "" },
+  { label: "New Enrollments", value: "150", border: "border-green-500", text: "text-green-700", sub: "+20%", subColor: "text-green-500" },
+  { label: "Active Courses", value: "45", border: "border-yellow-500", text: "text-yellow-700", sub: "", subColor: "" },
+  { label: "Graduation Rate", value: "95%", border: "border-purple-500", text: "text-purple-700", sub: "↑", subColor: "text-purple-500" },
+  { label: "Faculty/Instructors", value: "458", border: "border-pink-500", text: "text-pink-700", sub: "", subColor: "" },
 ];
+
+function ActivityCard({ icon, title, desc, time }) {
+  return (
+    <div className="flex flex-col items-center justify-center px-3 w-48">
+      <div className="mb-2">{icon}</div>
+      <div className="font-medium text-lg text-center">{title}</div>
+      <div className="text-base text-gray-500 mb-2 text-center">{desc}</div>
+      <div className="text-base text-blue-600 font-semibold">{time}</div>
+    </div>
+  );
+}
+function MetricCard({ label, value, border, text, sub, subColor }) {
+  return (
+    <div className={`rounded-lg border-l-4 ${border} bg-white p-4 flex flex-col mb-3`}>
+      <span className={`font-semibold ${text} text-lg`}>{label}</span>
+      <div className="flex items-center gap-2">
+        <span className="font-bold text-2xl">{value}</span>
+        {sub && (
+          <span className={`text-lg font-medium ${subColor}`}>
+            {sub}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function Analytics() {
-  // State for dynamic/functional options
-  const [reportStatus, setReportStatus] = useState("idle");
-  const [showRecent, setShowRecent] = useState(true);
-  const [showAlerts, setShowAlerts] = useState(false);
-  const [activities, setActivities] = useState(initialActivities);
-  const [metrics, setMetrics] = useState(initialMetrics);
-
-  // Simulate report generation
-  const handleGenerateReport = () => {
-    setReportStatus("generating");
-    setTimeout(() => {
-      setReportStatus("ready");
-      setTimeout(() => setReportStatus("idle"), 2000);
-    }, 1500);
-  };
-
-  // Show/hide recent activities and alerts
-  const handleRecentActivity = () => {
-    setShowRecent(true);
-    setShowAlerts(false);
-  };
-  const handleAlerts = () => {
-    setShowRecent(false);
-    setShowAlerts(true);
-  };
-
-  // Simulate alerts (mock)
-  const alertList = [
-    {
-      icon: <FaBell size={28} color="#F24C4C" />,
-      title: "System Maintenance",
-      desc: "Scheduled for tomorrow, 2AM.",
-      time: "Just now",
-    },
-    {
-      icon: <FaBell size={28} color="#FEBE3E" />,
-      title: "Course Deadline",
-      desc: "Submissions close tonight.",
-      time: "6 hours ago",
-    },
-  ];
-
-  // Simulate download report
-  const handleDownload = () => {
-    const blob = new Blob(
-      [
-        JSON.stringify({
-          metrics: metrics,
-          activities: activities,
-        }),
-      ],
-      { type: "application/json" }
-    );
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "analytics-report.json";
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
-  // Simulate refreshing metrics
-  const handleRefreshMetrics = () => {
-    setMetrics((prev) =>
-      prev.map((m, idx) =>
-        idx === 1
-          ? { ...m, value: m.value + 1, note: "+21%" }
-          : idx === 2
-          ? { ...m, value: m.value + 1 }
-          : m
-      )
-    );
-  };
+  const [option, setOption] = useState("overview");
 
   return (
-    <div className="bg-[#f5f6fa] min-h-screen p-6">
-      {/* Header */}
-      <div className="bg-white rounded-2xl shadow p-6 mb-6 w-full">
-        <div className="text-center">
-          <h2 className="text-blue-700 text-2xl font-bold mb-1">
+    <div className="w-full min-h-screen bg-[#f5f6fa] py-10 px-4 flex flex-col items-center">
+      <div className="w-full max-w-[1200px] min-h-[90vh] bg-white rounded-2xl shadow p-10">
+        {/* Top Card */}
+        <div className="text-center mb-10">
+          <h2 className="font-bold text-3xl text-blue-700 mb-2">
             User Engagement Trends
           </h2>
-          <p className="text-gray-500 text-sm mb-1">
+          <p className="text-gray-500 text-lg mb-6">
             Analyze the trends in campus user engagement.
           </p>
-        </div>
-        <div className="flex flex-col lg:flex-row gap-6 mt-4">
-          {/* Area Chart */}
-          <div className="flex-2 w-full lg:w-3/4">
-            <div className="bg-white rounded-xl shadow p-4">
-              <div className="font-medium mb-2">Weekly Active Users</div>
-              <div className="w-full h-40">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={initialWeeklyActiveUsers}>
-                    <defs>
-                      <linearGradient id="colorUsers" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="#8884d8" stopOpacity={0.1} />
-                      </linearGradient>
-                    </defs>
-                    <XAxis dataKey="week" />
-                    <YAxis />
-                    <Tooltip />
-                    <Area
-                      type="monotone"
-                      dataKey="users"
-                      stroke="#8884d8"
-                      fill="url(#colorUsers)"
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Left: Area and Pie Chart */}
+            <div className="col-span-2 flex flex-col gap-4">
+              {/* Area Chart */}
+              <div className="w-full bg-white rounded-lg border shadow p-4">
+                <div className="text-lg font-semibold text-gray-700 mb-2">
+                  Weekly Active Users
+                </div>
+                <div className="w-full h-60">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={weeklyActiveUsers}>
+                      <defs>
+                        <linearGradient id="colorUsers" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                          <stop offset="95%" stopColor="#8884d8" stopOpacity={0.1} />
+                        </linearGradient>
+                      </defs>
+                      <XAxis dataKey="week" fontSize={14} />
+                      <YAxis fontSize={14} />
+                      <Tooltip />
+                      <Area
+                        type="monotone"
+                        dataKey="users"
+                        stroke="#8884d8"
+                        fill="url(#colorUsers)"
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
               </div>
-            </div>
-          </div>
-          {/* Pie Chart & Overview */}
-          <div className="flex-1 flex flex-col gap-3 w-full lg:w-1/4">
-            <div className="bg-white rounded-xl shadow p-4 mb-1">
-              <div className="font-medium mb-2">User Distribution by Roles</div>
-              <div className="w-full h-32">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={initialUserDistribution}
-                      dataKey="value"
-                      nameKey="name"
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={40}
-                      label
+              {/* Pie Chart + Overview */}
+              <div className="flex flex-row items-center gap-6 mt-2">
+                <div className="bg-white rounded-lg border shadow p-4 w-1/2 flex flex-col items-center">
+                  <div className="text-lg font-semibold text-gray-700 mb-2">
+                    User Distribution by Roles
+                  </div>
+                  <div className="w-full h-40">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={userDistribution}
+                          dataKey="value"
+                          nameKey="name"
+                          cx="50%"
+                          cy="50%"
+                          outerRadius={60}
+                          label={({ name }) => name}
+                          fontSize={14}
+                        >
+                          {userDistribution.map((entry, idx) => (
+                            <Cell key={idx} fill={PIE_COLORS[idx % PIE_COLORS.length]} />
+                          ))}
+                        </Pie>
+                        <Tooltip />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+                {/* Overview & Option Buttons */}
+                <div className="flex-1 flex flex-col items-center justify-center">
+                  <div className="font-bold text-xl mb-2">Overview</div>
+                  <div className="text-gray-500 text-base mb-4 text-center">
+                    Get insights into campus performance
+                  </div>
+                  <div className="flex flex-row gap-3 mb-3">
+                    <button
+                      className={`px-4 py-2 rounded text-base font-semibold border ${
+                        option === "overview"
+                          ? "bg-blue-700 text-white border-blue-700"
+                          : "bg-white text-blue-700 border-blue-700 hover:bg-blue-50"
+                      }`}
+                      onClick={() => setOption("overview")}
                     >
-                      {initialUserDistribution.map((entry, idx) => (
-                        <Cell key={idx} fill={COLORS[idx % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Legend />
-                    <Tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
+                      Overview
+                    </button>
+                    <button
+                      className={`px-4 py-2 rounded text-base font-semibold border ${
+                        option === "recent"
+                          ? "bg-blue-700 text-white border-blue-700"
+                          : "bg-white text-blue-700 border-blue-700 hover:bg-blue-50"
+                      }`}
+                      onClick={() => setOption("recent")}
+                    >
+                      Recent Activity
+                    </button>
+                    <button
+                      className={`px-4 py-2 rounded text-base font-semibold border ${
+                        option === "alerts"
+                          ? "bg-blue-700 text-white border-blue-700"
+                          : "bg-white text-blue-700 border-blue-700 hover:bg-blue-50"
+                      }`}
+                      onClick={() => setOption("alerts")}
+                    >
+                      Alerts
+                    </button>
+                  </div>
+                  <button
+                    className="bg-blue-700 text-white rounded px-6 py-2 text-base font-bold flex items-center gap-2 shadow"
+                    onClick={() => alert("Generating Report...")}
+                  >
+                    <FaChartBar />
+                    Generate Report
+                  </button>
+                </div>
               </div>
             </div>
-            <div className="bg-white rounded-xl shadow p-4 flex flex-col gap-2">
-              <div className="font-bold text-base mb-1">Overview</div>
-              <div className="text-gray-500 text-xs mb-2">
-                Get insights into campus performance
-              </div>
-              <div className="flex gap-2 flex-wrap">
-                <button
-                  className={`flex items-center gap-1 bg-blue-700 text-white rounded px-2.5 py-1 text-xs font-semibold transition ${
-                    reportStatus === "generating" ? "opacity-60 cursor-not-allowed" : ""
-                  }`}
-                  onClick={handleGenerateReport}
-                  disabled={reportStatus === "generating"}
-                  title="Generate and download analytics report"
-                >
-                  <FaFileDownload />
-                  {reportStatus === "idle" && "Generate Report"}
-                  {reportStatus === "generating" && (
-                    <>
-                      <FaSync className="animate-spin" /> Generating...
-                    </>
-                  )}
-                  {reportStatus === "ready" && "Ready!"}
+            {/* Key Metrics */}
+            <div className="col-span-1 flex flex-col gap-2">
+              <div className="bg-white rounded-xl shadow p-6 flex flex-col mb-2">
+                <div className="font-bold text-2xl text-black mb-2">Key Metrics</div>
+                <div className="text-gray-500 text-base mb-3">
+                  Explore essential statistics
+                </div>
+                <button className="bg-blue-700 hover:bg-blue-800 text-white rounded w-full py-2 text-base font-semibold mb-6">
+                  View More
                 </button>
-                <button
-                  className={`border border-blue-700 text-blue-700 rounded px-2.5 py-1 text-xs font-semibold flex items-center gap-1`}
-                  onClick={handleRecentActivity}
-                >
-                  <FaBookOpen />
-                  Recent Activity
-                </button>
-                <button
-                  className={`border border-blue-700 text-blue-700 rounded px-2.5 py-1 text-xs font-semibold flex items-center gap-1`}
-                  onClick={handleAlerts}
-                >
-                  <FaBell />
-                  Alerts
-                </button>
-                <button
-                  className="border border-green-600 text-green-600 rounded px-2.5 py-1 text-xs font-semibold flex items-center gap-1"
-                  onClick={handleDownload}
-                  title="Download JSON Report"
-                >
-                  <FaFileDownload />
-                  Export
-                </button>
+                <div className="flex flex-col gap-2">
+                  {metrics.map((m, i) => (
+                    <MetricCard key={i} {...m} />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      {/* Middle Section */}
-      <div className="flex flex-col md:flex-row gap-6 mb-6">
-        {/* Recent Activities or Alerts */}
-        <div className="bg-white rounded-2xl shadow p-6 flex-2 w-full md:w-2/3 mb-4 md:mb-0">
-          <div className="flex items-center gap-2 mb-1">
-            <div className="font-bold text-lg text-blue-700">
-              {showRecent ? "Recent Activities" : "Alerts"}
+        {/* Activities & Metrics Section */}
+        <div className="flex flex-col md:flex-row gap-10 mb-10">
+          <div className="bg-white rounded-2xl shadow p-8 flex-1 min-w-[300px]">
+            <div className="font-bold text-2xl text-blue-700 mb-2">
+              Recent Activities
             </div>
-            <button
-              onClick={handleRecentActivity}
-              className={`ml-2 px-2 py-1 text-xs rounded ${
-                showRecent ? "bg-blue-100 text-blue-700" : "hover:bg-blue-100 text-blue-700"
-              }`}
-            >
-              Recent
-            </button>
-            <button
-              onClick={handleAlerts}
-              className={`px-2 py-1 text-xs rounded ${
-                showAlerts ? "bg-yellow-100 text-yellow-700" : "hover:bg-yellow-100 text-yellow-700"
-              }`}
-            >
-              Alerts
-            </button>
-          </div>
-          <div className="text-gray-500 mb-4 text-sm">
-            {showRecent
-              ? "Stay updated with campus happenings"
-              : "Important notifications and alerts"}
-          </div>
-          <div className="flex gap-5 flex-wrap">
-            {(showRecent ? activities : alertList).map((act, i) => (
-              <ActivityCard key={i} {...act} />
-            ))}
+            <div className="text-gray-500 mb-6 text-lg">
+              Stay updated with campus happenings
+            </div>
+            <div className="flex flex-wrap gap-4 justify-start">
+              {activities.map((act, i) => (
+                <ActivityCard key={i} {...act} />
+              ))}
+            </div>
           </div>
         </div>
-        {/* Key Metrics */}
-        <div className="bg-white rounded-2xl shadow p-6 flex-1 w-full md:w-1/3 min-w-[270px]">
-          <div className="flex items-center justify-between mb-2">
-            <div className="font-bold text-base">Key Metrics</div>
-            <button
-              className="flex items-center gap-1 bg-gray-100 px-2 py-1 text-xs rounded text-blue-700 hover:bg-blue-100 transition"
-              onClick={handleRefreshMetrics}
-              title="Refresh"
-            >
-              <FaSync className="animate-spin-once group-hover:animate-spin" />
-              Refresh
-            </button>
+        {/* Performance Trends */}
+        <div>
+          <div className="text-center">
+            <h2 className="font-bold text-3xl text-blue-700 mb-2">
+              Performance Trends
+            </h2>
+            <p className="text-gray-500 text-lg mb-6">
+              Review performance over past semesters
+            </p>
           </div>
-          <div className="text-gray-500 text-xs mb-3">Explore essential statistics</div>
-          <button className="bg-blue-700 text-white rounded w-full py-1 text-xs font-semibold mb-4">
-            View More
-          </button>
-          <div className="flex flex-col gap-2">
-            {metrics.map((m, i) => (
-              <MetricBox key={i} {...m} />
-            ))}
-          </div>
-        </div>
-      </div>
-      {/* Performance Trends Section */}
-      <div className="bg-white rounded-2xl shadow p-6 w-full">
-        <div className="text-center">
-          <h2 className="text-blue-700 text-2xl font-bold mb-1">
-            Performance Trends
-          </h2>
-          <p className="text-gray-500 text-sm mb-1">
-            Review performance over past semesters
-          </p>
-        </div>
-        <div className="flex flex-col lg:flex-row gap-6 mt-4">
-          {/* Student Satisfaction Area Chart */}
-          <div className="flex-2 w-full lg:w-3/4">
-            <div className="bg-white rounded-xl shadow p-4">
-              <div className="font-medium mb-2">Student Satisfaction</div>
-              <div className="w-full h-40">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            {/* Student Satisfaction */}
+            <div className="bg-white rounded-lg border shadow p-6">
+              <div className="text-lg font-semibold text-gray-700 mb-2">
+                Student Satisfaction
+              </div>
+              <div className="w-full h-64">
                 <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={initialStudentSatisfaction}>
+                  <AreaChart data={studentSatisfaction}>
                     <defs>
                       <linearGradient id="colorSatisfaction" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor="#43e97b" stopOpacity={0.8} />
                         <stop offset="95%" stopColor="#38f9d7" stopOpacity={0.1} />
                       </linearGradient>
                     </defs>
-                    <XAxis dataKey="sem" />
-                    <YAxis />
+                    <XAxis dataKey="sem" fontSize={14} />
+                    <YAxis fontSize={14} />
                     <Tooltip />
                     <Area
                       type="monotone"
@@ -373,28 +271,28 @@ export default function Analytics() {
                 </ResponsiveContainer>
               </div>
             </div>
-          </div>
-          {/* Course Popularity Pie Chart */}
-          <div className="flex-1 w-full lg:w-1/4">
-            <div className="bg-white rounded-xl shadow p-4">
-              <div className="font-medium mb-2">Course Popularity</div>
-              <div className="w-full h-40">
+            {/* Course Popularity */}
+            <div className="bg-white rounded-lg border shadow p-6 flex flex-col items-center">
+              <div className="text-lg font-semibold text-gray-700 mb-2">
+                Course Popularity
+              </div>
+              <div className="w-full h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
-                      data={initialCoursePopularity}
+                      data={coursePopularity}
                       dataKey="value"
                       nameKey="name"
                       cx="50%"
                       cy="50%"
-                      outerRadius={50}
-                      label
+                      outerRadius={90}
+                      label={({ name }) => name}
+                      fontSize={14}
                     >
-                      {initialCoursePopularity.map((entry, idx) => (
-                        <Cell key={idx} fill={COLORS[idx % COLORS.length]} />
+                      {coursePopularity.map((entry, idx) => (
+                        <Cell key={idx} fill={PIE_COLORS[idx % PIE_COLORS.length]} />
                       ))}
                     </Pie>
-                    <Legend />
                     <Tooltip />
                   </PieChart>
                 </ResponsiveContainer>
@@ -402,46 +300,12 @@ export default function Analytics() {
             </div>
           </div>
         </div>
+        {/* Footer */}
+        <footer className="text-center text-gray-400 text-base mt-12 pb-8">
+          <span className="mr-2">✂️ Designed and developed by ZoaTeam</span>
+          <span>© 2025 Zoa Innovation</span>
+        </footer>
       </div>
-      {/* Footer */}
-      <div className="text-center text-gray-400 text-xs mt-10 mb-4">
-        <span className="mr-2">✂️ Designed and developed by ZoaTeam</span>
-        <span>© 2025 Zoa Innovation</span>
-      </div>
-    </div>
-  );
-}
-
-// --- Components ---
-
-function ActivityCard({ icon, title, desc, time }) {
-  return (
-    <div className="bg-gray-50 rounded-xl shadow p-4 min-w-[120px] max-w-[140px] flex flex-col items-center text-center">
-      <div>{icon}</div>
-      <div className="font-semibold text-[15px] mt-2">{title}</div>
-      <div className="text-xs text-gray-500 mb-2">{desc}</div>
-      <div className="text-xs text-blue-600 font-medium">{time}</div>
-    </div>
-  );
-}
-
-function MetricBox({ label, value, note, color }) {
-  return (
-    <div
-      className={`bg-gray-100 rounded-lg px-4 py-2 flex justify-between items-center font-medium text-[15px] border-l-4 ${
-        color ? "" : "border-gray-200"
-      }`}
-      style={color ? { borderColor: color } : {}}
-    >
-      <span>{label}</span>
-      <span>
-        {value}
-        {note && (
-          <span className="ml-2" style={{ color: color }}>
-            {note}
-          </span>
-        )}
-      </span>
     </div>
   );
 }
