@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import * as auth from '#lib/auth.js';
+import * as auth from '#lib/auth.ts';
 
 await mongoose.connect(process.env.MONGODB_URL!);
 
@@ -12,18 +12,17 @@ export interface User {
   type: 'student' | 'faculty' | 'admin';
   courses?: mongoose.Types.ObjectId[]; 
 }
+
 const UserSchema = new mongoose.Schema<User>({
   email:     { type: String, required: true, unique: true, lowercase: true },
   pass_hash: { type: String, required: true },
   name:      { type: String, required: true },
-  rollno:    { type: String, required: false, unique: true, uppercase: true },
+  rollno:    { type: String, required: false, unique: true, sparse: true, uppercase: true },
   type:      { type: String, required: true, enum: ['student', 'faculty', 'admin'] },
   courses:   [{ type: mongoose.Schema.Types.ObjectId, ref: 'courses' }], 
 });
+
 export const UserModel = mongoose.model<User>('users', UserSchema);
-
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // COURSE SCHEMA
