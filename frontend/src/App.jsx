@@ -8,6 +8,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Result from "./pages/Result";
 import FeesPage from "./pages/FeesPage";
 import Schedule from "./pages/Schedule";
+import MessagePage from "./pages/MessagePage";
+
 
 
 
@@ -22,6 +24,7 @@ function App() {
         <Route path="/fees" element={<FeesPage />} />
         <Route path="/result" element={<Result />} />
          <Route path="/schedule" element={<Schedule />} />
+         <Route path="/messages" element={<MessagePage />} />
         
 
       </Routes>
