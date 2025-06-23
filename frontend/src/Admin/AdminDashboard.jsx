@@ -12,6 +12,14 @@ import {
   UserPlus,
   Clock,
   CalendarCheck,
+  AlertTriangle,
+  FileText,
+  ShieldAlert,
+  FileBarChart2,
+  ClipboardList,
+  CreditCard,
+  Bookmark,
+  MessageSquare,
 } from "lucide-react";
 import {
   LineChart,
@@ -28,6 +36,7 @@ import ScheduleTab from "./Components/ScheduleTab";
 import CourseSetupTab from "./Components/CourseSetupTab";
 import AnalyticsTab from "./Components/AnalyticsTab";
 import NotificationTab from "./Components/NotificationTab";
+import MessageTab from "./Components/MessageTab";
 import TabButton from "./Components/TabButton";
 
 const tabs = [
@@ -36,6 +45,7 @@ const tabs = [
   { name: "Course Setup", icon: <BookOpen size={18} /> },
   { name: "Analytics", icon: <BarChart2 size={18} /> },
   { name: "Notification", icon: <Bell size={18} /> },
+  { name: "Message", icon: <MessageSquare size={18} /> },
 ];
 
 const AdminDashboard = () => {
@@ -51,6 +61,8 @@ const AdminDashboard = () => {
         return <AnalyticsTab />;
       case "Notification":
         return <NotificationTab />;
+      case "Message":
+        return <MessageTab />;
       case "Home":
       default:
         return (
@@ -123,21 +135,41 @@ const AdminDashboard = () => {
               {/* System Notifications */}
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <div className="flex justify-between items-center mb-4">
-                  <h2 className="font-semibold text-lg">System Notifications</h2>
+                  <h2 className="font-semibold text-lg flex items-center gap-2">
+                    <div className="text-red-500 bg-red-100 p-1.5 rounded-lg">
+                      <ShieldAlert size={18} />
+                    </div>
+                    System Notifications
+                  </h2>
                   <button className="text-sm text-blue-600 hover:underline">View all</button>
                 </div>
                 <ul className="space-y-3 text-sm">
                   <li className="border-l-4 border-red-500 bg-red-50 p-3 rounded-lg">
-                    <p className="font-medium">System maintenance scheduled for June 19th</p>
-                    <p className="text-xs text-gray-500 mt-1">2 days ago</p>
+                    <div className="flex items-start gap-2">
+                      <AlertTriangle className="text-red-500 mt-0.5 flex-shrink-0" size={16} />
+                      <div>
+                        <p className="font-medium">System maintenance scheduled for June 19th</p>
+                        <p className="text-xs text-gray-500 mt-1">2 days ago</p>
+                      </div>
+                    </div>
                   </li>
                   <li className="border-l-4 border-yellow-500 bg-yellow-50 p-3 rounded-lg">
-                    <p className="font-medium">New course registration opens next week</p>
-                    <p className="text-xs text-gray-500 mt-1">1 week ago</p>
+                    <div className="flex items-start gap-2">
+                      <BookOpen className="text-yellow-500 mt-0.5 flex-shrink-0" size={16} />
+                      <div>
+                        <p className="font-medium">New course registration opens next week</p>
+                        <p className="text-xs text-gray-500 mt-1">1 week ago</p>
+                      </div>
+                    </div>
                   </li>
                   <li className="border-l-4 border-green-500 bg-green-50 p-3 rounded-lg">
-                    <p className="font-medium">Final year grades have been finalized</p>
-                    <p className="text-xs text-gray-500 mt-1">2 weeks ago</p>
+                    <div className="flex items-start gap-2">
+                      <FileText className="text-green-500 mt-0.5 flex-shrink-0" size={16} />
+                      <div>
+                        <p className="font-medium">Final year grades have been finalized</p>
+                        <p className="text-xs text-gray-500 mt-1">2 weeks ago</p>
+                      </div>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -145,13 +177,28 @@ const AdminDashboard = () => {
               {/* Quick Reports */}
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <div className="flex justify-between items-center mb-4">
-                  <h2 className="font-semibold text-lg">Quick Reports</h2>
+                  <h2 className="font-semibold text-lg flex items-center gap-2">
+                    <div className="text-purple-500 bg-purple-100 p-1.5 rounded-lg">
+                      <FileBarChart2 size={18} />
+                    </div>
+                    Quick Reports
+                  </h2>
                   <button className="text-sm text-blue-600 hover:underline">Generate</button>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
-                  {["Attendance", "Performance", "Courses", "Finance"].map((item, i) => (
+                  {[
+                    { name: "Attendance", icon: <ClipboardList className="text-blue-500" size={16} /> },
+                    { name: "Performance", icon: <BarChart2 className="text-green-500" size={16} /> },
+                    { name: "Courses", icon: <BookOpen className="text-orange-500" size={16} /> },
+                    { name: "Finance", icon: <CreditCard className="text-purple-500" size={16} /> },
+                  ].map((item, i) => (
                     <div key={i} className="bg-gray-50 p-3 rounded-lg border border-gray-200">
-                      <p className="font-semibold text-sm text-blue-600">{item}</p>
+                      <div className="flex items-center gap-2">
+                        <div className="p-1 bg-white rounded-md shadow-sm">
+                          {item.icon}
+                        </div>
+                        <p className="font-semibold text-sm text-blue-600">{item.name}</p>
+                      </div>
                       <p className="text-xs text-gray-500 mt-1">Recently Updated</p>
                     </div>
                   ))}
@@ -162,18 +209,31 @@ const AdminDashboard = () => {
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="font-semibold text-lg flex items-center gap-2">
-                    <Megaphone size={18} /> Announcements
+                    <div className="text-orange-500 bg-orange-100 p-1.5 rounded-lg">
+                      <Megaphone size={18} />
+                    </div>
+                    Announcements
                   </h2>
                   <button className="text-sm text-blue-600 hover:underline">View all</button>
                 </div>
                 <ul className="space-y-3 text-sm">
                   <li className="border-l-4 border-blue-500 bg-blue-50 p-3 rounded-lg">
-                    <p className="font-medium">Faculty Senate Meeting scheduled for June 21st</p>
-                    <p className="text-xs text-gray-500 mt-1">Yesterday</p>
+                    <div className="flex items-start gap-2">
+                      <Bookmark className="text-blue-500 mt-0.5 flex-shrink-0" size={16} />
+                      <div>
+                        <p className="font-medium">Faculty Senate Meeting scheduled for June 21st</p>
+                        <p className="text-xs text-gray-500 mt-1">Yesterday</p>
+                      </div>
+                    </div>
                   </li>
                   <li className="border-l-4 border-purple-500 bg-purple-50 p-3 rounded-lg">
-                    <p className="font-medium">Summer Registration is now open!</p>
-                    <p className="text-xs text-gray-500 mt-1">3 days ago</p>
+                    <div className="flex items-start gap-2">
+                      <CalendarDays className="text-purple-500 mt-0.5 flex-shrink-0" size={16} />
+                      <div>
+                        <p className="font-medium">Summer Registration is now open!</p>
+                        <p className="text-xs text-gray-500 mt-1">3 days ago</p>
+                      </div>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -182,7 +242,10 @@ const AdminDashboard = () => {
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="font-semibold text-lg flex items-center gap-2">
-                    <Users size={18} /> User Management
+                    <div className="text-indigo-500 bg-indigo-100 p-1.5 rounded-lg">
+                      <Users size={18} />
+                    </div>
+                    User Management
                   </h2>
                   <button className="flex items-center gap-1 bg-blue-500 text-white px-3 py-1.5 rounded-lg hover:bg-blue-600 text-sm">
                     <UserPlus size={14} /> Add
@@ -202,11 +265,17 @@ const AdminDashboard = () => {
                   <h4 className="font-medium text-sm mb-2">Recent Registrations</h4>
                   <ul className="space-y-2">
                     <li className="flex items-center justify-between bg-gray-50 p-2 rounded-lg border border-gray-200">
-                      <span className="text-sm">Nikhil W.</span>
+                      <div className="flex items-center gap-2">
+                        <User className="text-gray-500" size={14} />
+                        <span className="text-sm">Nikhil W.</span>
+                      </div>
                       <span className="text-xs text-gray-500 bg-blue-100 px-2 py-1 rounded-full">Student</span>
                     </li>
                     <li className="flex items-center justify-between bg-gray-50 p-2 rounded-lg border border-gray-200">
-                      <span className="text-sm">Priya S.</span>
+                      <div className="flex items-center gap-2">
+                        <User className="text-gray-500" size={14} />
+                        <span className="text-sm">Priya S.</span>
+                      </div>
                       <span className="text-xs text-gray-500 bg-green-100 px-2 py-1 rounded-full">Faculty</span>
                     </li>
                   </ul>
@@ -238,7 +307,7 @@ const AdminDashboard = () => {
       </section>
 
       {/* Tab Navigation */}
-      <nav className="mt-4 grid grid-cols-3 sm:flex sm:flex-wrap justify-center gap-2 bg-white p-3 rounded-lg shadow">
+      <nav className="mt-4 gap-40 grid grid-cols-3 sm:flex sm:flex-wrap bg-white p-3 rounded-lg shadow">
         {tabs.map((tab) => (
           <TabButton
             key={tab.name}
@@ -251,7 +320,9 @@ const AdminDashboard = () => {
       </nav>
 
       {/* Tab Content */}
-      {renderTabContent()}
+      <div className="mt-4">
+        {renderTabContent()}
+      </div>
     </div>
   );
 };

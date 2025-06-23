@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Plus, Edit3, UserCheck, BookOpenCheck, Search, MoreVertical,
 } from "lucide-react";
@@ -86,6 +86,14 @@ const getStatusBadge = (status) => {
 };
 
 const CourseSetupTab = () => {
+  const [searchText, setSearchText] = useState("");
+
+  const filteredCourses = courseData.filter((course) =>
+    `${course.title} ${course.code} ${course.department}`
+      .toLowerCase()
+      .includes(searchText.toLowerCase())
+  );
+
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       {/* Header */}
@@ -135,8 +143,10 @@ const CourseSetupTab = () => {
         <div className="relative">
           <input
             type="text"
-            placeholder="Search..."
+            placeholder="Search courses..."
             className="border text-sm pl-10 pr-3 py-2 rounded-lg w-56"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
           />
           <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-500" />
         </div>
@@ -144,53 +154,57 @@ const CourseSetupTab = () => {
 
       {/* Courses */}
       <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
-        {courseData.map((course) => (
-          <div key={course.id} className="bg-white p-4 rounded-xl shadow-sm border">
-            <div className="flex justify-between items-start mb-1">
-              <div className="text-sm font-semibold">{course.title}</div>
-              {getStatusBadge(course.status)}
-            </div>
-            <p className="text-xs text-gray-500 mb-2">{course.code}</p>
-
-            <div className="text-xs text-gray-600 mb-2">
-              <p><strong>Department:</strong> {course.department}</p>
-              <p><strong>Credits:</strong> {course.credits}</p>
-              <p><strong>Students:</strong> {course.students}</p>
-            </div>
-
-            <div className="text-sm text-gray-800 mb-3">
-              {course.professor ? (
-                <>
-                  <p className="font-medium">{course.professor}</p>
-                  <p className="text-xs text-gray-500">{course.role}</p>
-                </>
-              ) : (
-                <p className="text-xs text-red-400 italic">Not Assigned</p>
-              )}
-            </div>
-
-            <div className="flex justify-between items-center">
-              <div className="flex gap-2">
-                <button className="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded flex items-center gap-1">
-                  <Edit3 size={14} /> Edit
-                </button>
-                <button className={`px-3 py-1 text-xs rounded flex items-center gap-1 ${
-                  course.professor
-                    ? "bg-gray-100 hover:bg-gray-200"
-                    : "bg-blue-600 text-white hover:bg-blue-700"
-                }`}>
-                  <UserCheck size={14} /> Assign
-                </button>
+        {filteredCourses.length > 0 ? (
+          filteredCourses.map((course) => (
+            <div key={course.id} className="bg-white p-4 rounded-xl shadow-sm border">
+              <div className="flex justify-between items-start mb-1">
+                <div className="text-sm font-semibold">{course.title}</div>
+                {getStatusBadge(course.status)}
               </div>
-              <MoreVertical className="w-4 h-4 text-gray-400" />
+              <p className="text-xs text-gray-500 mb-2">{course.code}</p>
+
+              <div className="text-xs text-gray-600 mb-2">
+                <p><strong>Department:</strong> {course.department}</p>
+                <p><strong>Credits:</strong> {course.credits}</p>
+                <p><strong>Students:</strong> {course.students}</p>
+              </div>
+
+              <div className="text-sm text-gray-800 mb-3">
+                {course.professor ? (
+                  <>
+                    <p className="font-medium">{course.professor}</p>
+                    <p className="text-xs text-gray-500">{course.role}</p>
+                  </>
+                ) : (
+                  <p className="text-xs text-red-400 italic">Not Assigned</p>
+                )}
+              </div>
+
+              <div className="flex justify-between items-center">
+                <div className="flex gap-2">
+                  <button className="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded flex items-center gap-1">
+                    <Edit3 size={14} /> Edit
+                  </button>
+                  <button className={`px-3 py-1 text-xs rounded flex items-center gap-1 ${
+                    course.professor
+                      ? "bg-gray-100 hover:bg-gray-200"
+                      : "bg-blue-600 text-white hover:bg-blue-700"
+                  }`}>
+                    <UserCheck size={14} /> Assign
+                  </button>
+                </div>
+                <MoreVertical className="w-4 h-4 text-gray-400" />
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p className="text-gray-500 col-span-full text-center">No courses found.</p>
+        )}
       </div>
 
       {/* Pagination */}
       <div className="flex justify-between items-center mt-6 text-sm text-gray-600">
-        <p>Showing 6 of 48 courses</p>
+        <p>Showing {filteredCourses.length} of {courseData.length} courses</p>
         <div className="flex gap-1">
           {[1, 2, 3, 4].map((page) => (
             <button
