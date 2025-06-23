@@ -1,11 +1,23 @@
 import { useState } from 'react';
-import { FaBook, FaBookOpen, FaBriefcase, FaBuilding, FaCalculator, FaChalkboardTeacher, FaEllipsisH, FaFlask, FaLaptopCode, FaSearch, FaUserGraduate } from 'react-icons/fa';
+import {
+  FaBook,
+  FaBookOpen,
+  FaBriefcase,
+  FaBuilding,
+  FaCalculator,
+  FaChalkboardTeacher,
+  FaEllipsisH,
+  FaFlask,
+  FaLaptopCode,
+  FaSearch,
+  FaUserGraduate
+} from 'react-icons/fa';
+import { toast, Toaster } from 'react-hot-toast';
 import AddCourseModal from './AddCourseModal';
 import EditCourseModal from './EditCourseModal';
 
-// Helper function to get course icon based on department
 const getCourseIcon = (department) => {
-  const iconClass = "text-2xl";
+  const iconClass = "text-white text-base";
   switch (department) {
     case 'Computer Science':
       return <FaLaptopCode className={iconClass} />;
@@ -22,21 +34,16 @@ const getCourseIcon = (department) => {
   }
 };
 
-const statsIcons = [
-  { icon: FaBookOpen, label: 'Total Courses', color: 'text-blue-600' },
-  { icon: FaBuilding, label: 'Departments', color: 'text-purple-600' },
-  { icon: FaChalkboardTeacher, label: 'Active Faculty', color: 'text-green-600' },
-  { icon: FaUserGraduate, label: 'Total Students', color: 'text-yellow-600' }
-];
+const CourseSetup = () => {
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [assignOnly, setAssignOnly] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [departmentFilter, setDepartmentFilter] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
 
-const dummyData = {
-  totalStats: {
-    totalCourses: 48,
-    departments: 12,
-    activeStudents: 1248,
-    activeFaculty: 36
-  },
-  courses: [
+  const [courses, setCourses] = useState([
     {
       id: 1,
       name: 'Introduction to Computer Science',
@@ -97,36 +104,21 @@ const dummyData = {
       faculty: 'Dr. James Anderson',
       status: 'Inactive'
     }
-  ]
-};
+  ]);
 
-const CourseSetup = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filters, setFilters] = useState({
-    department: '',
-    semester: 'Summer 2025',
-    status: ''
-  });
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState(null);
-  const [assignOnly, setAssignOnly] = useState(false);
-  const [courses, setCourses] = useState(dummyData.courses);
+  const departments = [...new Set(courses.map(c => c.department))];
+  const statuses = [...new Set(courses.map(c => c.status))];
 
-  const filteredCourses = courses.filter(course => {
-    const matchesSearch = course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.code.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesDepartment = !filters.department || course.department === filters.department;
-    const matchesStatus = !filters.status || course.status === filters.status;
+  const filteredCourses = courses.filter(c => {
+    const matchesSearch = c.name.toLowerCase().includes(searchTerm.toLowerCase()) || c.code.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesDepartment = !departmentFilter || c.department === departmentFilter;
+    const matchesStatus = !statusFilter || c.status === statusFilter;
     return matchesSearch && matchesDepartment && matchesStatus;
   });
 
-  const departments = [...new Set(courses.map(course => course.department))];
-  const statuses = [...new Set(courses.map(course => course.status))];
-
   const handleAddCourse = (newCourse) => {
     setCourses([...courses, { ...newCourse, id: Date.now() }]);
-    setIsAddModalOpen(false);
+    toast.success('Course added successfully!');
   };
 
   const handleEditCourse = (updatedCourse) => {
@@ -134,6 +126,7 @@ const CourseSetup = () => {
     setIsEditModalOpen(false);
     setSelectedCourse(null);
     setAssignOnly(false);
+    toast.success(assignOnly ? 'Faculty assigned successfully!' : 'Course updated successfully!');
   };
 
   const openEditModal = (course) => {
@@ -148,306 +141,155 @@ const CourseSetup = () => {
     setIsEditModalOpen(true);
   };
 
+  const getStatusColor = (status) => {
+    if (status === 'Active') return 'bg-green-100 text-green-600';
+    if (status === 'Pending') return 'bg-yellow-100 text-yellow-600';
+    return 'bg-red-100 text-red-600';
+  };
+
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      {/* Header Stats */}
-      <div className="mb-6">
-        <h2 className="text-2xl font-semibold mb-2">Course Management</h2>
-        <p className="text-sm text-gray-600 mb-4">Manage all courses for Summer Semester 2025</p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          {statsIcons.map((item, index) => {
-            const Icon = item.icon;
-            const value = Object.values(dummyData.totalStats)[index];
-            return (
-              <div key={item.label} className="bg-white rounded-lg p-4 shadow-sm">
-                <div className="flex items-center gap-4">
-                  <div className={`h-12 w-12 rounded-lg bg-gray-50 flex items-center justify-center`}>
-                    <Icon className={`text-2xl ${item.color}`} />
-                  </div>
-                  <div>
-                    <p className="text-gray-600 text-sm">{item.label}</p>
-                    <p className="text-xl font-semibold mt-1">{value.toLocaleString()}</p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+    <div className="p-6 space-y-6 bg-gray-100 min-h-screen">
+      <Toaster position="top-right" />
 
-      {/* Filters and Search */}
-      <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
-        <div className="flex flex-wrap gap-4 items-center justify-between">
-          <div className="flex flex-wrap gap-4 flex-grow">
-            <select 
-              className="bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
-              value={filters.department} 
-              onChange={(e) => setFilters({ ...filters, department: e.target.value })}
-            >
-              <option value="">All Departments</option>
-              {departments.map(dept => (
-                <option key={dept} value={dept}>{dept}</option>
-              ))}
-            </select>
-
-            <select 
-              className="bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
-              value={filters.semester} 
-              onChange={(e) => setFilters({ ...filters, semester: e.target.value })}
-            >
-              <option value="Summer 2025">Summer 2025</option>
-            </select>
-
-            <select 
-              className="bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
-              value={filters.status} 
-              onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-            >
-              <option value="">All Status</option>
-              {statuses.map(status => (
-                <option key={status} value={status}>{status}</option>
-              ))}
-            </select>
-
-            <div className="relative flex-grow max-w-md">
-              <input
-                type="text"
-                placeholder="Search courses..."
-                className="w-full px-3 py-2 pl-10 border border-gray-200 rounded-md text-sm"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <FaSearch className="absolute left-3 top-2.5 text-gray-400 text-lg" />
-            </div>
+      {/* Header Section */}
+      <div className="bg-white shadow-md rounded-xl border p-6">
+        <div className="flex justify-between items-center mb-4">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-800">Course Management</h2>
+            <p className="text-sm text-gray-500">Manage all courses for Summer Semester 2025</p>
           </div>
-
           <button
-            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 text-sm font-medium whitespace-nowrap"
             onClick={() => setIsAddModalOpen(true)}
+            className="bg-blue-600 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-700"
           >
             + Add New Course
           </button>
         </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <StatCard icon={<FaBookOpen />} label="Total Courses" value={48} color="text-blue-600" />
+          <StatCard icon={<FaBuilding />} label="Departments" value={12} color="text-purple-600" />
+          <StatCard icon={<FaChalkboardTeacher />} label="Active Faculty" value={36} color="text-green-600" />
+          <StatCard icon={<FaUserGraduate />} label="Total Students" value={1248} color="text-yellow-600" />
+        </div>
       </div>
 
-      {/* Course Cards */}
-      <div className="space-y-4">
-        {dummyData.courses.map(course => (
-          <div key={course.id} className="bg-white rounded-lg p-4 shadow-sm">
-            <div className="flex justify-between items-start">
-              <div className="flex items-start gap-4">
-                <div className={`h-12 w-12 rounded-full flex items-center justify-center ${
-                  course.status === 'Active' ? 'bg-blue-50' :
-                  course.status === 'Pending' ? 'bg-yellow-50' :
-                  'bg-gray-50'
-                }`}>
+      {/* Filters */}
+      <div className="flex flex-wrap items-center gap-3">
+        <select className="px-6 py-2 border rounded-md" value={departmentFilter} onChange={(e) => setDepartmentFilter(e.target.value)}>
+          <option value="">All Departments</option>
+          {departments.map(dept => <option key={dept} value={dept}>{dept}</option>)}
+        </select>
+
+        <select className="px-5 py-2 border rounded-md" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+          <option value="">All Status</option>
+          {statuses.map(status => <option key={status} value={status}>{status}</option>)}
+        </select>
+
+        <div className="relative">
+          <input type="text" placeholder="Search courses..." className="px-3 py-2 border rounded-md pl-10" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+          <FaSearch className="absolute top-2.5 left-3 text-gray-400" />
+        </div>
+      </div>
+
+      {/* Course Cards Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredCourses.map(course => (
+          <div key={course.id} className="bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition-all">
+            <div className="flex items-start justify-between p-4">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center">
                   {getCourseIcon(course.department)}
                 </div>
                 <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-lg font-medium text-gray-900">{course.name}</h3>
-                    <span className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-sm">
-                      {course.code}
-                    </span>
-                  </div>
-                  <div className="mt-2">
-                    <span className="text-sm text-gray-500">Department:</span>
-                    <span className="text-sm text-gray-900 ml-2">{course.department}</span>
-                    <span className="text-sm text-gray-500 ml-4">Credits:</span>
-                    <span className="text-sm text-gray-900 ml-2">{course.credits}</span>
-                    <span className="text-sm text-gray-500 ml-4">Students:</span>
-                    <span className="text-sm text-gray-900 ml-2">{course.students}</span>
-                  </div>
-                  <div className="mt-2 flex items-center gap-2">
-                    <span className="text-sm text-gray-500">Faculty:</span>
-                    {course.faculty === 'Not Assigned' ? (
-                      <span className="text-sm text-gray-400">Not Assigned</span>
-                    ) : (
-                      <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center">
-                          <FaChalkboardTeacher className="text-gray-500 text-xs" />
-                        </div>
-                        <span className="text-sm text-gray-900">{course.faculty}</span>
-                      </div>
-                    )}
-                  </div>
+                  <h3 className="font-semibold text-gray-800 text-sm">{course.name}</h3>
+                  <p className="text-xs text-gray-400 font-medium">{course.code}</p>
                 </div>
               </div>
+              <span className={`text-xs px-3 py-1 rounded-full font-medium ${getStatusColor(course.status)}`}>{course.status}</span>
+            </div>
 
-              <div className="flex flex-col items-end gap-3">
-                <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                  course.status === 'Active' ? 'bg-green-50 text-green-600' :
-                  course.status === 'Pending' ? 'bg-yellow-50 text-yellow-600' :
-                  'bg-red-50 text-red-600'
-                }`}>
-                  {course.status}
-                </span>
-                <div className="flex items-center gap-2">
-                  <button 
-                    className="px-4 py-1.5 text-sm border border-gray-200 rounded-md hover:bg-gray-50 text-gray-600 font-medium"
-                    onClick={() => openEditModal(course)}
-                  >
-                    Edit
-                  </button>
-                  <button 
-                    className={`px-4 py-1.5 text-sm rounded-md font-medium ${
-                      course.faculty === 'Not Assigned'
-                        ? 'bg-blue-600 text-white hover:bg-blue-700'
-                        : 'border border-gray-200 hover:bg-gray-50 text-gray-600'
-                    }`}
-                    onClick={() => openAssignModal(course)}
-                  >
-                    Assign
-                  </button>
-                  <button className="p-1.5 text-gray-400 hover:text-gray-600 rounded-md hover:bg-gray-50">
-                    <FaEllipsisH />
-                  </button>
-                </div>
+            <div className="px-4 pb-4 text-xs text-gray-600 space-y-1">
+              <div>Department: <span className="font-medium text-gray-900">{course.department}</span></div>
+              <div>Credits: <span className="font-medium text-gray-900">{course.credits}</span></div>
+              <div>Students: <span className="font-medium text-gray-900">{course.students}</span></div>
+            </div>
+
+            <div className="flex items-center gap-2 px-4 py-2 border-t text-xs text-gray-600">
+              <div className="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center">
+                <FaChalkboardTeacher className="text-gray-400 text-xs" />
               </div>
+              <span className="text-sm text-gray-700 font-medium">{course.faculty}</span>
+            </div>
+
+            <div className="flex items-center justify-between px-4 py-3 border-t text-sm">
+              <button onClick={() => openEditModal(course)} className="border border-gray-300 px-4 py-1.5 rounded-lg text-gray-600 hover:bg-gray-50">Edit</button>
+              <button
+                onClick={() => openAssignModal(course)}
+                className={`px-4 py-1.5 rounded-lg font-medium ${course.faculty === 'Not Assigned' ? 'bg-blue-600 text-white hover:bg-blue-700' : 'border border-gray-300 text-gray-600 hover:bg-gray-50'}`}
+              >
+                Assign
+              </button>
+              <button className="p-2 text-gray-400 hover:text-gray-600">
+                <FaEllipsisH />
+              </button>
             </div>
           </div>
         ))}
       </div>
 
       {/* Pagination */}
-      <div className="mt-8 flex justify-between items-center text-sm text-gray-500 border-t pt-6">
-        <span>Showing {filteredCourses.length} of {dummyData.courses.length} courses</span>
+      <div className="mt-10 flex justify-between items-center text-sm text-gray-500">
+        <span>Showing {filteredCourses.length} of {courses.length} courses</span>
         <div className="flex gap-1">
-          <button className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 transition-colors">‹</button>
-          <button className="px-3 py-1 bg-blue-600 text-white rounded">1</button>
-          <button className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 transition-colors">2</button>
-          <button className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 transition-colors">3</button>
-          <button className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 transition-colors">4</button>
-          <button className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 transition-colors">›</button>
+          <button className="px-3 py-1 rounded-lg hover:bg-gray-100">‹</button>
+          <button className="px-3 py-1 bg-blue-600 text-white rounded-lg">1</button>
+          <button className="px-3 py-1 hover:bg-gray-100 rounded-lg">2</button>
+          <button className="px-3 py-1 hover:bg-gray-100 rounded-lg">3</button>
+          <button className="px-3 py-1 hover:bg-gray-100 rounded-lg">4</button>
+          <button className="px-3 py-1 hover:bg-gray-100 rounded-lg">›</button>
         </div>
       </div>
 
       {/* Footer */}
-      <footer className="mt-10 text-center text-xs text-gray-400 border-t pt-4">
+      <footer className="text-center text-xs text-gray-400 mt-10 border-t pt-24">
         <div className="flex items-center justify-center gap-2">
           <span>🎯</span>
           <span>Designed and developed by <strong>ZoroTeam</strong></span>
           <span className="mx-2">©</span>
-          <span><strong>2025 Zoro innovations</strong></span>
+          <span><strong>2025 Zoro Innovations</strong></span>
         </div>
       </footer>
 
       {/* Modals */}
-      <AddCourseModal 
-        isOpen={isAddModalOpen} 
-        onClose={() => setIsAddModalOpen(false)} 
-        onSubmit={handleAddCourse} 
+      <AddCourseModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onSubmit={handleAddCourse}
       />
-      <EditCourseModal 
-        isOpen={isEditModalOpen} 
-        onClose={() => { setIsEditModalOpen(false); setSelectedCourse(null); setAssignOnly(false); }} 
-        onSubmit={handleEditCourse} 
-        courseData={selectedCourse} 
+      <EditCourseModal
+        isOpen={isEditModalOpen}
+        onClose={() => { setIsEditModalOpen(false); setSelectedCourse(null); setAssignOnly(false); }}
+        onSubmit={handleEditCourse}
+        courseData={selectedCourse}
         assignOnly={assignOnly}
       />
     </div>
   );
 };
 
-// Statistics Card Component
-const StatCard = ({ icon, label, value, color }) => {
-  const colorClasses = {
-    blue: 'text-blue-500 bg-blue-100',
-    rose: 'text-rose-500 bg-rose-100',
-    green: 'text-green-500 bg-green-100',
-    yellow: 'text-yellow-500 bg-yellow-100'
-  };
-
-  return (
-    <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-      <div className="flex items-center">
-        <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-4 ${colorClasses[color]}`}>
-          {icon}
-        </div>
-        <div>
-          <p className="text-sm text-gray-600 mb-1">{label}</p>
-          <p className="text-xl font-semibold text-gray-800">{value}</p>
-        </div>
+const StatCard = ({ icon, label, value, color }) => (
+  <div className="bg-gray-50 rounded-lg p-4 border hover:shadow-md transition">
+    <div className="flex items-center gap-3">
+      <div className={`h-10 w-10 rounded-lg bg-white flex items-center justify-center shadow ${color}`}>
+        {icon}
+      </div>
+      <div>
+        <p className="text-xs text-gray-500">{label}</p>
+        <p className="text-xl font-bold text-gray-800">{value.toLocaleString()}</p>
       </div>
     </div>
-  );
-};
-
-// Course Card Component
-const CourseCard = ({ course, onEdit, onAssign }) => {
-  const getStatusStyle = (status) => {
-    switch (status) {
-      case 'Active':
-        return 'bg-green-100 text-green-700';
-      case 'Pending':
-        return 'bg-yellow-100 text-yellow-700';
-      case 'Inactive':
-        return 'bg-red-100 text-red-700';
-      default:
-        return 'bg-gray-100 text-gray-700';
-    }
-  };
-
-  return (
-    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-      <div className="flex justify-between items-start">
-        <div className="flex-1">
-          <h3 className="text-lg font-semibold text-gray-800 mb-1">{course.name}</h3>
-          <p className="text-xs text-gray-500 mb-3">{course.code}</p>
-          
-          <div className="space-y-1">
-            <div className="flex justify-between">
-              <span className="text-sm text-gray-600">Department</span>
-              <span className="text-sm font-medium text-gray-800">{course.department}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-sm text-gray-600">Credits</span>
-              <span className="text-sm font-medium text-gray-800">{course.credits}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-sm text-gray-600">Students</span>
-              <span className="text-sm font-medium text-gray-800">{course.students}</span>
-            </div>
-          </div>
-          
-          <div className="mt-3 pt-3 border-t border-gray-100">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center">
-                <span className="text-xs">👨‍🏫</span>
-              </div>
-              <span className="text-sm text-gray-600">{course.faculty}</span>
-              <span className="text-xs text-gray-500">Professor</span>
-            </div>
-          </div>
-        </div>
-        
-        <div className="flex flex-col items-end gap-2 ml-4">
-          <span className={`text-xs px-2 py-1 rounded-full font-medium ${getStatusStyle(course.status)}`}>
-            {course.status}
-          </span>
-          <div className="flex gap-2">
-            <button 
-              onClick={onEdit}
-              className="text-xs px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              ✏️ Edit
-            </button>
-            <button 
-              onClick={onAssign}
-              className={`text-xs px-3 py-1 rounded-lg transition-colors ${
-                course.faculty === 'Not Assigned' 
-                  ? 'bg-blue-600 text-white hover:bg-blue-700' 
-                  : 'border border-gray-300 hover:bg-gray-50'
-              }`}
-            >
-              👥 Assign
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+  </div>
+);
 
 export default CourseSetup;

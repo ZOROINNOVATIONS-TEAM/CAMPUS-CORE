@@ -6,6 +6,8 @@ import SystemNotifications from '../components/AdminDashboard/SystemNotification
 import UpcomingEvents from '../components/AdminDashboard/UpcomingEvents';
 import UserStats from '../components/AdminDashboard/UserStats';
 import Footer from './footer';
+import AnalyticsDashboard from '../components/AdminDashboard/AnalyticsDashboard';
+import FeesPage from '../components/AdminDashboard/FeesPage';
 
 const HomePage = () => {
   const currentDate = new Date();
@@ -43,6 +45,8 @@ const AdminDashboard = () => {
         <Route path="/" element={<Navigate to="home" replace />} />
         <Route path="home" element={<HomePage />} />
         <Route path="courses" element={<CourseSetup />} />
+        <Route path="analytics" element={<AnalyticsDashboard />} />
+        <Route path="fees" element={<FeesPage />} />
       </Routes>
     </DashboardLayout>
   );
