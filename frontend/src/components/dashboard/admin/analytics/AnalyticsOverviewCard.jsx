@@ -1,8 +1,6 @@
-// src/components/dashboard/admin/analytics/AnalyticsOverviewCard.jsx
 import { BarChart2, TrendingUp, User, Layers } from "lucide-react";
 
-export default function AnalyticsOverviewCard({ data }) {
-  // Mock data fallback if none passed
+export default function AnalyticsOverviewCard({ data, AnimatedNumber }) {
   const stats = data || [
     {
       icon: <User className="w-6 h-6 text-blue-600" />,
@@ -31,16 +29,21 @@ export default function AnalyticsOverviewCard({ data }) {
   ];
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col gap-6">
-      <h3 className="text-lg font-semibold text-gray-800 mb-3">Analytics Overview</h3>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-6 flex flex-col gap-4">
+      <h3 className="text-base md:text-lg font-semibold text-gray-800 mb-2 md:mb-3">Analytics Overview</h3>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
         {stats.map((item, idx) => (
           <div
             key={idx}
             className={`flex flex-col items-center gap-2 p-4 rounded-lg ${item.color}`}
           >
             {item.icon}
-            <span className="text-2xl font-bold text-gray-900">{item.value}</span>
+            <span className="text-2xl font-bold text-gray-900">
+              {/* Use animated number for numbers only */}
+              {AnimatedNumber && /^\d+(\,\d+)*$/.test(item.value)
+                ? <AnimatedNumber value={item.value} />
+                : item.value}
+            </span>
             <span className="text-xs font-medium text-gray-500 text-center">{item.label}</span>
           </div>
         ))}

@@ -1,68 +1,151 @@
-import React from "react";
-import EventCalendarCard from "./events/EventCalendarCard";
-import EventTypeFilter from "./events/EventTpyeFilter";
-import UpcomingEventsList from "./events/UpcomingEventsList";
-import AddEventSidebar from "./events/AddEventSidebar";
+import { useState } from "react";
+import Calendar from "react-calendar";
+import 'react-calendar/dist/Calendar.css';
+import EventList from "./events/EventList";
+import EventAddModal from "./events/EventAddModal";
+import EventTemplates from "./events/EventTemplates";
+
+// Initial event data
+const initialEvents = [
+  {
+    id: 1,
+    date: new Date(2025, 0, 17, 11, 0),
+    type: "Lecture",
+    title: "Registration Complete!",
+    description: "Lecture Confirmation",
+  },
+  {
+    id: 2,
+    date: new Date(2025, 1, 5, 16, 30),
+    type: "Coaching",
+    title: "Personal Coaching With Yasmine!",
+    description: "Coaching on College",
+  },
+];
 
 export default function EventPage() {
-  // Example state (replace with your real state or react-query)
-  const [selectedType, setSelectedType] = React.useState(null);
+  const [events, setEvents] = useState(initialEvents);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [filter, setFilter] = useState("All");
+  const [showModal, setShowModal] = useState(false);
+  const [editEvent, setEditEvent] = useState(null);
 
-  // Example events data (replace/fetch your real event list)
-  const events = [
-    {
-      id: 1,
-      date: "Jan 12 2025",
-      time: "11:00 AM",
-      title: "Registration Completes!",
-      type: "Lecture",
-      location: "Lecture Confirmation",
-    },
-    {
-      id: 2,
-      date: "Feb 5 2025",
-      time: "11:00 AM",
-      title: "Personal Coaching With Yasmine!",
-      type: "Coaching",
-      location: "Coaching on College",
-    },
-  ];
+  // Add/Edit event
+  function handleAddEvent(event) {
+    if (editEvent) {
+      setEvents(prev =>
+        prev.map(e => (e.id === editEvent.id ? { ...event, id: editEvent.id } : e))
+      );
+      setEditEvent(null);
+    } else {
+      setEvents(prev => [...prev, { ...event, id: Date.now() }]);
+    }
+    setShowModal(false);
+  }
 
-  // Filter events by type
-  const filteredEvents = selectedType
-    ? events.filter(ev => ev.type.toLowerCase() === selectedType)
-    : events;
+  // Delete event
+  function handleDeleteEvent(id) {
+    setEvents(prev => prev.filter(e => e.id !== id));
+  }
+
+  // Edit event (open modal)
+  function handleEditEvent(event) {
+    setEditEvent(event);
+    setShowModal(true);
+  }
+
+  // Filtered events for selected date + type
+  const filteredEvents = events.filter(e =>
+    (filter === "All" || e.type === filter) &&
+    new Date(e.date).toDateString() === selectedDate.toDateString()
+  );
+
+  // Upcoming events
+  const upcomingEvents = events
+    .filter(e => e.date >= new Date())
+    .sort((a, b) => a.date - b.date)
+    .slice(0, 5);
+
+  // Add event template for selected date/time (default time: 10:00 AM)
+  function handleTemplateAdd(tpl) {
+    const newDate = new Date(selectedDate);
+    newDate.setHours(10, 0, 0, 0);
+    handleAddEvent({
+      ...tpl,
+      date: newDate,
+      id: Date.now(),
+    });
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* LEFT SIDE (Main) */}
-          <div className="lg:col-span-2 flex flex-col gap-8">
-            {/* Calendar + filter */}
-            <div className="bg-white rounded-2xl shadow p-6">
-              <div className="flex items-center justify-between mb-2">
-                <h2 className="text-2xl font-semibold">Calendar</h2>
-                <span className="text-xl font-medium">Spring Summer</span>
-              </div>
-              <EventCalendarCard />
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-4">
-                <EventTypeFilter selected={selectedType} onChange={setSelectedType} />
-                <span className="ml-auto text-gray-500 text-sm">
-                  {/* Example: a filter dropdown (optional) */}
-                  Filter Event <span className="ml-1">▼</span>
-                </span>
-              </div>
+    <div className="min-h-screen bg-gray-50 py-6 px-1 sm:px-4">
+      <div className="max-w-6xl mx-auto w-full">
+        <div className="flex flex-col lg:flex-row gap-8 w-full">
+          {/* Calendar Panel */}
+          <main className="flex-1 bg-white rounded-2xl shadow-lg p-6 min-w-0">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-2">
+              <h2 className="font-bold text-2xl tracking-tight">Event Calendar</h2>
+              <div className="font-semibold text-base sm:text-lg text-gray-500">Spring/Summer</div>
             </div>
-            {/* Upcoming Events */}
-            <div className="bg-white rounded-2xl shadow p-6">
-              <UpcomingEventsList events={filteredEvents} />
+            <Calendar
+              onChange={setSelectedDate}
+              value={selectedDate}
+              tileContent={({ date }) =>
+                events.some(e => new Date(e.date).toDateString() === date.toDateString())
+                  ? <div className="w-2 h-2 rounded-full bg-violet-500 mx-auto mt-1"></div>
+                  : null
+              }
+              className="w-full mb-4"
+            />
+            <div className="flex flex-wrap items-center gap-3 mt-4 mb-2">
+              {["Lecture", "Group Study", "Coaching", "All"].map(ft => (
+                <label key={ft} className="text-sm font-medium flex gap-1 items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    checked={filter === ft}
+                    onChange={() => setFilter(ft)}
+                    className={`accent-${ft === "Lecture" ? "violet-600" : ft === "Group Study" ? "blue-500" : ft === "Coaching" ? "yellow-500" : "gray-400"}`}
+                  />
+                  <span className={ft === filter ? "font-bold text-violet-600" : ""}>{ft}</span>
+                </label>
+              ))}
             </div>
-          </div>
-          {/* RIGHT SIDEBAR */}
-          <div>
-            <AddEventSidebar />
-          </div>
+            <EventList
+              events={filteredEvents}
+              onDelete={handleDeleteEvent}
+              onEdit={handleEditEvent}
+            />
+          </main>
+          {/* Sidebar */}
+          <aside className="w-full lg:max-w-xs flex flex-col gap-5 mt-8 lg:mt-0">
+            <div className="bg-white rounded-2xl shadow-lg p-5">
+              <button
+                className="w-full bg-violet-600 hover:bg-violet-700 text-white font-semibold py-2 rounded-xl mb-4 transition"
+                onClick={() => { setShowModal(true); setEditEvent(null); }}
+              >
+                + Add New Event
+              </button>
+              <EventTemplates onSelect={handleTemplateAdd} />
+            </div>
+            <div className="bg-white rounded-2xl shadow-lg p-5">
+              <h3 className="text-blue-700 font-semibold text-lg mb-2">Upcoming Events</h3>
+              <EventList
+                events={upcomingEvents}
+                onDelete={handleDeleteEvent}
+                onEdit={handleEditEvent}
+                small
+              />
+            </div>
+          </aside>
+          {/* Modal */}
+          {showModal && (
+            <EventAddModal
+              date={selectedDate}
+              onAdd={handleAddEvent}
+              onClose={() => { setShowModal(false); setEditEvent(null); }}
+              initialData={editEvent}
+            />
+          )}
         </div>
       </div>
     </div>

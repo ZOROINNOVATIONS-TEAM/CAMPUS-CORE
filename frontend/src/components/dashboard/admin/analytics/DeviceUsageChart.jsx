@@ -1,4 +1,3 @@
-// src/components/dashboard/admin/analytics/ActiveDepartmentsStats.jsx
 import { Card, CardHeader, CardContent } from "../../ui/card";
 import { Building2 } from "lucide-react";
 

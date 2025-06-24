@@ -1,4 +1,3 @@
-// src/components/dashboard/admin/analytics/PerformanceTrendsCard.jsx
 import { Card, CardHeader, CardContent } from "../../../ui/card";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Area } from "recharts";
 
@@ -27,7 +26,7 @@ export default function PerformanceTrendsCard({ data = mockData }) {
               type="monotone"
               dataKey="GPA"
               stroke="none"
-              fill="rgba(168, 85, 247, 0.10)" // purple-500/10
+              fill="rgba(168, 85, 247, 0.10)" 
               activeDot={false}
             />
             <Line

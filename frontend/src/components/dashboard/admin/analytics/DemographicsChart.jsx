@@ -1,4 +1,3 @@
-// src/components/dashboard/admin/analytics/RecentActivityList.jsx
 import { Card, CardHeader, CardContent } from "../../ui/card";
 import { User, LogIn, LogOut, Edit2, Trash2 } from "lucide-react";
 

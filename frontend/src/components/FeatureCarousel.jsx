@@ -1,12 +1,20 @@
 import { useState } from "react";
+import {
+  BookOpen,
+  Clock,
+  BarChart2,
+  MessageCircle,
+  Lock,
+  CalendarDays,
+} from "lucide-react";
 
 const features = [
-  { icon: "📚", label: "Course Management" },
-  { icon: "🕒", label: "Schedule Tracking" },
-  { icon: "📊", label: "Progress Analytics" },
-  { icon: "💬", label: "Faculty Messaging" },
-  { icon: "🔐", label: "Secure Access" },
-  { icon: "📅", label: "Exam Calendar" },
+  { icon: <BookOpen className="w-6 h-6 mx-auto" />, label: "Course Management" },
+  { icon: <Clock className="w-6 h-6 mx-auto" />, label: "Schedule Tracking" },
+  { icon: <BarChart2 className="w-6 h-6 mx-auto" />, label: "Progress Analytics" },
+  { icon: <MessageCircle className="w-6 h-6 mx-auto" />, label: "Faculty Messaging" },
+  { icon: <Lock className="w-6 h-6 mx-auto" />, label: "Secure Access" },
+  { icon: <CalendarDays className="w-6 h-6 mx-auto" />, label: "Exam Calendar" },
 ];
 
 export default function FeatureCarousel() {
@@ -32,7 +40,6 @@ export default function FeatureCarousel() {
           </div>
         ))}
       </div>
-
       {/* Functional Dots */}
       <div className="flex justify-center gap-2 mt-2">
         {Array.from({ length: totalSlides }).map((_, index) => (

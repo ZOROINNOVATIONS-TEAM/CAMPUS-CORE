@@ -1,4 +1,3 @@
-// src/components/dashboard/admin/analytics/KeyInsightsCard.jsx
 import { Card, CardHeader, CardContent } from "../../../ui/card";
 import { TrendingUp, Users, Star } from "lucide-react";
 

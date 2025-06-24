@@ -1,4 +1,3 @@
-// src/components/dashboard/admin/analytics/AttendanceTrendsCard.jsx
 import { Card, CardHeader, CardContent } from "../../../ui/card";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Area } from "recharts";
 
