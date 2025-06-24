@@ -1,16 +1,16 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from "./pages/Home";
-import AdminLogin from "./pages/AdminLogin";
-import AdminRegister from "./pages/AdminRegister";
-import ForgotPassword from './pages/ForgotPassword';
+import Home from "./pages/auth/Home";
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminRegister from "./pages/admin/AdminRegister";
+import ForgotPassword from './pages/auth/ForgotPassword';
 import AuthPage from './components/auth/AuthPage';
-import Dashboard from "./pages/StudentDashboard.jsx";
+import Dashboard from "./pages/student/StudentDashboard";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-import AdminDashboard from "./pages/AdminDashboard";
-import FacultyDashboard from "./pages/FacultyDashboard.jsx";
-import { useAuth } from "./hooks/useAuth.js";
-import Unauthorized from "./pages/Unauthorized";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import FacultyDashboard from "./pages/faculty/FacultyDashboard";
+import { useAuth } from "./hooks/useAuth";
+import Unauthorized from "./pages/auth/Unauthorized";
 
 function App() {
   const { user } = useAuth();

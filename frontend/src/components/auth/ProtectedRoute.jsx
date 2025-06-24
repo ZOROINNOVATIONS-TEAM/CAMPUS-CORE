@@ -10,7 +10,7 @@ const ProtectedRoute = ({ user, allowedRoles, redirectPath = "/", children }) =>
   return children;
 };
 
-
 export default ProtectedRoute;
+
 
 
