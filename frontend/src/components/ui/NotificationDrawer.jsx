@@ -31,13 +31,24 @@ export default function NotificationDrawer({
             </div>
             <div className="flex flex-col items-center gap-1">
               {!n.read && (
-                <button onClick={() => onMarkRead(n.id)} className="text-xs text-blue-600 hover:underline">
-                  Mark as read
-                </button>
-              )}
-              <button onClick={() => onDelete(n.id)}>
-                <Trash className="w-4 h-4 text-gray-400 hover:text-red-500" />
-              </button>
+  <span
+    onClick={() => onMarkRead(n.id)}
+    className="text-xs text-blue-600 hover:underline cursor-pointer"
+    role="button"
+    tabIndex={0}
+  >
+    Mark as read
+  </span>
+)}
+<span
+  onClick={() => onDelete(n.id)}
+  className="cursor-pointer"
+  role="button"
+  tabIndex={0}
+>
+  <Trash className="w-4 h-4 text-gray-400 hover:text-red-500" />
+</span>
+
             </div>
           </div>
         ))}

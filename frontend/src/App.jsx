@@ -24,7 +24,7 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-        <Route path="/student-dashboard" element={<StudentDashboard />} />
+        <Route path="/student-dashboard" element={<ProtectedRoute><StudentDashboard /></ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<AdminAuth />} />
         <Route path="/attendance" element={<AttendanceDetails />} />

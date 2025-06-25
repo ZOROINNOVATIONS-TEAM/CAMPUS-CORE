@@ -2,10 +2,12 @@ import { Bell } from "lucide-react";
 
 export function NotificationBell({ unreadCount, onClick }) {
   return (
-    <button
-      className="relative"
+    <div
+      className="relative cursor-pointer"
       onClick={onClick}
+      role="button"
       aria-label="Open notifications"
+      tabIndex={0}
     >
       <Bell className="w-6 h-6 text-gray-700" />
       {unreadCount > 0 && (
@@ -13,6 +15,6 @@ export function NotificationBell({ unreadCount, onClick }) {
           {unreadCount}
         </span>
       )}
-    </button>
+    </div>
   );
 }

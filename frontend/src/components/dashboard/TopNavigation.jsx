@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Search, ChevronDown, LogOut, User, Settings } from "lucide-react";
+import { Search, ChevronDown, LogOut, User, Settings, } from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { useDropdownMenu } from "../ui/dropdown-menu";
 import Notification from "../ui/Notification";
-
+import ThemeToggle from "../ThemeToggle";
 
 import {
   DropdownMenu,
@@ -17,9 +17,6 @@ import {
 
 export function TopNavigation() {
   const [searchOpen, setSearchOpen] = useState(false);
-  const { isOpen: isDropdownOpen } = useDropdownMenu() || {};
-
-
 
   const handleLogout = async () => {
     try {
@@ -33,79 +30,74 @@ export function TopNavigation() {
   };
 
   function DropdownToggle() {
-  const { isOpen } = useDropdownMenu();
-  return (
-    <div className="flex items-center space-x-2 pr-3 pl-2 cursor-pointer rounded-full hover:bg-gray-100 focus:outline-none">
-      <Avatar>
-        <AvatarFallback>S</AvatarFallback>
-      </Avatar>
-      <span className="text-sm font-medium text-gray-700 hidden sm:inline">Shi</span>
-      <ChevronDown
-        className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${
-          isOpen ? "rotate-180" : "rotate-0"
-        }`}
-      />
-    </div>
-  );
-}
+    const { isOpen } = useDropdownMenu();
+    return (
+      <div className="flex items-center space-x-2 pr-3 pl-2 cursor-pointer rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none">
+        <Avatar>
+          <AvatarFallback><User className="w-5 h-5 text-gray-600 dark:text-gray-200"/></AvatarFallback>
+        </Avatar>
+        <span className="text-sm font-medium text-gray-700 dark:text-gray-200 hidden sm:inline">Shi</span>
+        <ChevronDown
+          className={`w-4 h-4 text-gray-500 dark:text-gray-300 transition-transform duration-200 ${
+            isOpen ? "rotate-180" : "rotate-0"
+          }`}
+        />
+      </div>
+    );
+  }
 
-
   return (
-    <header className="flex items-center justify-between px-4 py-2 bg-white shadow-sm border-b border-gray-200">
-      
+    <header className="flex items-center justify-between px-4 py-2 bg-white dark:bg-gray-950 shadow-sm border-b border-gray-200 dark:border-gray-800">
       <div className="flex items-center space-x-2">
         <img src="src/assets/logo.png" alt="Campus Core Logo" className="h-12 w-auto" />
       </div>
 
-    
       <div className="flex items-center gap-4 ml-auto">
-
         <div className="relative">
           {searchOpen ? (
-            <div className="flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-md w-64">
-              <Search className="w-4 h-4 text-gray-500" />
+            <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 px-3 py-1.5 rounded-md w-64">
+              <Search className="w-4 h-4 text-gray-500 dark:text-gray-300" />
               <Input
                 autoFocus
-                className="w-full bg-transparent border-0 focus:outline-none focus:ring-0 text-sm"
+                className="w-full bg-transparent border-0 focus:outline-none focus:ring-0 text-sm text-gray-800 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-400"
                 placeholder="Search..."
                 onBlur={() => setSearchOpen(false)}
               />
             </div>
           ) : (
             <Button variant="ghost" size="icon" onClick={() => setSearchOpen(true)}>
-              <Search className="w-5 h-5 text-gray-600" />
+              <Search className="w-5 h-5 text-gray-600 dark:text-gray-200" />
             </Button>
           )}
         </div>
+        <ThemeToggle />
 
-    
-        <Button variant="ghost" size="icon">
-          <Notification />
-        </Button>
+        <div className="p-2 rounded-full hover:bg-gray-100 transition cursor-pointer">
+  <Notification />
+</div>
 
-    
+
         <DropdownMenu>
-  <DropdownMenuTrigger asChild>
-    <DropdownToggle />
-  </DropdownMenuTrigger>
-
-
-  <DropdownMenuContent>
-    <DropdownMenuItem>
-      <User className="w-4 h-4 mr-2" /> Profile
-    </DropdownMenuItem>
-    <DropdownMenuItem>
-      <Settings className="w-4 h-4 mr-2" /> Settings
-    </DropdownMenuItem>
-    <DropdownMenuSeparator />
-    <DropdownMenuItem onClick={handleLogout}>
-      <LogOut className="w-4 h-4 mr-2" />
-      Logout
-    </DropdownMenuItem>
-  </DropdownMenuContent>
-</DropdownMenu>
-
-
+          <DropdownMenuTrigger asChild>
+            <DropdownToggle />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-800 dark:text-gray-100 shadow-xl rounded-lg">
+            <DropdownMenuItem className="hover:bg-gray-100 dark:hover:bg-gray-800">
+              <User className="w-4 h-4 mr-2" /> Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem className="hover:bg-gray-100 dark:hover:bg-gray-800">
+              <Settings className="w-4 h-4 mr-2" /> Settings
+            </DropdownMenuItem>
+            <DropdownMenuSeparator className="border-gray-200 dark:border-gray-800" />
+            <DropdownMenuItem
+              className="hover:bg-red-50 dark:hover:bg-red-900 text-red-600 dark:text-red-400"
+              onClick={handleLogout}
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Logout
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </header>
   );

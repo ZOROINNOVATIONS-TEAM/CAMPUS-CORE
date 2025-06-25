@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FeatureCarousel from "../../components/FeatureCarousel";
 import {
     EnvelopeIcon,
@@ -20,6 +21,8 @@ export default function Login() {
     const [loginError, setLoginError] = useState("");
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
+
+    const navigate = useNavigate();
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -51,6 +54,13 @@ export default function Login() {
           //API request here
           console.log("Logging in with:", loginEmail, loginPassword);
           localStorage.setItem("token", "dummy-auth-token"); // API token later
+           if (role === "student") {
+    navigate("/student-dashboard");
+  } else if (role === "faculty") {
+    navigate("/faculty-dashboard");
+  } else {
+    navigate("/"); // fallback
+  }
 
         };
     
