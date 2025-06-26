@@ -8,6 +8,7 @@ import {
   BookOpen,
   Receipt,
   PartyPopper,
+  MessageSquare,
 } from "lucide-react";
 
 export function NavTabs({ activeTab, onChange }) {
@@ -18,6 +19,7 @@ export function NavTabs({ activeTab, onChange }) {
     { label: "Courses", icon: BookOpen, target: "courses" },
     { label: "Fee", icon: Receipt, target:"fees"},
     { label: "Events", icon: PartyPopper, target: "events" },
+    { label: "Feedback", icon: MessageSquare, target: "feedback" },
     { label: "Mentor", icon: Users, target: "mentoring" },
   ];
 
