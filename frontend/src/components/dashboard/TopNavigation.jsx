@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Search, ChevronDown, LogOut, User, Settings, } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Search, ChevronDown, LogOut, User, Settings } from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { useDropdownMenu } from "../ui/dropdown-menu";
 import Notification from "../ui/Notification";
 import ThemeToggle from "../ThemeToggle";
+import { useAuth } from "../../auth/AuthContext";
 
 import {
   DropdownMenu,
@@ -17,16 +19,12 @@ import {
 
 export function TopNavigation() {
   const [searchOpen, setSearchOpen] = useState(false);
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    try {
-      const response = await fetch("/api/logout", { method: "POST" });
-      if (response.ok) {
-        window.location.reload();
-      }
-    } catch (error) {
-      window.location.href = "/api/logout";
-    }
+  const handleLogout = () => {
+    logout();
+    navigate('/login', { replace: true });
   };
 
   function DropdownToggle() {
@@ -34,9 +32,13 @@ export function TopNavigation() {
     return (
       <div className="flex items-center space-x-2 pr-3 pl-2 cursor-pointer rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none">
         <Avatar>
-          <AvatarFallback><User className="w-5 h-5 text-gray-600 dark:text-gray-200"/></AvatarFallback>
+          <AvatarFallback>
+            {user?.name?.[0] || <User className="w-5 h-5 text-gray-600 dark:text-gray-200" />}
+          </AvatarFallback>
         </Avatar>
-        <span className="text-sm font-medium text-gray-700 dark:text-gray-200 hidden sm:inline">Shi</span>
+        <span className="text-sm font-medium text-gray-700 dark:text-gray-200 hidden sm:inline">
+          {user?.name || 'User'}
+        </span>
         <ChevronDown
           className={`w-4 h-4 text-gray-500 dark:text-gray-300 transition-transform duration-200 ${
             isOpen ? "rotate-180" : "rotate-0"
@@ -70,12 +72,12 @@ export function TopNavigation() {
             </Button>
           )}
         </div>
+
         <ThemeToggle />
 
         <div className="p-2 rounded-full hover:bg-gray-100 transition cursor-pointer">
-  <Notification />
-</div>
-
+          <Notification />
+        </div>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -90,11 +92,10 @@ export function TopNavigation() {
             </DropdownMenuItem>
             <DropdownMenuSeparator className="border-gray-200 dark:border-gray-800" />
             <DropdownMenuItem
-              className="hover:bg-red-50 dark:hover:bg-red-900 text-red-600 dark:text-red-400"
               onClick={handleLogout}
+              className="hover:bg-red-50 dark:hover:bg-red-900 text-red-600 dark:text-red-400"
             >
-              <LogOut className="w-4 h-4 mr-2" />
-              Logout
+              <LogOut className="w-4 h-4 mr-2" /> Logout
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -80,7 +80,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <TopNavigation />
+      
 
       <main className="px-4 py-4 md:px-10 md:py-6 max-w-7xl mx-auto">
         <section>
