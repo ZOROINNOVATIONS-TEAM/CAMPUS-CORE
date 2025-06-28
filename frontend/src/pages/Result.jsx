@@ -3,14 +3,16 @@ import OverallPerformance from "../components/Result/OverallPerformance";
 import SubjectResults from "../components/Result/SubjectResults";
 import AssignmentResults from "../components/Result/AssignmentResults";
 import CGPAChart from "../components/Result/CGPAChart";
-import Topbar from "../components/AdminDashboard/Topbar";
+import Topbar from "../components/dashboard/Topbar";
 import WelcomeCard from "../components/dashboard/WelcomeCard";
+import Menu from "../components/dashboard/Menu";
 
 const Result = () => {
   return (
-    <div className="min-h-screen bg-[#1a1d29] p-8 text-white">
+    <div className="bg-gray-100 text-black min-h-screen mt-6">
       <Topbar/>
       <div className="mt-6 mb-6"><WelcomeCard/></div>
+           <Menu/>
    
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         

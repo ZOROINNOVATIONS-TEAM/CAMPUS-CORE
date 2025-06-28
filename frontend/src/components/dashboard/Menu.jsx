@@ -8,25 +8,25 @@ import {
   Bell,
   MessageSquare,
   Users,
-  Receipt,       // For "Fees"
-  FileText       // For "Result"
-} from "lucide-react"; // Make sure lucide-react is installed
+  Receipt,    
+  FileText,     
+  MoreHorizontal      
+} from "lucide-react";
+
 
 const menuItems = [
   { icon: <Home size={18} />, label: "Home", path: "/" },
   { icon: <Calendar size={18} />, label: "Schedule", path: "/schedule" },
   { icon: <BookOpen size={18} />, label: "Course Setup", path: "/course-setup" },
-  { icon: <BarChart2 size={18} />, label: "Analytics", path: "/analytics" },
-  { icon: <Bell size={18} />, label: "Notification", path: "/notifications" },
-  { icon: <MessageSquare size={18} />, label: "Message", path: "/messages" },
   { icon: <Users size={18} />, label: "Mentor", path: "/mentors" },
   { icon: <Receipt size={18} />, label: "Fees", path: "/fees" },           // ✅ Added
-  { icon: <FileText size={18} />, label: "Result", path: "/result" },      // ✅ Added
+  { icon: <FileText size={18} />, label: "Result", path: "/result" },
+  { icon: <MoreHorizontal size={18} />, label: "Other", path: "/campus-map" }   // ✅ Added
 ];
 
 export default function Menu() {
   return (
-    <div className="flex flex-wrap gap-4 justify-between bg-white p-3 rounded-xl shadow-md">
+    <div className="flex flex-wrap mt-6 mb-6 gap-4 justify-between bg-white p-3 rounded-xl shadow-md">
       {menuItems.map((item, index) => (
         <Link
           key={index}

@@ -9,8 +9,9 @@ import Result from "./pages/Result";
 import FeesPage from "./pages/FeesPage";
 import Schedule from "./pages/Schedule";
 import MessagePage from "./pages/MessagePage";
-
-
+import CourseSet from "./pages/CourseSet"; 
+import CampusMapPage from "./pages/CampusMapPage";
+import MentorPage from "./pages/MentorPage";
 
 
 function App() {
@@ -25,8 +26,10 @@ function App() {
         <Route path="/result" element={<Result />} />
          <Route path="/schedule" element={<Schedule />} />
          <Route path="/messages" element={<MessagePage />} />
+        <Route path="/course-setup" element={<CourseSet />} />
+        <Route path="/campus-map" element={<CampusMapPage />} />
+        <Route path="/mentors" element={<MentorPage />} />
         
-
       </Routes>
     </div>
   );

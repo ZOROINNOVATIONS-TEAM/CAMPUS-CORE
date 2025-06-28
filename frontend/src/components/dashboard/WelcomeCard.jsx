@@ -2,7 +2,7 @@ import React from "react";
 
 export default function WelcomeCard() {
   return (
-    <div className="w-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl text-white p-5 flex justify-between items-center shadow-md">
+    <div className="w-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl text-white p-5 flex justify-between items-center shadow-md mt-6">
       <div className="space-y-1">
         <h2 className="text-xl font-semibold">Welcome back, Dev!</h2>
         <p className="text-sm">Wednesday, June 11, 2025 | Spring Semester 2025</p>
