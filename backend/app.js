@@ -23,6 +23,21 @@ import faculty_attendance from '#routes/faculty/attendance.js';
 // console.log(await db.get_user_from_token(await auth.jwt_create(uid, user.type)));
 // console.log(await db.get_user_from_uid(uid));
 const app = express();
+// Socket.IO setup
+import http from 'http';
+import { Server as SocketIO } from 'socket.io';
+const server = http.createServer(app);
+const io = new SocketIO(server);
+io.on('connection', (socket) => {
+    console.log('A user connected');
+    socket.on('chat message', (msg) => {
+        io.emit('chat message', msg);
+    });
+    socket.on('disconnect', () => {
+        console.log('A user disconnected');
+    });
+});
+
 app.use(cookieParser());
 app.use(express.json());
 app.use('/api/v1/student', student_only, student_course);
