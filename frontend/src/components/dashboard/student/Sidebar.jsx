@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faCalendarAlt, faChartBar, faBook, faCalendarDay, faUserFriends, faMoneyBillWave } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faCalendarAlt, faChartBar, faBook, faCalendarDay, faUserFriends, faMoneyBillWave, faMap } from "@fortawesome/free-solid-svg-icons";
 
 const tabs = [
   { id: "dashboard", label: "Dashboard", icon: faHome },
@@ -11,6 +11,7 @@ const tabs = [
   { id: "events", label: "Events", icon: faCalendarDay },
   { id: "mentoring", label: "Mentoring", icon: faUserFriends },
   { id: "fees", label: "Fees", icon: faMoneyBillWave },
+  { id: "map", label: "Map", icon: faMap },
 ];
 
 export function Sidebar({ activeTab, onChange }) {

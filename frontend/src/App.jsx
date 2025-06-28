@@ -9,8 +9,11 @@ import Dashboard from "./pages/student/StudentDashboard";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import FacultyDashboard from "./pages/faculty/FacultyDashboard";
+import ResultsPage from './pages/student/ResultsPage';
 import { useAuth } from "./hooks/useAuth";
 import Unauthorized from "./pages/auth/Unauthorized";
+import Students from "./pages/admin/Students";
+
 
 function App() {
   const { user } = useAuth();
@@ -21,8 +24,10 @@ function App() {
       <Route path="/auth" element={<AuthPage />} />
       <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/admin/register" element={<AdminRegister />} />
+      <Route path="/results" element={<ResultsPage />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/unauthorized" element={<Unauthorized />} />
+      <Route path="/admin/students" element={<Students />} />
       <Route
         path="/facultydashboard"
         element={
@@ -40,7 +45,7 @@ function App() {
         }
       />
       <Route
-        path="/admindashboard"
+        path="/admin/dashboard"
         element={
           <ProtectedRoute user={user} allowedRoles={["admin"]} redirectPath="/admin/login">
             <AdminDashboard />

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserGraduate, faChalkboardTeacher } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle, faMicrosoft, faApple } from '@fortawesome/free-brands-svg-icons';
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from '/src/hooks/useAuth.jsx';
 
 const Home = () => {
   const { login, logout, user } = useAuth();

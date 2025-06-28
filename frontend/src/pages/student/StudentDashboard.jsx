@@ -9,11 +9,12 @@ import { RecentResults } from "@/components/dashboard/student/RecentResults.jsx"
 import { Announcements } from "@/components/dashboard/student/Announcements.jsx";
 import { MiniCalendar } from "@/components/dashboard/student/MiniCalendar.jsx";
 import { QuickLinks } from "@/components/dashboard/student/QuickLinks.jsx";
-import CourseSetup from "@/components/dashboard/student/CourseSetup.jsx";
+import CourseSetup  from "@/components/dashboard/student/CourseSetup.jsx";
 import { Mentoring } from "@/components/dashboard/student/Mentoring.jsx";
+import  CampusMap  from "./CampusMap.jsx";
 import FeesPage from "@/pages/student/FeesPage.jsx";
-import { ResultsPage } from "@/components/dashboard/student/ResultsPage.jsx";
-import EventPage from "@/components/dashboard/student/EventPage.jsx";
+import  ResultsPage  from "./ResultsPage.jsx";
+import EventPage from "./EventPage.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 
@@ -115,6 +116,16 @@ export default function StudentDashboard() {
                 <FeesPage isDark={isDark} />
               </motion.div>
             )}
+                  {activeTab === "map" && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="p-4 sm:p-6 lg:p-8"
+          >
+            <CampusMap isDark={isDark} />
+          </motion.div>
+        )}
           </AnimatePresence>
         </div>
       </div>

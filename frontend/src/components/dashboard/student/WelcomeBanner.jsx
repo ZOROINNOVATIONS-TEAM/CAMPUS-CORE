@@ -56,3 +56,5 @@ export function WelcomeBanner({ studentName, studentId }) {
     </div>
   );
 }
+
+export default WelcomeBanner;
