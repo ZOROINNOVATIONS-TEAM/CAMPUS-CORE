@@ -349,7 +349,9 @@ import {
 } from "recharts";
 import {
   Home, LayoutDashboard, LineChart as LineChartIcon, Bell, User,
-  Calendar1, PenBoxIcon, MessageCircle
+  Calendar1, PenBoxIcon, MessageCircle,
+  MessageCirclePlusIcon,
+  PenBox
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -360,6 +362,9 @@ import Schedule from "../components/Schedule";
 import Results from "../components/Results";
 import OtherStudent from "../components/OtherStudent";
 import Mentor from "../components/Mentor";
+import StudentComplaintForm from "../components/StudentComplaintForm";
+
+import Feedback from "../components/Feedback";
 const attendanceData = [
   { week: "Week 1", Present: 85, Late: 10, Absent: 5 },
   { week: "Week 2", Present: 80, Late: 12, Absent: 8 },
@@ -419,15 +424,21 @@ export default function StudentHome() {
         <div className={`flex flex-col items-center text-gray-700 cursor-pointer ${activeTab === "fees" && "font-bold text-blue-600"}`} onClick={() => setActiveTab("fees")}> <PenBoxIcon size={24} /> Fees</div>
         <div className={`flex flex-col items-center text-gray-700 cursor-pointer ${activeTab === "other" && "font-bold text-blue-600"}`} onClick={() => setActiveTab("other")}> <MessageCircle size={24} /> Other</div>
         <div className={`flex flex-col items-center text-gray-700 cursor-pointer ${activeTab === "mentor" && "font-bold text-blue-600"}`} onClick={() => setActiveTab("mentor")}> < User size={24} /> Mentor</div>
+         <div className={`flex flex-col items-center text-gray-700 cursor-pointer ${activeTab === "mentor" && "font-bold text-blue-600"}`} onClick={() => setActiveTab("feedback")}> <MessageCirclePlusIcon size={24} /> Feedback</div>
+         <div className={`flex flex-col items-center text-gray-700 cursor-pointer ${activeTab === "mentor" && "font-bold text-blue-600"}`} onClick={() => setActiveTab("complaint")}> <PenBox size={24} /> Complaint</div>
         {/* <div className="flex flex-col items-center text-gray-700 cursor-pointer"><User size={24} /> Mentor</div> */}
       </nav>
 
       {activeTab === "courseSetup" && <CourseSetupStudent />}
       {activeTab === "schedule" && <Schedule />}
+      {activeTab === "feedback" && <Feedback />}
       {activeTab === "result" && <Results />}
       {activeTab === "fees" && <Fees />}
       {activeTab === "other" && <OtherStudent />}
 {activeTab === "mentor" && <Mentor />}
+{activeTab === "complaint" && <StudentComplaintForm />}
+
+
       {activeTab === "home" && (
         <>
           <main className="grid grid-cols-1 lg:grid-cols-3 gap-6 mx-8">
