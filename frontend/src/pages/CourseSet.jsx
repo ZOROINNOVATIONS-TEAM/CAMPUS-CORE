@@ -1,19 +1,22 @@
 import React, { useState } from "react";
-import Topbar from "../components/AdminDashboard/Topbar";
+import CourseCard from "../components/AdminDashboard/CourseCard";
+import CourseForm from "../components/AdminDashboard/CourseForm";
+import CourseGrid from "../components/AdminDashboard/CourseGrid";
+import CourseStats from "../components/AdminDashboard/CourseStats";
 import Header from "../components/AdminDashboard/Header";
 import Navbar from "../components/AdminDashboard/Navbar";
-import CourseStats from "../components/AdminDashboard/CourseStats";
-import CourseGrid from "../components/AdminDashboard/CourseGrid";
-import CourseForm from "../components/AdminDashboard/CourseForm";
+import Topbar from "../components/dashboard/Topbar";
 
+import WelcomeCard from "../components/dashboard/WelcomeCard";
+import Menu from "../components/dashboard/Menu";
 
-const AdminDashboard = () => {
+const CourseSet = () => {
   const [courses, setCourses] = useState([
     { id: 1, title: "React Basics", instructor: "John Doe" },
     { id: 2, title: "Advanced JS", instructor: "Jane Smith" },
   ]);
   const [editingCourse, setEditingCourse] = useState(null);
-  const [showForm, setShowForm] = useState(false); 
+  const [showForm, setShowForm] = useState(false);
 
   const handleSubmit = (course) => {
     const exists = courses.find((c) => c.id === course.id);
@@ -23,27 +26,27 @@ const AdminDashboard = () => {
       setCourses([...courses, course]);
     }
     setEditingCourse(null);
-    setShowForm(false); 
+    setShowForm(false);
   };
 
   const handleEdit = (course) => {
     setEditingCourse(course);
-    setShowForm(true); 
+    setShowForm(true);
   };
 
   const handleDelete = (id) =>
     setCourses(courses.filter((course) => course.id !== id));
 
   const handleAddNew = () => {
-    setEditingCourse(null); 
-    setShowForm(true); 
+    setEditingCourse(null);
+    setShowForm(true);
   };
 
   return (
     <div className="bg-gray-100 min-h-screen p-4">
       <Topbar />
-      <Header />
-      <Navbar />
+      <WelcomeCard/>
+     <Menu/>
       <CourseStats onAddNew={handleAddNew} />
       {showForm && (
         <CourseForm onSubmit={handleSubmit} editingCourse={editingCourse} />
@@ -54,4 +57,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default CourseSet;

@@ -25,7 +25,7 @@ export default function Schedule() {
       {/* ✅ Topbar and WelcomeCard */}
       <Topbar />
       <WelcomeCard />
-      <Menu/>
+      <Menu />
 
       {/* ✅ Main Section */}
       <div className="flex gap-6">
@@ -93,13 +93,13 @@ export default function Schedule() {
           </div>
         </div>
 
-        {/* Right Sidebar */}
-        <div className="w-1/3 bg-gray-900 text-white rounded-2xl p-6 shadow-xl">
-          <button className="w-full bg-indigo-500 py-2 rounded-lg hover:bg-indigo-600 transition font-medium">
+        {/* ✅ Right Sidebar - Converted to Light Mode */}
+        <div className="w-1/3 bg-white text-gray-800 rounded-2xl p-6 shadow-xl">
+          <button className="w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 transition font-medium">
             ➕ Add New Event
           </button>
 
-          <p className="mt-6 text-sm text-gray-300 mb-2">Saved Templates</p>
+          <p className="mt-6 text-sm text-gray-600 mb-2">Saved Templates</p>
           <div className="space-y-3">
             {[
               { label: "Personal Coaching", date: "JAN 17 2025, 10:00 AM" },
@@ -110,10 +110,10 @@ export default function Schedule() {
             ].map((template, i) => (
               <div
                 key={i}
-                className="bg-gray-800 p-3 rounded-lg hover:bg-gray-700 transition"
+                className="bg-gray-100 p-3 rounded-lg hover:bg-gray-200 transition"
               >
-                <p className="text-sm font-medium">{template.label}</p>
-                <p className="text-xs text-gray-400">{template.date}</p>
+                <p className="text-sm font-medium text-gray-800">{template.label}</p>
+                <p className="text-xs text-gray-500">{template.date}</p>
               </div>
             ))}
           </div>

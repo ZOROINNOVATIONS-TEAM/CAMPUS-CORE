@@ -25,20 +25,20 @@ const subjects = [
 
 const SubjectResults = () => {
   return (
-    <div className="bg-[#2b2f42] rounded-xl p-6 shadow-lg space-y-8">
+    <div className="bg-white rounded-xl p-6 shadow-lg space-y-8">
       {subjects.map((group, index) => (
         <div key={index}>
-          <h3 className="text-md text-gray-300 mb-2">
+          <h3 className="text-md text-gray-600 mb-2">
             {group.type === "ISA" ? "Internal" : "External"} Summative Assessment ({group.type})
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-4">
             {group.results.map((res, idx) => (
-              <div key={idx} className="bg-[#1f2233] rounded-xl p-3">
-                <p className="text-white font-semibold">{res.subject}</p>
-                <p className="text-sm text-gray-400">Final Score</p>
-                <p className="text-xl font-bold text-white">{res.score}%</p>
-                <p className="text-green-400">{res.status}</p>
+              <div key={idx} className="bg-gray-100 rounded-xl p-3">
+                <p className="text-gray-800 font-semibold">{res.subject}</p>
+                <p className="text-sm text-gray-600">Final Score</p>
+                <p className="text-xl font-bold text-blue-800">{res.score}%</p>
+                <p className="text-green-600">{res.status}</p>
               </div>
             ))}
           </div>
