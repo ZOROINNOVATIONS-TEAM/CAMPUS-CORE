@@ -1,3 +1,4 @@
+import Footer from '../../pages/footer';
 import FacultyHeader from './FacultyHeader';
 import FacultyNavigation from './FacultyNavigation';
 import FacultyWelcomeBanner from './FacultyWelcomeBanner';
@@ -8,10 +9,14 @@ const FacultyDashboardLayout = ({ children }) => {
       <FacultyHeader />
       <FacultyWelcomeBanner />
       <FacultyNavigation />
-      
+
+
       {/* Main Content */}
       <main className="max-w-[1440px] mx-auto px-6 py-8">
         {children}
+
+      <Footer/>
+
       </main>
     </div>
   );

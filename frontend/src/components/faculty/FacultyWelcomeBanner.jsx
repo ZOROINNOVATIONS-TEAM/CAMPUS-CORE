@@ -1,22 +1,48 @@
+import React from "react";
+import { FaRegCalendarAlt } from "react-icons/fa";
 
-const FacultyWelcomeBanner = () => {
+export default function WelcomeBanner({
+  name = "Dr.kab",
+  date = "Friday, June 13, 2025",
+  semester = "Spring Semester 2025",
+  facultyId = "Ft10529",
+  nextClass = {
+    title: "Advanced Mathematics",
+    timeToClass: 45, // in minutes
+  },
+}) {
   return (
-    <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-6 rounded-2xl mx-6 my-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-semibold text-white">Welcome, Dr.Kab</h1>
-          <p className="mt-1 text-sm text-white/80">Mon June 16, 2025 | Spring Semester 2025</p>
-        </div>
-        <div className="flex items-center space-x-3">
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-            <span className="block text-xs text-white/80">Next Class</span>
-            <span className="block text-sm font-medium text-white">Advanced Mathematics</span>
-            <span className="block text-xs text-white/60 mt-1">10:00 AM - 11:30 AM</span>
+    <div className="w-full flex justify-center bg-[#f1f1f1] py-8">
+      <div className="w-full max-w-[1200px]">
+        <div className="bg-gradient-to-r from-[#5392f9] to-[#7277d6] rounded-2xl flex items-center justify-between px-10 py-8 min-h-[150px]">
+          {/* Left Side: Welcome Info */}
+          <div className="text-white">
+            <div className="text-2xl md:text-3xl font-bold mb-2">
+              Welcome,
+              <span className="ml-1">{name}</span>
+            </div>
+            <div className="text-base md:text-lg mb-2 opacity-90">
+              {date} | {semester}
+            </div>
+            <div className="text-base opacity-80">
+              Faculty ID: {facultyId}
+            </div>
+          </div>
+          {/* Right Side: Next Class Info */}
+          <div className="flex-shrink-0">
+            <div className="bg-white bg-opacity-20 rounded-xl px-8 py-6 flex items-center gap-4 min-w-[270px]">
+              <FaRegCalendarAlt className="text-4xl text-white opacity-90" />
+              <div className="text-white text-base md:text-lg">
+                <div className="font-semibold">Next Class</div>
+                <div>{nextClass.title}</div>
+                <div className="text-sm opacity-90">
+                  in {nextClass.timeToClass} minutes
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
-};
-
-export default FacultyWelcomeBanner;
+}
