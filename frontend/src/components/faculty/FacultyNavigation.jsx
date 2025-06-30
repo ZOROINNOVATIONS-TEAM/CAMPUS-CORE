@@ -1,142 +1,95 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   FaHome,
-  FaRegClipboard,
+  FaBook,
   FaBriefcase,
   FaUserFriends,
-  FaBook,
+  FaClipboardList,
 } from "react-icons/fa";
-import { PiExam, PiChartLine } from "react-icons/pi";
-import { MdAssignment } from "react-icons/md";
+import { PiExam, PiChartLine } from "react-icons/pi"; // react-icons/pi
+import { MdAssignment } from "react-icons/md"; // Assignment alternative
 
-// Custom icon for "A+" (Exam) since react-icons does not have A+ icon
-function APlusIcon({ className }) {
-  return (
-    <span className={className}>
-      <svg
-        width="28"
-        height="28"
-        fill="none"
-        viewBox="0 0 28 28"
-        stroke="currentColor"
-        className="inline-block"
-      >
-        <rect
-          x="3"
-          y="5"
-          width="22"
-          height="18"
-          rx="2"
-          stroke="currentColor"
-          strokeWidth="2"
-          fill="none"
-        />
-        <text
-          x="7.5"
-          y="19"
-          fontSize="10"
-          fontFamily="Arial"
-          fontWeight="bold"
-          fill="currentColor"
-        >
-          A+
-        </text>
-      </svg>
-    </span>
-  );
-}
-
-const navItems = [
+const navigationItems = [
   {
-    label: "Home",
+    name: "Home",
     icon: <FaHome className="text-2xl" />,
-    activeIcon: <FaHome className="text-2xl text-blue-700" />,
-    href: "#",
+    href: "/faculty/dashboard",
   },
   {
-    label: "Exam",
-    icon: <APlusIcon className="text-2xl" />,
-    activeIcon: <APlusIcon className="text-2xl text-blue-700" />,
-    href: "#",
-  },
-  {
-    label: "Course Setup",
-    icon: <FaBook className="text-2xl" />,
-    activeIcon: <FaBook className="text-2xl text-blue-700" />,
-    href: "#",
-  },
-  {
-    label: "Grading",
+    name: "Exam",
     icon: (
-      <PiChartLine
-        className="text-2xl"
-        style={{ fontWeight: "bold" }}
-      />
+      <span className="text-2xl font-bold flex items-center justify-center" style={{ fontFamily: "Arial, sans-serif" }}>
+        <svg width={26} height={26} viewBox="0 0 28 28" className="inline-block mr-0.5">
+          <rect x="3" y="5" width="22" height="18" rx="2" stroke="currentColor" strokeWidth="2" fill="none" />
+          <text x="7.5" y="19" fontSize="10" fontFamily="Arial" fontWeight="bold" fill="currentColor">
+            A+
+          </text>
+        </svg>
+      </span>
     ),
-    activeIcon: (
-      <PiChartLine
-        className="text-2xl text-blue-700"
-        style={{ fontWeight: "bold" }}
-      />
-    ),
-    href: "#",
+    href: "/faculty/exam",
   },
   {
-    label: "Assignment",
-    icon: <FaRegClipboard className="text-2xl" />,
-    activeIcon: <FaRegClipboard className="text-2xl text-blue-700" />,
-    href: "#",
+    name: "Course Setup",
+    icon: <FaBook className="text-2xl" />,
+    href: "/faculty/courses",
   },
   {
-    label: "Duties",
+    name: "Grading",
+    icon: <PiChartLine className="text-2xl" />,
+    href: "/faculty/grading",
+  },
+  {
+    name: "Assignment",
+    icon: <FaClipboardList className="text-2xl" />,
+    href: "/faculty/assignment",
+  },
+  {
+    name: "Duties",
     icon: <FaBriefcase className="text-2xl" />,
-    activeIcon: <FaBriefcase className="text-2xl text-blue-700" />,
-    href: "#",
+    href: "/faculty/duties",
   },
   {
-    label: "Mentor",
+    name: "Mentor",
     icon: <FaUserFriends className="text-2xl" />,
-    activeIcon: <FaUserFriends className="text-2xl text-blue-700" />,
-    href: "#",
+    href: "/faculty/mentor",
   },
 ];
 
-export default function FacultyNavBar() {
-  const [active, setActive] = useState("Home");
+const FacultyNavbar = () => {
+  const location = useLocation();
 
   return (
-    <div className="w-full flex justify-center bg-[#ededed] py-6">
-      <nav className="w-full max-w-[1200px]">
-        <div className="flex justify-between bg-white rounded-2xl px-6 py-5 shadow-sm">
-          {navItems.map((item) => (
-            <a
-              href={item.href}
-              key={item.label}
-              className={`flex flex-col items-center gap-1 cursor-pointer group transition min-w-[105px] ${
-                active === item.label ? "" : "hover:text-blue-700"
-              }`}
-              onClick={(e) => {
-                e.preventDefault();
-                setActive(item.label);
-              }}
-              aria-current={active === item.label ? "page" : undefined}
-            >
-              <span>
-                {active === item.label ? item.activeIcon : item.icon}
-              </span>
-              <span
-                className={`mt-1 text-base font-semibold ${
-                  active === item.label
-                    ? "text-blue-700"
-                    : "text-gray-800 group-hover:text-blue-700"
-                }`}
+    <nav className="w-full flex justify-center bg-[#ededed] py-4">
+      <div className="w-full max-w-[1200px]">
+        <div className="flex justify-between bg-white rounded-2xl px-4 py-4 shadow-sm">
+          {navigationItems.map((item) => {
+            const isActive = location.pathname === item.href;
+            return (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={`flex flex-col items-center gap-1 min-w-[90px] cursor-pointer group transition
+                  ${isActive ? "text-blue-700 font-semibold" : "text-gray-800 font-medium hover:text-blue-700"}
+                `}
+                aria-current={isActive ? "page" : undefined}
               >
-                {item.label}
-              </span>
-            </a>
-          ))}
+                <span className={isActive ? "text-blue-700" : ""}>{item.icon}</span>
+                <span
+                  className={`mt-1 text-base ${
+                    isActive ? "text-blue-700 font-semibold" : "group-hover:text-blue-700"
+                  }`}
+                >
+                  {item.name}
+                </span>
+              </Link>
+            );
+          })}
         </div>
-      </nav>
-    </div>
+      </div>
+    </nav>
   );
-}
+};
+
+export default FacultyNavbar;
