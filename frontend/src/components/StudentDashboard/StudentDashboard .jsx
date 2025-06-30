@@ -8,7 +8,7 @@ import {
   ResponsiveContainer,
   Legend,
 } from 'recharts';
-import logo from '../assets/images/logo.png';
+// import logo from '../../assets/images/logo.png'; // Adjust path if needed
 import {
   Bell,
   User,
@@ -20,9 +20,9 @@ import {
   Briefcase,
   Users,
 } from 'lucide-react';
-import CourseSetup from './CourseSetup'; // Adjust path if needed
-import Fees from './Fess';
-import Schedule from './Schedule ';
+import CourseSet from './CourseSet';
+import Fees from './Fees';
+import Schedule from './Schedule';
 import Result from './Result';
 
 
@@ -209,7 +209,7 @@ const StudentDashboard = () => {
       );
     }
     if (activeTab === 'Course Setup') {
-    return <CourseSetup/>;
+    return <CourseSet />;
   }
  
     if (activeTab === 'Fees') {

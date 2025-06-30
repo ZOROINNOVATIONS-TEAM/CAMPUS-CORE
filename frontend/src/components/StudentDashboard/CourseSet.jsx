@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from "recharts";
-import logo from "../assets/images/logo.png"; // Replace with actual path
+// import logo from "../assets/images/logo.png"; // Replace with actual path
 
-const CourseSetup = () => {
+const CourseSet = () => {
   const [attendanceSubmitted, setAttendanceSubmitted] = useState(false);
 
   const handleAttendanceSubmit = () => {
@@ -265,4 +265,4 @@ const CourseSetup = () => {
   );
 };
 
-export default CourseSetup;
+export default CourseSet;

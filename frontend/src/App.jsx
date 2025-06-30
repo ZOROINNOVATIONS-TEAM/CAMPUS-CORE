@@ -5,6 +5,7 @@ import AuthPage from './components/auth/AuthPage';
 import ProtectedRoute from "./components/ProtectedRoutes/ProtectedRoute";
 import AdminDashboard from './pages/AdminDashboard';
 import FacultyDashboard from './pages/FacultyDashboard';
+import StudentDashboard from "./components/StudentDashboard/StudentDashboard ";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           // </ProtectedRoute>
         } />
         <Route path="/faculty/dashboard/*" element={<FacultyDashboard />} />
+            <Route path="/StudentDash" element={<StudentDashboard/>} />
       </Routes>
     </div>
   );
