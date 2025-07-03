@@ -13,7 +13,7 @@ const login_schema_userid = z.object({
     password: z.string().min(8),
 });
 
-export const login = async (req, res, next) => {
+export const login = async (req : any, res : any, next : any) => {
     var user: db.User | null;
     var upass: string;
 
