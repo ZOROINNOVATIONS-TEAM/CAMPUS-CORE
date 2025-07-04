@@ -1,51 +1,61 @@
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 
-export async function calc_password_hash(name: string, pass: string): Promise<string>
-{
-  return argon2.hash(name+pass, {
+// [AUTH MODULE] Handles password hashing, verification, and JWT creation/decoding
+
+// Hashes password using argon2 and a secret pepper
+export async function calc_password_hash(name: string, pass: string): Promise<string> {
+  if (!process.env.ARGON2_PEPPER) {
+    throw new Error('ARGON2_PEPPER environment variable is not defined');
+  }
+  
+  return argon2.hash(name + pass, {
     timeCost: 10,
     parallelism: 1,
-    memoryCost: 1024,//KiB
+    memoryCost: 1024, // KiB
     hashLength: 48,
-    secret: Buffer.from(process.env.ARGON2_PEPPER!)
+    secret: Buffer.from(process.env.ARGON2_PEPPER)
   });
 }
 
-export async function verify_password_hash(name: string, pass: string, pass_hash: string): Promise<boolean>
-{
-  try
-  {
-    let result = await argon2.verify(pass_hash, name+pass, {
-      secret: Buffer.from(process.env.ARGON2_PEPPER!)
-    });
-    return result;
+// Verifies password against stored hash
+export async function verify_password_hash(name: string, pass: string, pass_hash: string): Promise<boolean> {
+  if (!process.env.ARGON2_PEPPER) {
+    throw new Error('ARGON2_PEPPER environment variable is not defined');
   }
-  catch (err) {
+
+  try {
+    return await argon2.verify(pass_hash, name + pass, {
+      secret: Buffer.from(process.env.ARGON2_PEPPER)
+    });
+  } catch (err) {
     return false;
   }
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export function jwt_create(uid: string, type: string): string
-{
-  return jwt.sign({uid, type}, process.env.JWT_SECRET!, {expiresIn: '15d'});
+// Creates a JWT token with user ID and role
+export function jwt_create(uid: string, type: string): string {
+  if (!process.env.JWT_SECRET) {
+    throw new Error('JWT_SECRET environment variable is not defined');
+  }
+  
+  return jwt.sign({ uid, type }, process.env.JWT_SECRET, { expiresIn: '15d' });
 }
 
-// if this returns null, token is either invalid or expired and client should delete the session cookie
-export function jwt_decode(token: string): {uid:string, type:string}|null
-{
-  try
-  {
-    let result = jwt.verify(token, process.env.JWT_SECRET!) as jwt.JwtPayload;
-    
-    if (result.uid && result.type)
-      return {uid: result.uid, type: result.type};
-    else
-      return null;
+// Decodes and verifies a JWT token, returns user info if valid
+export function jwt_decode(token: string): { uid: string, type: string } | null {
+  if (!process.env.JWT_SECRET) {
+    throw new Error('JWT_SECRET environment variable is not defined');
   }
-  catch (err) {
+
+  try {
+    const result = jwt.verify(token, process.env.JWT_SECRET) as jwt.JwtPayload;
+    
+    if (result.uid && result.type) {
+      return { uid: result.uid, type: result.type };
+    }
+    return null;
+  } catch (err) {
     return null;
   }
 }

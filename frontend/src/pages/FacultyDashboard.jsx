@@ -7,18 +7,19 @@ import FacultyUpcomingEvents from '../components/faculty/FacultyUpcomingEvents';
 const FacultyDashboard = () => {
   return (
     <FacultyDashboardLayout>
-      <div className="w-full max-w-[1200px] mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content - Left Side */}
-          <div className="lg:col-span-2 flex flex-col gap-8">
-            <FacultyAttendance />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Main Content - Left Side */}
+        <div className="lg:col-span-2">
+          <FacultyAttendance />
+          <div className="mt-6">
             <FacultySchedule />
           </div>
-          {/* Sidebar - Right Side */}
-          <div className="flex flex-col gap-8">
-            <FacultyUpcomingEvents />
-            <FacultyAnnouncements />
-          </div>
+        </div>
+
+        {/* Sidebar - Right Side */}
+        <div className="space-y-6">
+          <FacultyUpcomingEvents />
+          <FacultyAnnouncements />
         </div>
       </div>
     </FacultyDashboardLayout>
