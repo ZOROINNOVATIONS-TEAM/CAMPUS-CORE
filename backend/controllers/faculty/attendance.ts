@@ -23,14 +23,14 @@ export const attendance = async (req: any, res: any) => {
         }
 
         const att_id = await db.mark_attendance(course_id, student_id, parsedDate, faculty._id!);
-        res.json({ attendance_id: att_id });
+        return res.json({ attendance_id: att_id });
 
     } catch (err) {
         if (err instanceof Error) {
-            sendError(res, 400, err.message);
+            return sendError(res, 400, err.message);
         }
         else {
-            sendError(res, 500, 'Unknown error occurred');
+            return sendError(res, 500, 'Unknown error occurred');
         }
     }
 };

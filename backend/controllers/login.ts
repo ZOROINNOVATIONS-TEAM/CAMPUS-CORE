@@ -50,10 +50,10 @@ export const login = async (req: any, res: any) => {
             return res.status(401).json({ error: 'invalid credentials' });
         }
         else if(err instanceof Error){
-            return res.status(400).json({ error: err.message });
+            return res.status(500).json({ error: 'internal server error'});
         }
         else {
-            return res.status(400).json({ error: 'invalid request' });
+            return res.status(500).json({ error: 'invalid request' });
         }
     }
 }

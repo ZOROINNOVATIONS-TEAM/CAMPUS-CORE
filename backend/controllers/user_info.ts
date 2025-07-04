@@ -1,6 +1,6 @@
 import * as db from '#lib/db.ts';
 
-export const userInfo = async (req: any, res: any, next: any) => {
+export const userInfo = async (req: any, res: any) => {
   try {
     const session_token = req.cookies['session_token'];
 
