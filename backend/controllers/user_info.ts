@@ -1,8 +1,4 @@
-import express from 'express';
-import { z } from 'zod';
-
 import * as db from '#lib/db.ts';
-import * as auth from '#lib/auth.ts';
 
 export const userInfo=async (req : any, res: any, next: any) =>
 {
@@ -17,7 +13,7 @@ export const userInfo=async (req : any, res: any, next: any) =>
       delete user._id;
       delete user.__v;
       delete user.pass_hash;
-      res.json(user); // returns {uid, rollno, email, name, type} only
+      res.json(user);
     }
     else
       res.status(400).json({error: 'invalid session_token'});
