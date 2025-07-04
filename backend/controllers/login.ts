@@ -13,9 +13,9 @@ const login_schema_userid = z.object({
     password: z.string().min(8),
 });
 
-export const login = async (req: any, res: any, next: any) => {
-    let user: db.User | null;
-    let upass: string;
+export const login = async (req: any, res: any) => {
+    var user: db.User | null;
+    var upass: string;
 
     try {
         const { id, pass } = req.body;
@@ -33,11 +33,16 @@ export const login = async (req: any, res: any, next: any) => {
             if (await auth.verify_password_hash(user.name, upass, user.pass_hash)) {
                 const session_token = auth.jwt_create(user._id!, user.type);
                 res.cookie('session_token', session_token, { expires: new Date(Date.now() + 15 * 24 * 3600 * 1000) });
-                res.sendStatus(200);
+                return res.sendStatus(200);
             }
-            else res.status(401).json({ error: 'incorrect password' });
+            else {
+                return res.status(401).json({ error: 'incorrect password' });
+            }
         }
-        else res.status(404).json({ error: 'user not found' });
+        else{
+            return res.status(404).json({ error: 'user not found' });
+        } 
+            
 
     }
     catch (err) {
@@ -48,8 +53,7 @@ export const login = async (req: any, res: any, next: any) => {
             return res.status(400).json({ error: err.message });
         }
         else {
-            res.status(400).json({ error: 'invalid request' });
-            return;
+            return res.status(400).json({ error: 'invalid request' });
         }
     }
 }
