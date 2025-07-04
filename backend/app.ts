@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
+import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 
 import { faculty_only, admin_only, student_only } from '#lib/middlewares.ts';
@@ -10,6 +11,7 @@ import admin_create_user from '#routes/admin/create_user.ts';
 import admin_course from '#routes/admin/course.ts';
 import student_course from '#routes/student/course.ts';
 import faculty_attendance from '#routes/faculty/attendance.ts';
+
 
 import * as db from '#lib/db.ts';
 import * as auth from '#lib/auth.ts';
@@ -47,5 +49,18 @@ app.use((req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-   console.log(`Express running on port ${process.env.PORT}`);
+   console.log(`Server running on port ${process.env.PORT}`);
 })
+
+const MONGODB_URL = process.env.MONGODB_URL as string;
+mongoose.connect(MONGODB_URL)
+  .then(() => {
+    console.log('Database connected successfully!');
+  })
+  .catch((err) => {
+    console.error('Database connection error:', err);
+    process.exit(1); 
+  });
+
+
+

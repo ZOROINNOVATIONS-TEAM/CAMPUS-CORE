@@ -17,9 +17,13 @@
 		"@types/cookie-parser": "^1.4.9",
 		"@types/express": "^5.0.3",
 		"@types/jsonwebtoken": "^9.0.9",
-		"@types/node": "^24.0.1"
+		"@types/node": "^24.0.10",
+		"ts-node": "^10.9.2",
+		"tsx": "^4.20.3",
+		"typescript": "^5.8.3"
 	},
 	"scripts": {
-		"start": "node app.ts"
-	}
+    "start": "tsx app.ts"
+    }
+
 }

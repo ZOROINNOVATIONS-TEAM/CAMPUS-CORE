@@ -27,7 +27,7 @@ router.post('/login', async (req, res) =>
     
     try
     {
-      if (id.includes('@')) //treat as email
+      if (id.includes('@')) 
       {
         const {email, password} = login_schema_email.parse({email:id, password:pass});
         user = await db.get_user_from_email(email);
