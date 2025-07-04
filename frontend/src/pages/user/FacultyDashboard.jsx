@@ -9,6 +9,7 @@ import FacultyAnnouncementsCard from "../../components/dashboard/faculty/Faculty
 import FacultyMapDashboard from "../../components/dashboard/faculty/FacultyMapDashboard";
 import { TopNavigation } from "../../components/dashboard/TopNavigation";
 import FacultyMentoring from "../../components/dashboard/faculty/FacultyMentoring";
+import CourseSetup from "../../components/dashboard/faculty/course/CourseSetup";
 
 export default function FacultyDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -43,6 +44,10 @@ export default function FacultyDashboard() {
 
             {activeTab === "mentor" && (
               <FacultyMentoring />
+            )}
+
+            {activeTab === "courses" && (
+              <CourseSetup />
             )}
 
 

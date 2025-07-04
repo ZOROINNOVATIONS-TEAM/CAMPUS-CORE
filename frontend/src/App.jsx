@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { AuthProvider, useAuth } from './auth/AuthContext';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './auth/AuthContext';
 import ProtectedRoute from './auth/ProtectedRoute';
 
 import Login from './pages/user/Login';
@@ -11,60 +11,64 @@ import CourseSetup from './components/dashboard/student/course/CourseSetup';
 import FacultyDashboard from './pages/user/FacultyDashboard';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import ManageUsers from './components/dashboard/admin/ManageUsers';
-import { TopNavigation } from './components/dashboard/TopNavigation';
+import DashboardLayout from './layouts/DashboardLayout';
 
-function NavbarVisibility() {
-  const { isAuthed } = useAuth();
-  const { pathname } = useLocation();
-  if (!isAuthed || ['/login','/admin'].includes(pathname)) return null;
-  return <TopNavigation />;
-}
 export default function App() {
   return (
     <AuthProvider>
       <Router>
-        <NavbarVisibility />
         <Routes>
+          {/* Redirect root to login */}
           <Route path="/" element={<Navigate to="/login" replace />} />
 
           {/* Public routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<AdminAuth />} />
 
-          {/* Student routes */}
+          {/* All authenticated dashboard pages share the same layout */}
           <Route
-            path="/student-dashboard"
-            element={<ProtectedRoute roles={[ 'student' ]}><StudentDashboard /></ProtectedRoute>}
-          />
-          <Route
-            path="/attendance"
-            element={<ProtectedRoute roles={[ 'student' ]}><AttendanceDetails /></ProtectedRoute>}
-          />
-          <Route
-            path="/schedule"
-            element={<ProtectedRoute roles={[ 'student' ]}><SchedulePage /></ProtectedRoute>}
-          />
-          <Route
-            path="/course-setup"
-            element={<ProtectedRoute roles={[ 'student' ]}><CourseSetup /></ProtectedRoute>}
-          />
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
+            {/* Student */}
+            <Route
+              path="/student-dashboard"
+              element={<ProtectedRoute roles={[ 'student' ]}><StudentDashboard /></ProtectedRoute>}
+            />
+            <Route
+              path="/attendance"
+              element={<ProtectedRoute roles={[ 'student' ]}><AttendanceDetails /></ProtectedRoute>}
+            />
+            <Route
+              path="/schedule"
+              element={<ProtectedRoute roles={[ 'student' ]}><SchedulePage /></ProtectedRoute>}
+            />
+            <Route
+              path="/course-setup"
+              element={<ProtectedRoute roles={[ 'student' ]}><CourseSetup /></ProtectedRoute>}
+            />
 
-          {/* Faculty routes */}
-          <Route
-            path="/faculty-dashboard"
-            element={<ProtectedRoute roles={[ 'faculty', 'admin' ]}><FacultyDashboard /></ProtectedRoute>}
-          />
+            {/* Faculty */}
+            <Route
+              path="/faculty-dashboard"
+              element={<ProtectedRoute roles={[ 'faculty', 'admin' ]}><FacultyDashboard /></ProtectedRoute>}
+            />
 
-          {/* Admin routes */}
-          <Route
-            path="/admin-dashboard"
-            element={<ProtectedRoute roles={[ 'admin' ]}><AdminDashboard /></ProtectedRoute>}
-          />
-          <Route
-            path="/admin/manage-users"
-            element={<ProtectedRoute permissions={[ 'manage:users' ]}><ManageUsers /></ProtectedRoute>}
-          />
+            {/* Admin */}
+            <Route
+              path="/admin-dashboard"
+              element={<ProtectedRoute roles={[ 'admin' ]}><AdminDashboard /></ProtectedRoute>}
+            />
+            <Route
+              path="/admin/manage-users"
+              element={<ProtectedRoute permissions={[ 'manage:users' ]}><ManageUsers /></ProtectedRoute>}
+            />
+          </Route>
 
+          {/* Catch-all */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
