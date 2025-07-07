@@ -3,7 +3,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 
 import { faculty_only, admin_only, student_only } from '#lib/middlewares.ts';
-
+import admin_roles from '#routes/admin/roles.ts';
 import login from '#routes/login.ts';
 import user_info from '#routes/user_info.ts';
 import admin_create_user from '#routes/admin/create_user.ts';
@@ -41,6 +41,7 @@ app.use('/api/v1', login);
 app.use('/api/v1', user_info);
 app.use('/api/v1', admin_only, admin_create_user);
 app.use('/api/v1', admin_only, admin_course);
+app.use('/api/v1/', admin_roles);  // admin only written in routes/admin/roles.ts
 
 app.use((req, res) => {
   res.status(404).json({ error: 'Route not found', path: req.originalUrl });
