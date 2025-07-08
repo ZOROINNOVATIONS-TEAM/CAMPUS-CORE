@@ -2,7 +2,8 @@
 	"type": "module",
 	"imports": {
 		"#lib/*": "./lib/*",
-		"#routes/*": "./routes/*"
+		"#routes/*": "./routes/*",
+		"#controllers/*": "./controllers/*"
 	},
 	"dependencies": {
 		"argon2": "^0.43.0",
@@ -17,7 +18,9 @@
 		"@types/cookie-parser": "^1.4.9",
 		"@types/express": "^5.0.3",
 		"@types/jsonwebtoken": "^9.0.9",
-		"@types/node": "^24.0.1"
+		"@types/node": "^24.0.1",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.8.3"
 	},
 	"scripts": {
 		"start": "node app.ts"

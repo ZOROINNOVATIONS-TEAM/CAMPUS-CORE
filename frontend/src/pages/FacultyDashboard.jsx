@@ -25,7 +25,7 @@ const FacultyDashboard = () => {
       <Route path='mentor' element={<Mentor/>} />
       
      </Routes>
-               <Footer/>
+       <Footer/>
 
     </FacultyDashboardLayout>
   );
