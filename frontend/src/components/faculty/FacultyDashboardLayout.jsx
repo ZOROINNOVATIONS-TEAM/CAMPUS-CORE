@@ -17,8 +17,9 @@ import FacultyWelcomeBanner from './FacultyWelcomeBanner';
 // Faculty navigation config
 const navigationItems = [
   { name: 'Home', icon: HomeIcon, href: '/faculty/dashboard/home' },
-  { name: 'Exam', icon: AcademicCapIcon, href: '/faculty/dashboard/exam' },
+  { name: 'CampushMap', icon: AcademicCapIcon, href: '/faculty/dashboard/campushmap' },
   { name: 'Course Setup', icon: CalendarIcon, href: '/faculty/dashboard/courses' },
+  { name: 'Exam', icon: AcademicCapIcon, href: '/faculty/dashboard/exam' },
   { name: 'Grading', icon: ChartBarIcon, href: '/faculty/dashboard/grading' },
   { name: 'Assignment', icon: ClipboardDocumentIcon, href: '/faculty/dashboard/assignment' },
   { name: 'Duties', icon: BriefcaseIcon, href: '/faculty/dashboard/duties' },

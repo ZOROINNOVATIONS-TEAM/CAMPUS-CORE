@@ -8,6 +8,7 @@ import Exam from '../components/faculty/Exam';
 import Grading from '../components/faculty/Grading';
 import Mentor from '../components/faculty/Mentor';
 import Footer from './footer';
+import CampusMap from '../components/faculty/CampushMap';
 
 
 
@@ -17,6 +18,7 @@ const FacultyDashboard = () => {
      <Routes>
       <Route path="/" element={<Navigate to="home" replace />} />
       <Route path='home' element={<DashboardMain />} />
+      <Route path='campushmap' element={<CampusMap />} />
       <Route path='assignment' element={<Assignment/>} />
       <Route path='courses' element={<FacultyCoursesDashboard/>} />
       <Route path='duties' element={<Duties/>} />
