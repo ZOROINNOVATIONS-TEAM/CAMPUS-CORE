@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
-import * as auth from '#lib/auth.ts';
+import * as auth from './auth';
 
-await mongoose.connect(process.env.MONGODB_URL!);
+(async () => {
+  await mongoose.connect(process.env.MONGODB_URL!);
+})();
 
 export interface User {
   _id?: string;
