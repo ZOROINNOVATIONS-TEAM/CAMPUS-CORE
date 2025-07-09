@@ -10,7 +10,8 @@ export interface User {
   pass_hash: string;
   name: string;
   type: 'student' | 'faculty' | 'admin';
-  courses?: mongoose.Types.ObjectId[]; 
+  courses?: mongoose.Types.ObjectId[];
+  verified?: boolean; // 🙋‍♀️🙋‍♀️🙋‍♀️🙋‍♀️🙋‍♀️🙋‍♀️🙋‍♀️ FOR EMAIL VERIFICATION
 }
 
 const UserSchema = new mongoose.Schema<User>({
@@ -19,7 +20,8 @@ const UserSchema = new mongoose.Schema<User>({
   name:      { type: String, required: true },
   rollno:    { type: String, required: false, unique: true, sparse: true, uppercase: true },
   type:      { type: String, required: true, enum: ['student', 'faculty', 'admin'] },
-  courses:   [{ type: mongoose.Schema.Types.ObjectId, ref: 'courses' }], 
+  courses:   [{ type: mongoose.Schema.Types.ObjectId, ref: 'courses' }],
+  verified:  { type: Boolean, default: false }, // 🙋‍♀️🙋‍♀️🙋‍♀️🙋‍♀️🙋‍♀️🙋‍♀️🙋‍♀️ FOR EMAIL VERIFICATION
 });
 
 export const UserModel = mongoose.model<User>('users', UserSchema);
@@ -44,7 +46,6 @@ const CourseSchema = new mongoose.Schema<Course>({
 
 const CourseModel = mongoose.model<Course>('courses', CourseSchema);
 
-
 /////////////////////////////////////////////////////////////////////////////
 // ATTENDANCE SCHEMA
 
@@ -64,7 +65,6 @@ const AttendanceSchema = new mongoose.Schema({
 });
 
 const AttendanceModel = mongoose.model<Attendance>('attendances', AttendanceSchema);
-
 
 /////////////////////////////////////////////////////////////////////////////
 // COURSE & ATTENDANCE FUNCTIONS
@@ -101,59 +101,60 @@ export async function mark_attendance(course_id: string, student_id: string, dat
   const saved = await attendance.save();
   return saved._id!.toString();
 }
+
 /////////////////////////////////////////////////////////////////////////////
 
-export async function add_user(user: User): Promise<string>
-{
-  const newdoc = await UserModel.create(user);
+export async function add_user(user: User): Promise<string> {
+  const newdoc = await UserModel.create({ ...user, verified: false }); // ✅ force unverified
   return newdoc._id;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-export async function update_email(userid: string, email: string)
-{
+export async function update_email(userid: string, email: string) {
   await UserModel.findOneAndUpdate({userid}, {email}, {runValidators: true}).exec();
 }
 
-export async function update_pass_hash(userid: string, pass_hash: string)
-{
-await UserModel.findOneAndUpdate({ _id: userid }, { pass_hash }, { runValidators: true }).exec();
+export async function update_pass_hash(userid: string, pass_hash: string) {
+  await UserModel.findOneAndUpdate({ _id: userid }, { pass_hash }, { runValidators: true }).exec();
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-export function get_user_from_uid(uid: string): Promise<User|null>
-{
+export function get_user_from_uid(uid: string): Promise<User|null> {
   return UserModel.findOne({_id: uid}).lean<User>().exec();
 }
 
-export function get_user_from_email(email: string): Promise<User|null>
-{
+export function get_user_from_email(email: string): Promise<User|null> {
   return UserModel.findOne({email}).lean<User>().exec();
 }
 
-export function get_user_from_rollno(rollno: string): Promise<User|null>
-{
+export function get_user_from_rollno(rollno: string): Promise<User|null> {
   return UserModel.findOne({rollno}).lean<User>().exec();
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-export async function get_user_from_token(token: string): Promise<User|null>
-{
-  if (token)
-  {
+export async function get_user_from_token(token: string): Promise<User|null> {
+  if (token) {
     const data = auth.jwt_decode(token);
-    if (data)
-    {
+    if (data) {
       const user = await get_user_from_uid(data.uid);
-      if (user)
-      {
+      if (user) {
         return user;
       }
     }
   }
-  
   return null;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+// 🙋‍♀️🙋‍♀️🙋‍♀️🙋‍♀️🙋‍♀️🙋‍♀️🙋‍♀️ FOR EMAIL VERIFICATION 
+
+export async function verify_user_email(uid: string): Promise<boolean> {
+  const result = await UserModel.updateOne(
+    { _id: uid, verified: false },
+    { $set: { verified: true } }
+  );
+  return result.modifiedCount > 0;
 }
