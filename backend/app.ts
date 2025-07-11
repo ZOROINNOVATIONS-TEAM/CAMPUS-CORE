@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import mongoose from 'mongoose';
 
 import { faculty_only, admin_only, student_only } from '#lib/middlewares.ts';
 import admin_roles from '#routes/admin/roles.ts';
@@ -46,6 +47,18 @@ app.use('/api/v1/', admin_roles);  // admin only written in routes/admin/roles.t
 app.use((req, res) => {
   res.status(404).json({ error: 'Route not found', path: req.originalUrl });
 });
+
+// MongoDB Connection string
+mongoose.connect(process.env.MONGODB_URL as string)
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch((err) => {
+    console.error('Failed to connect to MongoDB:', err);
+    process.exit(1); 
+  });
+
+
 
 app.listen(process.env.PORT, () => {
    console.log(`Express running on port ${process.env.PORT}`);

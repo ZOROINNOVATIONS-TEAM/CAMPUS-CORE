@@ -24,6 +24,7 @@
 		"typescript": "^5.8.3"
 	},
 	"scripts": {
-		"start": "tsx app.ts"
-	}
+    "start": "tsx app.ts"
+    }
+
 }
