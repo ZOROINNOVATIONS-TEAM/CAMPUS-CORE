@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { User, Calendar, PlusCircle } from "lucide-react";
+import { User, Calendar } from "lucide-react";
 import FacultyChatWindow from "./FacultyChatWindow";
 import FacultyCreateSessionModal from "./FacultyCreateSessionModal";
 
@@ -11,9 +11,8 @@ export default function FacultyMentoring() {
   const [messages, setMessages] = useState({});
   const [sidebarTab, setSidebarTab] = useState("chats");
   const [createSessionOpen, setCreateSessionOpen] = useState(false);
-
-  // Mobile detection
   const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
     check();
@@ -57,7 +56,6 @@ export default function FacultyMentoring() {
     });
   }, []);
 
-  // Chat handlers
   const handleSend = (studentId, text) => {
     setMessages(prev => ({
       ...prev,
@@ -73,6 +71,7 @@ export default function FacultyMentoring() {
       ]
     }));
   };
+
   const handleEdit = (studentId, msgId, newText) => {
     setMessages(prev => ({
       ...prev,
@@ -81,6 +80,7 @@ export default function FacultyMentoring() {
       )
     }));
   };
+
   const handleDelete = (studentId, msgId) => {
     setMessages(prev => ({
       ...prev,
@@ -88,7 +88,6 @@ export default function FacultyMentoring() {
     }));
   };
 
-  // Create Session handler (supports multiple students)
   const handleCreateSession = (session) => {
     setSessions(prev => [
       ...prev,
@@ -99,90 +98,90 @@ export default function FacultyMentoring() {
 
   const selectedStudent = students.find(s => s.id === selectedStudentId);
 
-  // Open chat with the first student in session (can be improved for group chat)
   const openSessionChat = (session) => {
     setSidebarTab("chats");
-    if (session.studentIds && session.studentIds.length > 0) {
+    if (session.studentIds?.length > 0) {
       setSelectedStudentId(session.studentIds[0]);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-4">
-      <div className="flex flex-col md:flex-row bg-white rounded-xl shadow-md max-w-4xl h-[80vh] mx-auto overflow-hidden relative">
+    <div className="min-h-screen bg-gray-100 dark:bg-[#0e0e11] py-4 transition-colors duration-300">
+      <div className="flex flex-col md:flex-row bg-white dark:bg-[#1a1a1d] rounded-xl shadow-md max-w-4xl h-[80vh] mx-auto overflow-hidden relative">
         {/* Sidebar */}
-<div className="w-full md:w-80 bg-white border-r flex flex-col z-10 h-full shadow-sm">
-  {/* Buttons */}
-  <div className="flex gap-2 p-4 border-b bg-white sticky top-0 z-20">
-    
-    <button
-      className="flex-1 bg-green-600 text-white py-2 rounded-full font-semibold hover:bg-green-700 transition shadow"
-      onClick={() => setCreateSessionOpen(true)}
-    >
-      New Session
-    </button>
-  </div>
-  {/* Chats Section */}
-  <div className="p-4 flex-1 overflow-y-auto">
-    <div className="mb-2 font-semibold text-gray-600 text-xs tracking-wide uppercase">
-      Students
-    </div>
-    <div className="flex flex-col gap-2 mb-6">
-      {students.map(student => (
-        <button
-          key={student.id}
-          className={`flex items-center gap-3 p-3 rounded-lg border 
-            transition font-medium
-            ${student.id === selectedStudentId
-              ? "bg-blue-50 border-blue-400 text-blue-700 shadow"
-              : "bg-white border-gray-200 hover:bg-gray-50 text-gray-700"
-            }`}
-          onClick={() => { setSelectedStudentId(student.id); setSidebarTab("chats"); }}
-        >
-          <User className="w-7 h-7 text-blue-400" />
-          <span className="truncate">{student.name}</span>
-        </button>
-      ))}
-    </div>
-    {/* Sessions Section */}
-    <div className="mb-2 font-semibold text-gray-600 text-xs tracking-wide uppercase">
-      Scheduled Sessions
-    </div>
-    <div className="flex flex-col gap-2">
-      {sessions.map(session => (
-        <button
-          key={session.id}
-          className={`p-3 rounded-lg border transition text-left
-            ${session.id === selectedSessionId
-              ? "bg-green-50 border-green-400 text-green-700 shadow"
-              : "bg-white border-gray-200 hover:bg-green-50 text-gray-700"
-            }`}
-          onClick={() => { setSelectedSessionId(session.id); openSessionChat(session); }}
-        >
-          <div className="flex items-center gap-2 font-semibold">
-            <Calendar className="w-5 h-5" />
-            <span>{session.topic}</span>
+        <div className="w-full md:w-80 bg-white dark:bg-[#121214] border-r dark:border-zinc-800 flex flex-col z-10 h-full shadow-sm">
+          {/* Button */}
+          <div className="flex gap-2 p-4 border-b dark:border-zinc-800 bg-white dark:bg-[#121214] sticky top-0 z-20">
+            <button
+              className="flex-1 bg-green-600 text-white py-2 rounded-full font-semibold hover:bg-green-700 transition shadow"
+              onClick={() => setCreateSessionOpen(true)}
+            >
+              New Session
+            </button>
           </div>
-          <div className="text-xs text-gray-500 mt-1">
-            {session.date} at {session.time}
-          </div>
-          <div className="text-xs text-gray-400">
-            {session.studentIds.map((id, idx) => {
-              const s = students.find(stu => stu.id === id);
-              return s ? (idx === 0 ? s.name : `, ${s.name}`) : null;
-            })}
-          </div>
-        </button>
-      ))}
-    </div>
-  </div>
-</div>
 
+          {/* Chats Section */}
+          <div className="p-4 flex-1 overflow-y-auto">
+            <div className="mb-2 font-semibold text-gray-600 dark:text-zinc-400 text-xs tracking-wide uppercase">
+              Students
+            </div>
+            <div className="flex flex-col gap-2 mb-6">
+              {students.map(student => (
+                <button
+                  key={student.id}
+                  className={`flex items-center gap-3 p-3 rounded-lg border transition font-medium
+                    ${
+                      student.id === selectedStudentId
+                        ? "bg-blue-50 dark:bg-blue-900 border-blue-400 text-blue-700 dark:text-blue-300 shadow"
+                        : "bg-white dark:bg-transparent border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800 text-gray-700 dark:text-zinc-200"
+                    }`}
+                  onClick={() => { setSelectedStudentId(student.id); setSidebarTab("chats"); }}
+                >
+                  <User className="w-7 h-7 text-blue-400 dark:text-blue-300" />
+                  <span className="truncate">{student.name}</span>
+                </button>
+              ))}
+            </div>
 
-        {/* Chat panel */}
+            {/* Sessions Section */}
+            <div className="mb-2 font-semibold text-gray-600 dark:text-zinc-400 text-xs tracking-wide uppercase">
+              Scheduled Sessions
+            </div>
+            <div className="flex flex-col gap-2">
+              {sessions.map(session => (
+                <button
+                  key={session.id}
+                  className={`p-3 rounded-lg border transition text-left
+                    ${
+                      session.id === selectedSessionId
+                        ? "bg-green-50 dark:bg-green-900 border-green-400 text-green-700 dark:text-green-300 shadow"
+                        : "bg-white dark:bg-transparent border-gray-200 dark:border-zinc-700 hover:bg-green-50 dark:hover:bg-zinc-800 text-gray-700 dark:text-zinc-200"
+                    }`}
+                  onClick={() => { setSelectedSessionId(session.id); openSessionChat(session); }}
+                >
+                  <div className="flex items-center gap-2 font-semibold">
+                    <Calendar className="w-5 h-5" />
+                    <span>{session.topic}</span>
+                  </div>
+                  <div className="text-xs text-gray-500 dark:text-zinc-400 mt-1">
+                    {session.date} at {session.time}
+                  </div>
+                  <div className="text-xs text-gray-400 dark:text-zinc-500">
+                    {session.studentIds.map((id, idx) => {
+                      const s = students.find(stu => stu.id === id);
+                      return s ? (idx === 0 ? s.name : `, ${s.name}`) : null;
+                    })}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Chat Panel */}
         {selectedStudentId && (
           <div className={`
-            flex-1 flex flex-col bg-white md:static
+            flex-1 flex flex-col bg-white dark:bg-[#1a1a1d] md:static
             ${isMobile ? "fixed inset-0 z-50 h-screen w-screen" : ""}
           `}>
             <FacultyChatWindow

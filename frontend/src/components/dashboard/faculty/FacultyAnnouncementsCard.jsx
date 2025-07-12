@@ -27,9 +27,11 @@ const tagColor = {
 
 export default function FacultyAnnouncementsCard() {
   return (
-    <div className="bg-white dark:bg-[#121212] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+    <div className="bg-white dark:bg-[#121212] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 w-full">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="font-semibold text-gray-800 dark:text-gray-100">Announcements</h2>
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-100">
+          Announcements
+        </h2>
         <a
           href="#"
           className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
@@ -42,20 +44,24 @@ export default function FacultyAnnouncementsCard() {
         {announcements.map((a, idx) => (
           <div
             key={idx}
-            className="bg-gray-50 dark:bg-[#1a1a1a] rounded-lg p-4 flex flex-col gap-1 border border-gray-100 dark:border-gray-800"
+            className="bg-gray-50 dark:bg-[#1a1a1a] hover:bg-gray-100 dark:hover:bg-[#232323] transition rounded-lg p-4 border border-gray-100 dark:border-gray-800"
           >
-            <div className="flex justify-between items-start">
-              <div className="font-medium text-gray-800 dark:text-gray-100">
+            <div className="flex justify-between items-start mb-1">
+              <h3 className="font-medium text-gray-800 dark:text-gray-100">
                 {a.title}
-              </div>
+              </h3>
               <span
                 className={`text-xs font-semibold px-2 py-0.5 rounded-full ${tagColor[a.tag]}`}
               >
                 {a.tag}
               </span>
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-300">{a.content}</div>
-            <div className="text-xs text-gray-400 dark:text-gray-500 mt-1">{a.date}</div>
+            <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
+              {a.content}
+            </p>
+            <div className="text-xs text-gray-400 dark:text-gray-500 mt-2">
+              {a.date}
+            </div>
           </div>
         ))}
       </div>

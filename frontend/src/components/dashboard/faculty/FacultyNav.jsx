@@ -4,11 +4,10 @@ import {
   GraduationCap,
   Calendar,
   BarChart2,
-  BookOpen,
   ClipboardList,
   Briefcase,
   Users,
-} from "lucide-react"; 
+} from "lucide-react";
 
 export function FacultyNavTabs({ activeTab, onChange }) {
   const tabs = [
@@ -24,7 +23,7 @@ export function FacultyNavTabs({ activeTab, onChange }) {
 
   return (
     <nav
-      className="mt-6 bg-white rounded-xl shadow-sm p-4 flex overflow-x-auto gap-4 justify-between md:justify-evenly"
+      className="mt-6 bg-white dark:bg-neutral-900 rounded-xl shadow-sm p-4 flex overflow-x-auto gap-4 justify-between md:justify-evenly"
       role="tablist"
       aria-label="Faculty navigation tabs"
     >
@@ -38,11 +37,13 @@ export function FacultyNavTabs({ activeTab, onChange }) {
           id={`tab-${target}`}
           tabIndex={activeTab === target ? 0 : -1}
           aria-pressed={activeTab === target}
-          className={`flex flex-col items-center text-sm font-medium transition-colors duration-200 whitespace-nowrap ${
-            activeTab === target
-              ? "text-blue-600 border-b-2 border-blue-600"
-              : "text-gray-700 hover:text-blue-600"
-          }`}
+          title={label}
+          className={`flex flex-col items-center text-sm font-medium px-2 py-1 rounded-lg transition-all duration-200 whitespace-nowrap
+            ${
+              activeTab === target
+                ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900 border-b-2 border-blue-600 dark:border-blue-400"
+                : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-neutral-800"
+            }`}
         >
           <Icon className="w-5 h-5 mb-1" />
           {label}

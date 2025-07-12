@@ -7,7 +7,6 @@ import FacultyUpcomingEventsCard from "../../components/dashboard/faculty/Facult
 import FacultyScheduleCard from "../../components/dashboard/faculty/FacultyScheduleCard";
 import FacultyAnnouncementsCard from "../../components/dashboard/faculty/FacultyAnnouncementsCard";
 import FacultyMapDashboard from "../../components/dashboard/faculty/FacultyMapDashboard";
-import { TopNavigation } from "../../components/dashboard/TopNavigation";
 import FacultyMentoring from "../../components/dashboard/faculty/FacultyMentoring";
 import CourseSetup from "../../components/dashboard/faculty/course/CourseSetup";
 
@@ -15,16 +14,13 @@ export default function FacultyDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+      {/* Main Dashboard Content */}
       <div className="px-4 py-4 md:px-10 md:py-6">
-        <section id="top" className="min-h-[50vh] p-4 md:p-6 bg-gray-50">
-          <FacultyWelcomeBanner
-            facultyName="Dr. Lee"
-            facultyId="F102529"
-            nextClass={{ name: "Data Structures", time: "09:30 AM - 11:00 AM" }}
-          />
+        <section className="min-h-[50vh] p-4 md:p-6 bg-gray-50 dark:bg-gray-900 rounded-xl transition-colors duration-300">
+          <FacultyWelcomeBanner facultyName="Dr. Lee" facultyId="F102529" />
           <FacultyNavTabs activeTab={activeTab} onChange={setActiveTab} />
+
           <div className="p-4 sm:p-6 lg:p-8">
             {activeTab === "dashboard" && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
@@ -38,20 +34,10 @@ export default function FacultyDashboard() {
                 </div>
               </div>
             )}
-            {activeTab === "map" && (
-              <FacultyMapDashboard />
-            )}
 
-            {activeTab === "mentor" && (
-              <FacultyMentoring />
-            )}
-
-            {activeTab === "courses" && (
-              <CourseSetup />
-            )}
-
-
-        
+            {activeTab === "map" && <FacultyMapDashboard />}
+            {activeTab === "mentor" && <FacultyMentoring />}
+            {activeTab === "courses" && <CourseSetup />}
           </div>
         </section>
       </div>

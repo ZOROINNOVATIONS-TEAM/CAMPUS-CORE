@@ -14,18 +14,18 @@ const icons = {
 
 export default function DepartmentEvents() {
   return (
-    <div className="bg-white rounded-xl shadow border p-4">
-      <h3 className="font-semibold mb-4 text-base">Department Events</h3>
+    <div className="bg-white dark:bg-gray-900 rounded-xl shadow border dark:border-gray-700 p-4">
+      <h3 className="font-semibold mb-4 text-base text-gray-900 dark:text-white">Department Events</h3>
       <div className="space-y-4">
-        {events.map(e => {
+        {events.map((e) => {
           const Icon = icons[e.type] || Users;
           return (
             <div key={e.name} className="flex items-center gap-3">
               <Icon className="w-6 h-6 text-blue-500" />
               <div>
-                <div className="font-medium">{e.name}</div>
-                <div className="text-xs text-gray-500">{e.place}</div>
-                <div className="text-xs text-gray-400">{e.time}</div>
+                <div className="font-medium text-gray-800 dark:text-white">{e.name}</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">{e.place}</div>
+                <div className="text-xs text-gray-400 dark:text-gray-500">{e.time}</div>
               </div>
             </div>
           );

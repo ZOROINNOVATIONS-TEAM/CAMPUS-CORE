@@ -1,23 +1,50 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Plus } from "lucide-react";
 import CourseCard from "./CourseCard";
 import CourseForm from "./CourseForm";
 
+const STORAGE_KEY = "faculty_courses";
+
 const CourseSetup = () => {
-  const [courses, setCourses] = useState([]);
+  const [courses, setCourses] = useState(() => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
+
   const [showForm, setShowForm] = useState(false);
   const [editCourse, setEditCourse] = useState(null);
 
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(courses));
+  }, [courses]);
+
+  const closeForm = () => {
+    setShowForm(false);
+    setEditCourse(null);
+  };
+
   const handleAdd = (course) => {
+    // Ensure unique id
+    if (!course.id) {
+      course.id = Date.now();
+    }
     setCourses([...courses, course]);
+    closeForm();
   };
 
   const handleUpdate = (updated) => {
     setCourses(courses.map((c) => (c.id === updated.id ? updated : c)));
+    closeForm();
   };
 
   const handleDelete = (id) => {
-    setCourses(courses.filter((c) => c.id !== id));
+    if (window.confirm("Are you sure you want to delete this course?")) {
+      setCourses(courses.filter((c) => c.id !== id));
+    }
   };
 
   return (
@@ -29,33 +56,37 @@ const CourseSetup = () => {
             setEditCourse(null);
             setShowForm(true);
           }}
-          className="flex items-center gap-2 px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
+          className={`flex items-center gap-2 px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition ${
+            showForm ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          disabled={showForm}
         >
           <Plus size={18} />
           Add Course
         </button>
       </div>
 
-      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        {courses.map((course) => (
-          <CourseCard
-            key={course.id}
-            course={course}
-            onEdit={() => {
-              setEditCourse(course);
-              setShowForm(true);
-            }}
-            onDelete={() => handleDelete(course.id)}
-          />
-        ))}
-      </div>
+      {courses.length === 0 ? (
+        <p className="text-gray-500">No courses added yet.</p>
+      ) : (
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          {courses.map((course) => (
+            <CourseCard
+              key={course.id}
+              course={course}
+              onEdit={() => {
+                setEditCourse(course);
+                setShowForm(true);
+              }}
+              onDelete={() => handleDelete(course.id)}
+            />
+          ))}
+        </div>
+      )}
 
       {showForm && (
         <CourseForm
-          onClose={() => {
-            setShowForm(false);
-            setEditCourse(null);
-          }}
+          onClose={closeForm}
           onSubmit={editCourse ? handleUpdate : handleAdd}
           defaultValues={editCourse}
         />

@@ -14,8 +14,8 @@ const icons = {
 
 export default function TodaySchedule() {
   return (
-    <div className="bg-white rounded-xl shadow border p-4">
-      <h3 className="font-semibold mb-4 text-base">Today's Schedule</h3>
+    <div className="bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-200 dark:border-gray-700 p-4">
+      <h3 className="font-semibold mb-4 text-base text-gray-800 dark:text-white">Today's Schedule</h3>
       <div className="space-y-4">
         {schedule.map(s => {
           const Icon = icons[s.type] || CalendarCheck2;
@@ -23,11 +23,11 @@ export default function TodaySchedule() {
             <div key={s.subject} className="flex items-center gap-3">
               <Icon className="w-6 h-6 text-blue-500" />
               <div>
-                <div className="font-medium">{s.subject}</div>
-                <div className="text-xs text-gray-500">
-                  {s.place} {s.students && `- ${s.students} students`}
+                <div className="font-medium text-gray-800 dark:text-white">{s.subject}</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">
+                  {s.place} {s.students ? `- ${s.students} students` : ""}
                 </div>
-                <div className="text-xs text-gray-400">{s.time}</div>
+                <div className="text-xs text-gray-400 dark:text-gray-500">{s.time}</div>
               </div>
             </div>
           );
