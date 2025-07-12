@@ -32,28 +32,39 @@ const mockAnnouncements = [
 
 export function Announcements() {
   return (
-    <section className="bg-white rounded-xl p-4 shadow-sm">
+    <section className="bg-white dark:bg-gray-900 rounded-xl p-4 shadow-sm">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-sm font-semibold text-gray-800">Announcements</h2>
-        <a href="/announcements" className="text-blue-600 text-xs hover:underline">
+        <h2 className="text-sm font-semibold text-gray-800 dark:text-gray-100">Announcements</h2>
+        <a
+          href="/announcements"
+          className="text-blue-600 dark:text-blue-400 text-xs hover:underline"
+        >
           View All
         </a>
       </div>
 
       <div className="space-y-4">
         {mockAnnouncements.map(({ id, label, title, department, date, description }) => (
-          <div key={id} className="border-l-4 border-red-500 pl-4 space-y-1">
+          <div
+            key={id}
+            className="border-l-4 border-red-500 pl-4 space-y-1"
+          >
             {label && (
-              <span className="inline-block bg-red-200 text-red-700 px-2 py-0.5 rounded text-xs font-semibold">
+              <span className="inline-block bg-red-200 dark:bg-red-900 text-red-700 dark:text-red-300 px-2 py-0.5 rounded text-xs font-semibold">
                 {label}
               </span>
             )}
-            <h3 className="font-semibold text-gray-900">{title}</h3>
-            <p className="text-xs text-gray-500">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100">{title}</h3>
+            <p className="text-xs text-gray-500 dark:text-gray-400">
               {department} · {date}
             </p>
-            <p className="mt-1 text-gray-700 text-sm">{description}</p>
-            <a href="/announcements" className="text-blue-600 text-xs mt-1 inline-block hover:underline">
+            <p className="mt-1 text-gray-700 dark:text-gray-300 text-sm">
+              {description}
+            </p>
+            <a
+              href="/announcements"
+              className="text-blue-600 dark:text-blue-400 text-xs mt-1 inline-block hover:underline"
+            >
               Read More
             </a>
           </div>

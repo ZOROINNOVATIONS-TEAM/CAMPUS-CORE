@@ -1,4 +1,3 @@
-
 const announcements = [
   {
     title: "Building C Renovation",
@@ -21,27 +20,42 @@ const announcements = [
 ];
 
 const tagColor = {
-  Important: "bg-red-100 text-red-800",
-  "Action Required": "bg-yellow-100 text-yellow-800",
-  Information: "bg-green-100 text-green-800",
+  Important: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
+  "Action Required": "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300",
+  Information: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300",
 };
 
 export default function FacultyAnnouncementsCard() {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+    <div className="bg-white dark:bg-[#121212] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="font-semibold text-gray-800">Announcements</h2>
-        <a href="#" className="text-sm text-blue-600 hover:underline">View All</a>
+        <h2 className="font-semibold text-gray-800 dark:text-gray-100">Announcements</h2>
+        <a
+          href="#"
+          className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+        >
+          View All
+        </a>
       </div>
+
       <div className="flex flex-col gap-4">
         {announcements.map((a, idx) => (
-          <div key={idx} className="bg-gray-50 rounded-lg p-4 flex flex-col gap-1">
-            <div className="flex justify-between items-center">
-              <div className="font-medium text-gray-700">{a.title}</div>
-              <span className={`text-xs font-semibold px-2 py-1 rounded ${tagColor[a.tag]}`}>{a.tag}</span>
+          <div
+            key={idx}
+            className="bg-gray-50 dark:bg-[#1a1a1a] rounded-lg p-4 flex flex-col gap-1 border border-gray-100 dark:border-gray-800"
+          >
+            <div className="flex justify-between items-start">
+              <div className="font-medium text-gray-800 dark:text-gray-100">
+                {a.title}
+              </div>
+              <span
+                className={`text-xs font-semibold px-2 py-0.5 rounded-full ${tagColor[a.tag]}`}
+              >
+                {a.tag}
+              </span>
             </div>
-            <div className="text-xs text-gray-500">{a.content}</div>
-            <div className="text-xs text-gray-400 mt-1">{a.date}</div>
+            <div className="text-sm text-gray-600 dark:text-gray-300">{a.content}</div>
+            <div className="text-xs text-gray-400 dark:text-gray-500 mt-1">{a.date}</div>
           </div>
         ))}
       </div>

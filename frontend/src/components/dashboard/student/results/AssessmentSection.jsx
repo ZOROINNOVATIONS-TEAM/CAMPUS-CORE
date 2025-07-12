@@ -10,17 +10,26 @@ export default function AssessmentSection({ type, title, actionLabel }) {
   ];
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-      <div className="flex justify-between items-center mb-4">
+    <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
         <div>
-          <h3 className="font-semibold text-lg">{title}</h3>
-          <p className="text-xs text-gray-500">View your {type} results for the semester.</p>
+          <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{title}</h3>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            View your {type} results for the semester.
+          </p>
         </div>
         <div className="flex gap-2">
-          <button className="bg-blue-100 text-blue-600 font-medium px-3 py-1 rounded-md">{actionLabel}</button>
-          <button className="bg-gray-100 text-blue-600 font-medium px-3 py-1 rounded-md">View Detail</button>
+          <button className="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 font-medium px-3 py-1 rounded-md hover:bg-blue-200 dark:hover:bg-blue-800 transition">
+            {actionLabel}
+          </button>
+          <button className="bg-gray-100 dark:bg-gray-800 text-blue-600 dark:text-blue-300 font-medium px-3 py-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+            View Detail
+          </button>
         </div>
       </div>
+
+      {/* Result Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {results.map((res, idx) => (
           <SubjectResultCard key={idx} {...res} />

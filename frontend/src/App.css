@@ -12,3 +12,36 @@ body {
 .animate-slide-up {
   animation: slide-up 0.25s cubic-bezier(.25,1,.5,1) both;
 }
+
+/* Override background & text colors for dark mode */
+.dark .react-calendar {
+  background-color: #1f2937; /* Tailwind's gray-800 */
+  color: #f3f4f6; /* Tailwind's gray-100 */
+}
+
+.dark .react-calendar__navigation button {
+  color: #f3f4f6; /* Light text */
+}
+
+.dark .react-calendar__month-view__weekdays {
+  color: #9ca3af; /* Tailwind's gray-400 */
+}
+
+.dark .react-calendar__tile {
+  background-color: transparent;
+  color: #f3f4f6;
+}
+
+.dark .react-calendar__tile:enabled:hover {
+  background-color: #374151; /* Tailwind's gray-700 */
+}
+
+.dark .react-calendar__tile--active {
+  background-color: #7c3aed; /* Tailwind's violet-600 */
+  color: white;
+}
+
+.dark .react-calendar__tile--now {
+  background-color: #1e40af; /* Tailwind's blue-900 */
+  color: #93c5fd; /* Tailwind's blue-300 */
+}

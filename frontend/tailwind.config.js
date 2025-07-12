@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class', // ✅ this enables dark: classes
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -7,7 +8,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-       sans: ['Inter', 'sans-serif'], 
+        sans: ['Inter', 'sans-serif'],
       },
       animation: {
         'pulse': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',

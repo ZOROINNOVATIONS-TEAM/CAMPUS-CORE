@@ -30,7 +30,6 @@ export default function EventPage() {
   const [showModal, setShowModal] = useState(false);
   const [editEvent, setEditEvent] = useState(null);
 
-  // Add/Edit event
   function handleAddEvent(event) {
     if (editEvent) {
       setEvents(prev =>
@@ -43,30 +42,25 @@ export default function EventPage() {
     setShowModal(false);
   }
 
-  // Delete event
   function handleDeleteEvent(id) {
     setEvents(prev => prev.filter(e => e.id !== id));
   }
 
-  // Edit event (open modal)
   function handleEditEvent(event) {
     setEditEvent(event);
     setShowModal(true);
   }
 
-  // Filtered events for selected date + type
   const filteredEvents = events.filter(e =>
     (filter === "All" || e.type === filter) &&
     new Date(e.date).toDateString() === selectedDate.toDateString()
   );
 
-  // Upcoming events
   const upcomingEvents = events
     .filter(e => e.date >= new Date())
     .sort((a, b) => a.date - b.date)
     .slice(0, 5);
 
-  // Add event template for selected date/time (default time: 10:00 AM)
   function handleTemplateAdd(tpl) {
     const newDate = new Date(selectedDate);
     newDate.setHours(10, 0, 0, 0);
@@ -78,15 +72,18 @@ export default function EventPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-6 px-1 sm:px-4">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-6 px-1 sm:px-4">
       <div className="max-w-6xl mx-auto w-full">
         <div className="flex flex-col lg:flex-row gap-8 w-full">
           {/* Calendar Panel */}
-          <main className="flex-1 bg-white rounded-2xl shadow-lg p-6 min-w-0">
+          <main className="flex-1 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 min-w-0">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-2">
-              <h2 className="font-bold text-2xl tracking-tight">Event Calendar</h2>
-              <div className="font-semibold text-base sm:text-lg text-gray-500">Spring/Summer</div>
+              <h2 className="font-bold text-2xl tracking-tight dark:text-white">Event Calendar</h2>
+              <div className="font-semibold text-base sm:text-lg text-gray-500 dark:text-gray-300">
+                Spring/Summer
+              </div>
             </div>
+
             <Calendar
               onChange={setSelectedDate}
               value={selectedDate}
@@ -95,30 +92,38 @@ export default function EventPage() {
                   ? <div className="w-2 h-2 rounded-full bg-violet-500 mx-auto mt-1"></div>
                   : null
               }
-              className="w-full mb-4"
+              className="w-full mb-4 rounded-xl overflow-hidden"
             />
+
             <div className="flex flex-wrap items-center gap-3 mt-4 mb-2">
               {["Lecture", "Group Study", "Coaching", "All"].map(ft => (
-                <label key={ft} className="text-sm font-medium flex gap-1 items-center cursor-pointer">
+                <label
+                  key={ft}
+                  className="text-sm font-medium flex gap-1 items-center cursor-pointer dark:text-gray-300"
+                >
                   <input
                     type="radio"
                     checked={filter === ft}
                     onChange={() => setFilter(ft)}
                     className={`accent-${ft === "Lecture" ? "violet-600" : ft === "Group Study" ? "blue-500" : ft === "Coaching" ? "yellow-500" : "gray-400"}`}
                   />
-                  <span className={ft === filter ? "font-bold text-violet-600" : ""}>{ft}</span>
+                  <span className={ft === filter ? "font-bold text-violet-600 dark:text-violet-400" : ""}>
+                    {ft}
+                  </span>
                 </label>
               ))}
             </div>
+
             <EventList
               events={filteredEvents}
               onDelete={handleDeleteEvent}
               onEdit={handleEditEvent}
             />
           </main>
+
           {/* Sidebar */}
           <aside className="w-full lg:max-w-xs flex flex-col gap-5 mt-8 lg:mt-0">
-            <div className="bg-white rounded-2xl shadow-lg p-5">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-5">
               <button
                 className="w-full bg-violet-600 hover:bg-violet-700 text-white font-semibold py-2 rounded-xl mb-4 transition"
                 onClick={() => { setShowModal(true); setEditEvent(null); }}
@@ -127,8 +132,10 @@ export default function EventPage() {
               </button>
               <EventTemplates onSelect={handleTemplateAdd} />
             </div>
-            <div className="bg-white rounded-2xl shadow-lg p-5">
-              <h3 className="text-blue-700 font-semibold text-lg mb-2">Upcoming Events</h3>
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-5">
+              <h3 className="text-blue-700 dark:text-blue-400 font-semibold text-lg mb-2">
+                Upcoming Events
+              </h3>
               <EventList
                 events={upcomingEvents}
                 onDelete={handleDeleteEvent}
@@ -137,6 +144,7 @@ export default function EventPage() {
               />
             </div>
           </aside>
+
           {/* Modal */}
           {showModal && (
             <EventAddModal

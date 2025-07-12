@@ -30,7 +30,7 @@ export function TopNavigation() {
   function DropdownToggle() {
     const { isOpen } = useDropdownMenu();
     return (
-      <div className="flex items-center space-x-2 pr-3 pl-2 cursor-pointer rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none">
+      <div className="flex items-center space-x-2 pr-3 pl-2 cursor-pointer rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition">
         <Avatar>
           <AvatarFallback>
             {user?.name?.[0] || <User className="w-5 h-5 text-gray-600 dark:text-gray-200" />}
@@ -49,15 +49,18 @@ export function TopNavigation() {
   }
 
   return (
-    <header className="flex items-center justify-between px-4 py-2 bg-white dark:bg-gray-950 shadow-sm border-b border-gray-200 dark:border-gray-800">
+    <header className="flex items-center justify-between px-4 py-2 bg-white dark:bg-gray-950 shadow-sm border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+      {/* Logo */}
       <div className="flex items-center space-x-2">
         <img src="src/assets/logo.png" alt="Campus Core Logo" className="h-12 w-auto" />
       </div>
 
+      {/* Right Controls */}
       <div className="flex items-center gap-4 ml-auto">
+        {/* Search */}
         <div className="relative">
           {searchOpen ? (
-            <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 px-3 py-1.5 rounded-md w-64">
+            <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 px-3 py-1.5 rounded-md w-64 transition">
               <Search className="w-4 h-4 text-gray-500 dark:text-gray-300" />
               <Input
                 autoFocus
@@ -73,17 +76,20 @@ export function TopNavigation() {
           )}
         </div>
 
+        {/* Theme Toggle */}
         <ThemeToggle />
 
-        <div className="p-2 rounded-full hover:bg-gray-100 transition cursor-pointer">
+        {/* Notifications */}
+        <div className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition cursor-pointer">
           <Notification />
         </div>
 
+        {/* Profile Dropdown */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <DropdownToggle />
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-800 dark:text-gray-100 shadow-xl rounded-lg">
+          <DropdownMenuContent className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-800 dark:text-gray-100 shadow-xl rounded-lg transition-colors duration-300">
             <DropdownMenuItem className="hover:bg-gray-100 dark:hover:bg-gray-800">
               <User className="w-4 h-4 mr-2" /> Profile
             </DropdownMenuItem>

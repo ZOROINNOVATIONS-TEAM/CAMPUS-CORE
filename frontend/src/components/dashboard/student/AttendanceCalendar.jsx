@@ -32,17 +32,19 @@ export function AttendanceCalendar() {
   };
 
   return (
-    <div className="bg-white p-4 rounded-xl shadow-sm mt-6">
-      <h3 className="text-md font-semibold mb-2 text-gray-800">
+    <div className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 p-4 rounded-xl shadow-sm mt-6">
+      <h3 className="text-md font-semibold mb-2 text-gray-800 dark:text-gray-100">
         Attendance Calendar
       </h3>
+
       <Calendar
         onChange={setDate}
         value={date}
         tileContent={tileContent}
-        className="border-0 w-full"
+        className="border-0 w-full dark:bg-gray-800 dark:text-white rounded-md"
       />
-      <div className="flex justify-center gap-4 mt-4 text-sm text-gray-600">
+
+      <div className="flex justify-center gap-4 mt-4 text-sm text-gray-600 dark:text-gray-300">
         <span className="flex items-center gap-1">
           <CheckCircle className="w-4 h-4 text-green-500" /> Present
         </span>

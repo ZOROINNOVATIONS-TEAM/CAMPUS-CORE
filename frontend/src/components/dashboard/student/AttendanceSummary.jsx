@@ -15,24 +15,24 @@ export function AttendanceSummary() {
       label: "Present",
       value: "85%",
       icon: <Check className="w-4 h-4 text-white" aria-hidden="true" />,
-      bg: "bg-blue-100",
-      text: "text-blue-700",
+      bg: "bg-blue-100 dark:bg-blue-900/30",
+      text: "text-blue-700 dark:text-blue-300",
       circle: "bg-blue-500",
     },
     {
       label: "Late",
       value: "10%",
       icon: <AlertTriangle className="w-4 h-4 text-white" aria-hidden="true" />,
-      bg: "bg-yellow-100",
-      text: "text-yellow-700",
+      bg: "bg-yellow-100 dark:bg-yellow-900/30",
+      text: "text-yellow-700 dark:text-yellow-300",
       circle: "bg-yellow-500",
     },
     {
       label: "Absent",
       value: "5%",
       icon: <XCircle className="w-4 h-4 text-white" aria-hidden="true" />,
-      bg: "bg-red-100",
-      text: "text-red-700",
+      bg: "bg-red-100 dark:bg-red-900/30",
+      text: "text-red-700 dark:text-red-300",
       circle: "bg-red-500",
     },
   ];
@@ -48,25 +48,20 @@ export function AttendanceSummary() {
     { week: "Week 8", Present: 90, Late: 5, Absent: 5 },
   ];
 
-
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div
-          className="bg-white shadow-md rounded-md p-2 text-xs border border-gray-200"
-          role="tooltip"
-          aria-live="polite"
-        >
-          <p className="font-semibold">{label}</p>
+        <div className="bg-white dark:bg-gray-800 shadow-md rounded-md p-2 text-xs border border-gray-200 dark:border-gray-600">
+          <p className="font-semibold dark:text-white">{label}</p>
           {payload.map((entry) => (
             <p
               key={entry.dataKey}
               className={`text-sm ${
                 entry.dataKey === "Present"
-                  ? "text-blue-600"
+                  ? "text-blue-600 dark:text-blue-300"
                   : entry.dataKey === "Late"
-                  ? "text-yellow-600"
-                  : "text-red-600"
+                  ? "text-yellow-600 dark:text-yellow-300"
+                  : "text-red-600 dark:text-red-300"
               }`}
             >
               {entry.dataKey}: {entry.value}%
@@ -75,25 +70,23 @@ export function AttendanceSummary() {
         </div>
       );
     }
-
     return null;
   };
 
   return (
     <div className="w-full max-w-5xl mx-auto p-4 md:p-6 lg:p-8">
-  
       <section
         id="attendance"
         aria-label="Attendance summary and weekly attendance chart"
-        className="bg-white rounded-xl shadow-md p-6 md:p-8"
+        className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6 md:p-8"
       >
         <div className="flex flex-col sm:flex-row items-center justify-between mb-4 gap-4">
-          <h2 className="text-lg md:text-xl font-semibold text-gray-800">
+          <h2 className="text-lg md:text-xl font-semibold text-gray-800 dark:text-white">
             Attendance Summary
           </h2>
           <Link
             to="/attendance"
-            className="text-sm md:text-base text-blue-600 hover:underline"
+            className="text-sm md:text-base text-blue-600 dark:text-blue-400 hover:underline"
             aria-label="View detailed attendance report"
           >
             View Details
@@ -101,26 +94,26 @@ export function AttendanceSummary() {
         </div>
 
         {/* Summary Cards */}
-<div className="flex flex-nowrap gap-4 overflow-x-auto mb-6">
-  {summary.map((item) => (
-    <div
-      key={item.label}
-      className={`rounded-xl p-4 flex flex-col items-center text-center shadow-sm ${item.bg} ${item.text}`}
-      style={{ flex: '0 0 30%', minWidth: '180px' }}
-      aria-label={`${item.label} attendance percentage: ${item.value}`}
-      role="region"
-    >
-      <div
-        className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${item.circle}`}
-        aria-hidden="true"
-      >
-        {item.icon}
-      </div>
-      <p className="text-2xl font-semibold">{item.value}</p>
-      <p className="text-sm font-medium">{item.label}</p>
-    </div>
-  ))}
-</div>
+        <div className="flex flex-nowrap gap-4 overflow-x-auto mb-6">
+          {summary.map((item) => (
+            <div
+              key={item.label}
+              className={`rounded-xl p-4 flex flex-col items-center text-center shadow-sm ${item.bg} ${item.text}`}
+              style={{ flex: "0 0 30%", minWidth: "180px" }}
+              aria-label={`${item.label} attendance percentage: ${item.value}`}
+              role="region"
+            >
+              <div
+                className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${item.circle}`}
+                aria-hidden="true"
+              >
+                {item.icon}
+              </div>
+              <p className="text-2xl font-semibold">{item.value}</p>
+              <p className="text-sm font-medium">{item.label}</p>
+            </div>
+          ))}
+        </div>
 
         {/* Bar Chart */}
         <div className="h-56 md:h-64 w-full">
@@ -153,25 +146,16 @@ export function AttendanceSummary() {
 
         {/* Custom Legend */}
         <div className="flex justify-center mt-4 gap-6 text-sm select-none">
-          <div className="flex items-center gap-2 text-blue-600">
-            <span
-              className="w-4 h-4 rounded-full bg-blue-500 inline-block"
-              aria-hidden="true"
-            />
+          <div className="flex items-center gap-2 text-blue-600 dark:text-blue-300">
+            <span className="w-4 h-4 rounded-full bg-blue-500 inline-block" />
             Present
           </div>
-          <div className="flex items-center gap-2 text-yellow-600">
-            <span
-              className="w-4 h-4 rounded-full bg-yellow-500 inline-block"
-              aria-hidden="true"
-            />
+          <div className="flex items-center gap-2 text-yellow-600 dark:text-yellow-300">
+            <span className="w-4 h-4 rounded-full bg-yellow-500 inline-block" />
             Late
           </div>
-          <div className="flex items-center gap-2 text-red-600">
-            <span
-              className="w-4 h-4 rounded-full bg-red-500 inline-block"
-              aria-hidden="true"
-            />
+          <div className="flex items-center gap-2 text-red-600 dark:text-red-300">
+            <span className="w-4 h-4 rounded-full bg-red-500 inline-block" />
             Absent
           </div>
         </div>

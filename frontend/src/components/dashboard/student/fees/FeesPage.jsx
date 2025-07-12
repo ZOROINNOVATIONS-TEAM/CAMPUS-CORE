@@ -6,15 +6,17 @@ import HelpSupport from "./HelpSupport";
 
 export default function FeesPage() {
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-      <div className="flex flex-col gap-8 xl:col-span-2 w-full">
-        <FeesOverview />
-        <PaymentHistory />
-        <UpcomingDues />
-      </div>
-      <div className="flex flex-col gap-8 w-full xl:w-auto">
-        <QuickPay />
-        <HelpSupport />
+    <div className="bg-gray-50 dark:bg-gray-950 min-h-screen p-6 xl:p-10">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+        <div className="flex flex-col gap-8 xl:col-span-2 w-full">
+          <FeesOverview />
+          <PaymentHistory />
+          <UpcomingDues />
+        </div>
+        <div className="flex flex-col gap-8 w-full xl:w-auto">
+          <QuickPay />
+          <HelpSupport />
+        </div>
       </div>
     </div>
   );
