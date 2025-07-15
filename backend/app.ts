@@ -11,6 +11,7 @@ import admin_create_user from '#routes/admin/create_user.ts';
 import admin_course from '#routes/admin/course.ts';
 import student_course from '#routes/student/course.ts';
 import faculty_attendance from '#routes/faculty/attendance.ts';
+import analyticsRoutes from './routes/analytics';
 
 import * as db from '#lib/db.ts';
 import * as auth from '#lib/auth.ts';
@@ -42,6 +43,7 @@ app.use('/api/v1', login);
 app.use('/api/v1', user_info);
 app.use('/api/v1', admin_only, admin_create_user);
 app.use('/api/v1', admin_only, admin_course);
+app.use('/api/analytics', analyticsRoutes); 
 app.use('/api/v1/', admin_roles);  // admin only written in routes/admin/roles.ts
 
 app.use((req, res) => {
