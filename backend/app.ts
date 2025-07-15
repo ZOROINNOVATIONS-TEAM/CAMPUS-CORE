@@ -49,14 +49,14 @@ app.use((req, res) => {
 });
 
 // MongoDB Connection string
-mongoose.connect(process.env.MONGODB_URL as string)
-  .then(() => {
-    console.log('Connected to MongoDB');
-  })
-  .catch((err) => {
-    console.error('Failed to connect to MongoDB:', err);
-    process.exit(1); 
-  });
+// mongoose.connect(process.env.MONGODB_URL as string)
+//   .then(() => {
+//     console.log('Connected to MongoDB');
+//   })
+//   .catch((err) => {
+//     console.error('Failed to connect to MongoDB:', err);
+//     process.exit(1); 
+//   });
 
 
 
