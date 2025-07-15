@@ -1,6 +1,13 @@
 import { Card, CardHeader, CardContent } from "../../ui/card";
 import {
-  LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Area, ReferenceLine,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Area,
+  ReferenceLine,
 } from "recharts";
 
 const chartData = [
@@ -19,29 +26,68 @@ export function TotalUsersCard({
   facultyChange = "+5.2%",
 }) {
   return (
-    <Card className="w-full h-full min-w-[220px] max-w-full flex flex-col justify-between">
+    <Card className="w-full h-full min-w-[220px] max-w-full flex flex-col justify-between bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
       <CardHeader className="pb-3 pt-5 px-4 sm:px-6">
-        <span className="text-base font-semibold text-gray-900">Total Users</span>
+        <span className="text-base font-semibold text-gray-900 dark:text-gray-100">
+          Total Users
+        </span>
       </CardHeader>
       <CardContent className="pt-0 pb-5 px-3 sm:px-6 flex flex-col h-full">
         <div className="flex flex-col gap-3 sm:flex-row sm:gap-4 mb-3 w-full">
-          <div className="flex-1 bg-blue-50 rounded-lg px-4 py-3 flex flex-col items-start justify-center min-w-[130px]">
-            <div className="text-xs sm:text-sm font-medium text-gray-700">Students</div>
-            <div className="text-xl sm:text-3xl font-bold text-gray-900">{students.toLocaleString()}</div>
-            <div className="text-xs font-medium text-green-600">{studentChange} <span className="text-gray-500">from last month</span></div>
+          <div className="flex-1 bg-blue-50 dark:bg-blue-950 rounded-lg px-4 py-3 flex flex-col items-start justify-center min-w-[130px]">
+            <div className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
+              Students
+            </div>
+            <div className="text-xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+              {students.toLocaleString()}
+            </div>
+            <div className="text-xs font-medium text-green-600">
+              {studentChange}{" "}
+              <span className="text-gray-500 dark:text-gray-400">
+                from last month
+              </span>
+            </div>
           </div>
-          <div className="flex-1 bg-purple-50 rounded-lg px-4 py-3 flex flex-col items-start justify-center min-w-[130px]">
-            <div className="text-xs sm:text-sm font-medium text-gray-700">Faculty</div>
-            <div className="text-xl sm:text-3xl font-bold text-gray-900">{faculty}</div>
-            <div className="text-xs font-medium text-green-600">{facultyChange} <span className="text-gray-500">from last month</span></div>
+          <div className="flex-1 bg-purple-50 dark:bg-purple-950 rounded-lg px-4 py-3 flex flex-col items-start justify-center min-w-[130px]">
+            <div className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
+              Faculty
+            </div>
+            <div className="text-xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+              {faculty}
+            </div>
+            <div className="text-xs font-medium text-green-600">
+              {facultyChange}{" "}
+              <span className="text-gray-500 dark:text-gray-400">
+                from last month
+              </span>
+            </div>
           </div>
         </div>
         <div className="h-[110px] sm:h-[140px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={chartData} margin={{ left: 0, right: 0, top: 8, bottom: 0 }}>
-              <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: "#9ca3af" }} />
+            <LineChart
+              data={chartData}
+              margin={{ left: 0, right: 0, top: 8, bottom: 0 }}
+            >
+              <XAxis
+                dataKey="month"
+                axisLine={false}
+                tickLine={false}
+                tick={{
+                  fontSize: 11,
+                  fill: "#9ca3af",
+                }}
+              />
               <YAxis hide domain={["auto", "auto"]} />
-              <Tooltip contentStyle={{ fontSize: 12, borderRadius: 8 }} />
+              <Tooltip
+                contentStyle={{
+                  fontSize: 12,
+                  borderRadius: 8,
+                  backgroundColor: "#fff",
+                  color: "#111",
+                }}
+                labelStyle={{ color: "#374151" }}
+              />
               <Area
                 type="monotone"
                 dataKey="students"
@@ -61,7 +107,12 @@ export function TotalUsersCard({
                 dataKey="students"
                 stroke="#2563eb"
                 strokeWidth={2.5}
-                dot={{ r: 3, fill: "#fff", stroke: "#2563eb", strokeWidth: 2 }}
+                dot={{
+                  r: 3,
+                  fill: "#fff",
+                  stroke: "#2563eb",
+                  strokeWidth: 2,
+                }}
                 activeDot={{ r: 4 }}
               />
               <Line
@@ -69,10 +120,19 @@ export function TotalUsersCard({
                 dataKey="faculty"
                 stroke="#a78bfa"
                 strokeWidth={2.2}
-                dot={{ r: 2.5, fill: "#fff", stroke: "#a78bfa", strokeWidth: 2 }}
+                dot={{
+                  r: 2.5,
+                  fill: "#fff",
+                  stroke: "#a78bfa",
+                  strokeWidth: 2,
+                }}
                 activeDot={{ r: 3 }}
               />
-              <ReferenceLine x="May" stroke="#a3a3a3" strokeDasharray="2 4" />
+              <ReferenceLine
+                x="May"
+                stroke="#a3a3a3"
+                strokeDasharray="2 4"
+              />
             </LineChart>
           </ResponsiveContainer>
         </div>

@@ -9,7 +9,6 @@ const ICONS = {
   user: <User className="w-4 h-4 text-gray-400" />,
 };
 
-// Mock activity data
 const activity = [
   { type: "login", user: "Dev Sharma", detail: "Logged in", time: "1 min ago" },
   { type: "update", user: "Priya K.", detail: "Updated course details", time: "5 mins ago" },
@@ -22,22 +21,31 @@ export default function RecentActivityList() {
   return (
     <Card className="w-full h-full">
       <CardHeader>
-        <h3 className="text-md font-semibold text-gray-800 flex items-center gap-2">
+        <h3 className="text-md font-semibold text-gray-800 dark:text-gray-100 flex items-center gap-2">
           Recent Activity
         </h3>
       </CardHeader>
       <CardContent className="flex-1 max-h-64 overflow-y-auto px-0">
-        <ul className="flex flex-col divide-y divide-gray-100">
+        <ul className="flex flex-col divide-y divide-gray-100 dark:divide-gray-800">
           {activity.map((item, idx) => (
-            <li key={idx} className="flex items-center gap-3 px-4 py-3">
-              <div className="flex items-center justify-center rounded-full bg-gray-100 w-9 h-9">
+            <li
+              key={idx}
+              className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
+            >
+              <div className="flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 w-9 h-9">
                 {ICONS[item.type] || ICONS.user}
               </div>
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-medium text-gray-800 truncate">{item.user}</div>
-                <div className="text-xs text-gray-500 truncate">{item.detail}</div>
+                <p className="text-sm font-medium text-gray-800 dark:text-gray-100 truncate">
+                  {item.user}
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                  {item.detail}
+                </p>
               </div>
-              <span className="text-xs text-gray-400 min-w-fit">{item.time}</span>
+              <span className="text-xs text-gray-400 dark:text-gray-500 min-w-fit">
+                {item.time}
+              </span>
             </li>
           ))}
         </ul>

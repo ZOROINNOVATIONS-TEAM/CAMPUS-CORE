@@ -11,9 +11,9 @@ const departments = [
 
 export default function ActiveDepartmentsStats() {
   return (
-    <Card className="w-full h-full">
+    <Card className="w-full h-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl">
       <CardHeader>
-        <h3 className="text-md font-semibold text-gray-800 flex items-center gap-2">
+        <h3 className="text-md font-semibold text-gray-800 dark:text-white flex items-center gap-2">
           <Building2 className="w-5 h-5 text-blue-600" />
           Active Departments
         </h3>
@@ -22,8 +22,12 @@ export default function ActiveDepartmentsStats() {
         <div className="flex flex-col gap-4">
           {departments.map((d, i) => (
             <div key={i} className="flex items-center justify-between">
-              <span className="text-sm font-medium text-gray-700">{d.name}</span>
-              <span className="text-base font-bold text-gray-900">{d.count}</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                {d.name}
+              </span>
+              <span className="text-base font-bold text-gray-900 dark:text-white">
+                {d.count}
+              </span>
             </div>
           ))}
         </div>
