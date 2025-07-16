@@ -9,15 +9,25 @@ import FacultyAnnouncementsCard from "../../components/dashboard/faculty/Faculty
 import FacultyMapDashboard from "../../components/dashboard/faculty/FacultyMapDashboard";
 import FacultyMentoring from "../../components/dashboard/faculty/FacultyMentoring";
 import CourseSetup from "../../components/dashboard/faculty/course/CourseSetup";
+import AttendanceMarkingPage from "../../components/dashboard/faculty/FacultyAttendanceMarking";
+import AttendanceDetailsModal from "../../components/dashboard/faculty/AttendanceDetailsModal";
 
 export default function FacultyDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [detailData, setDetailData] = useState(null);
+
+  const handleViewDetails = (data) => {
+    setDetailData(data);
+    setIsModalOpen(true);
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
       {/* Main Dashboard Content */}
       <div className="px-4 py-4 md:px-10 md:py-6">
-        <section className="min-h-[50vh] p-4 md:p-6 bg-gray-50 dark:bg-gray-900 rounded-xl transition-colors duration-300">
+        <section className="min-h-[50vh] p-4 md:p-6 rounded-xl transition-colors duration-300">
           <FacultyWelcomeBanner facultyName="Dr. Lee" facultyId="F102529" />
           <FacultyNavTabs activeTab={activeTab} onChange={setActiveTab} />
 
@@ -25,7 +35,7 @@ export default function FacultyDashboard() {
             {activeTab === "dashboard" && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
                 <div className="space-y-6 md:col-span-2">
-                  <FacultyAttendanceCard />
+                  <FacultyAttendanceCard onViewDetails={handleViewDetails} />
                   <FacultyScheduleCard />
                 </div>
                 <div className="space-y-6">
@@ -38,9 +48,17 @@ export default function FacultyDashboard() {
             {activeTab === "map" && <FacultyMapDashboard />}
             {activeTab === "mentor" && <FacultyMentoring />}
             {activeTab === "courses" && <CourseSetup />}
+            {activeTab === "attendance" && <AttendanceMarkingPage />}
           </div>
         </section>
       </div>
+      {detailData && (
+        <AttendanceDetailsModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          detailData={detailData}
+        />
+      )}
     </div>
   );
 }

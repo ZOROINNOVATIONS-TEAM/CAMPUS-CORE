@@ -3,9 +3,9 @@ import {
   Home,
   GraduationCap,
   Calendar,
-  BarChart2,
   ClipboardList,
   Briefcase,
+  CheckSquare,
   Users,
 } from "lucide-react";
 
@@ -14,7 +14,7 @@ export function FacultyNavTabs({ activeTab, onChange }) {
     { label: "Dashboard", icon: Home, target: "dashboard" },
     { label: "Exam", icon: GraduationCap, target: "exam" },
     { label: "Course Setup", icon: Calendar, target: "courses" },
-    { label: "Grading", icon: BarChart2, target: "grading" },
+    { label: "Attendance", icon: CheckSquare, target: "attendance" },
     { label: "Assignment", icon: ClipboardList, target: "assignment" },
     { label: "Map", icon: MapIcon, target: "map" },
     { label: "Duties", icon: Briefcase, target: "duties" },
