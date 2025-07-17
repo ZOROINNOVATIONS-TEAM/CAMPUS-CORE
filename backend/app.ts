@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 
 import { faculty_only, admin_only, student_only } from '#lib/middlewares.ts';
-import admin_roles from '#routes/admin/roles.ts';
+import admin_roles from './routes/admin/roles.ts';
 import login from '#routes/login.ts';
 import user_info from '#routes/user_info.ts';
 import admin_create_user from '#routes/admin/create_user.ts';
@@ -12,7 +12,7 @@ import admin_course from '#routes/admin/course.ts';
 import student_course from '#routes/student/course.ts';
 import faculty_attendance from '#routes/faculty/attendance.ts';
 import analyticsRoutes from './routes/analytics';
-
+import  fallbackHandler  from './lib/fallback.ts';
 import * as db from '#lib/db.ts';
 import * as auth from '#lib/auth.ts';
 
@@ -43,22 +43,23 @@ app.use('/api/v1', login);
 app.use('/api/v1', user_info);
 app.use('/api/v1', admin_only, admin_create_user);
 app.use('/api/v1', admin_only, admin_course);
-app.use('/api/analytics', analyticsRoutes); 
-app.use('/api/v1/', admin_roles);  // admin only written in routes/admin/roles.ts
+app.use('/api/analytics', analyticsRoutes);
+app.use('/api/v1/admin/roles', admin_only, admin_roles); 
+app.use(fallbackHandler);  // no need to use a separate fallback handler file using fallbackHandler directly
 
-app.use((req, res) => {
-  res.status(404).json({ error: 'Route not found', path: req.originalUrl });
-});
+// app.use((req, res) => {
+//   res.status(404).json({ error: 'Route not found', path: req.originalUrl });
+// });
 
 // MongoDB Connection string
-// mongoose.connect(process.env.MONGODB_URL as string)
-//   .then(() => {
-//     console.log('Connected to MongoDB');
-//   })
-//   .catch((err) => {
-//     console.error('Failed to connect to MongoDB:', err);
-//     process.exit(1); 
-//   });
+mongoose.connect(process.env.MONGODB_URL as string)
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch((err) => {
+    console.error('Failed to connect to MongoDB:', err);
+    process.exit(1); 
+  });
 
 
 
@@ -67,5 +68,3 @@ app.listen(process.env.PORT, () => {
 })
 
 
-//"@types/node": "^24.0.12",
-// "tsx": "^4.20.3",
