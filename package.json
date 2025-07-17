@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "express": "^5.1.0",
+    "exprss": "^0.0.1-security"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3"
+  }
+}
