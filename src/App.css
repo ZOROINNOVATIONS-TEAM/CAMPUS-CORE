@@ -5,6 +5,19 @@
   text-align: center;
 }
 
+:root {
+  --bg-primary: #ffffff;  /* Light background */
+  --text-primary: #000000; /* Light text */
+  --accent-color: #007bff; /* Example accent */
+}
+
+.dark {
+  --bg-primary: #1f2937;  /* Dark background */
+  --text-primary: #ffffff; /* Dark text */
+  --accent-color: #3b82f6; /* Adjusted accent for dark mode */
+}
+
+
 .logo {
   height: 6em;
   padding: 1.5em;

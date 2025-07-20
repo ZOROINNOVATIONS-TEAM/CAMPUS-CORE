@@ -1,28 +1,45 @@
-import React from 'react';
+// src/pages/admin/AdminDashboard.jsx
+import React from "react";
+import {
+  AdminTopBar,
+  AdminBannerAndTabs,
+} from "@/components/dashboard/admin/AdminHeader";
+
+import TotalUsersCard from "@/components/dashboard/admin/TotalUsersCard";
+import UpcomingEventsCard from "@/components/dashboard/admin/UpcomingEventsCard";
+import SystemNotificationsCard from "@/components/dashboard/admin/SystemNotificationsCard";
+import QuizReportsCard from "@/components/dashboard/admin/QuizReportsCard";
+import AnnouncementsCard from "@/components/dashboard/faculty/AnnouncementsPanel";
+import UserManagementCard from "@/components/dashboard/admin/UserManagementCard";
 
 const AdminDashboard = () => {
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6">Admin Dashboard</h1>
-        <p className="text-lg text-gray-600 mb-4">
-          Welcome to the Admin Dashboard!
-        </p>
-        <p className="text-gray-600 mb-6">
-          Here you can manage users, courses, and settings.
-        </p>
-        <div className="flex space-x-4">
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-            Manage Users
-          </button>
-          <button className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
-            Manage Courses
-          </button>
-          <button className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700">
-            Settings
-          </button>
+    <div className="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-200">
+      {/* Sticky Top Nav */}
+      <AdminTopBar />
+
+      {/* Welcome Banner and Tabs (scrolls with page) */}
+      <AdminBannerAndTabs />
+
+      {/* Dashboard Grid Content */}
+      <main className="max-w-6xl mx-auto px-4 pb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-7 mt-6">
+          <TotalUsersCard />
+          <UpcomingEventsCard />
+          <SystemNotificationsCard />
+          <QuizReportsCard />
+          <AnnouncementsCard />
+          <UserManagementCard />
         </div>
-      </div>
+      </main>
     </div>
   );
 };

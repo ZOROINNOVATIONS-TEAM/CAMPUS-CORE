@@ -1,24 +1,31 @@
+// src/pages/auth/Home.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserGraduate, faChalkboardTeacher } from '@fortawesome/free-solid-svg-icons';
+import {
+  faUserGraduate,
+  faUserTie,
+  faChalkboardTeacher,
+  faClock,
+  faMapMarkerAlt
+} from '@fortawesome/free-solid-svg-icons';
 import { faGoogle, faMicrosoft, faApple } from '@fortawesome/free-brands-svg-icons';
-import { useAuth } from '/src/hooks/useAuth.jsx';
+import { useAuth } from "../../hooks/useAuth";
 
 const Home = () => {
-  const { login, logout, user } = useAuth();
+  const { login } = useAuth();
   const [role, setRole] = useState("student");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
   const roles = [
     { id: "student", icon: faUserGraduate, label: "Student" },
-    { id: "faculty", icon: faChalkboardTeacher, label: "Faculty" },
+    { id: "faculty", icon: faUserTie, label: "Faculty" },
   ];
 
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!email.trim() || !password.trim()) {
       alert("Please fill in both email and password.");
@@ -26,15 +33,15 @@ const Home = () => {
     }
 
     console.log("Login attempt with:", { email, password, role });
-    login( email, role );
+    login(email, role);
 
+    // Navigate based on role
     if (role === "student") {
       navigate("/dashboard");
     } else if (role === "faculty") {
       navigate("/facultydashboard");
     }
   };
-
 
   return (
     <div className="min-h-screen flex">
@@ -142,10 +149,7 @@ const Home = () => {
                   Remember me
                 </label>
               </div>
-              <a
-                href="/forgot-password"
-                className="text-sm text-blue-600 hover:text-blue-500"
-              >
+              <a href="/forgot-password" className="text-sm text-blue-600 hover:text-blue-500">
                 Forgot password?
               </a>
             </div>

@@ -1,7 +1,8 @@
+// src/components/dashboard/student/Announcements.jsx (or wherever it's located)
 import React from "react";
 import { motion } from "framer-motion";
 
-export function Announcements({ isDark }) {
+export function Announcements() {
   const announcements = [
     {
       id: 1,
@@ -31,22 +32,22 @@ export function Announcements({ isDark }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
-      className={`bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg shadow-lg rounded-xl p-6 border border-white/20 dark:border-gray-700/20`}
+      className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-lg shadow-lg rounded-xl p-6 border border-white/20 dark:border-gray-700/20"
     >
-      <h2 className="text-xl font-semibold mb-4">Announcements</h2>
+      <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-200">Announcements</h2>
       <div className="space-y-4">
         {announcements.map((announcement) => (
           <motion.div
             key={announcement.id}
             whileHover={{ scale: 1.02 }}
-            className="p-4 border-l-4 border-blue-600 bg-gray-100/70 dark:bg-gray-700/70 rounded-lg transition"
+            className="p-4 border-l-4 border-blue-600 bg-gray-100/70 dark:bg-gray-800/70 rounded-lg transition hover:bg-gray-200/70 dark:hover:bg-gray-700/70"
           >
-            <h3 className="font-bold">{announcement.title}</h3>
-            <p className="text-gray-700 dark:text-gray-300 mt-1">{announcement.content}</p>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+            <h3 className="font-bold text-gray-900 dark:text-gray-200">{announcement.title}</h3>
+            <p className="text-gray-700 dark:text-gray-400 mt-1">{announcement.content}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
               {announcement.author} • {announcement.date}
             </p>
-            <p className="mt-2 text-blue-600 dark:text-blue-400 cursor-pointer hover:underline">
+            <p className="mt-2 text-blue-600 dark:text-blue-300 cursor-pointer hover:underline">
               Read More
             </p>
           </motion.div>

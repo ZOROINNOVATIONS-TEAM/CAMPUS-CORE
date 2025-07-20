@@ -4,7 +4,7 @@ import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-export function AttendanceSummary({ isDark }) {
+export function AttendanceSummary() {
   const attendance = [
     { status: "Present", percent: 85, color: "rgb(16, 185, 129)" },
     { status: "Late", percent: 10, color: "rgb(234, 179, 8)" },
@@ -20,7 +20,7 @@ export function AttendanceSummary({ isDark }) {
       {
         label: "Attendance",
         data: weekData,
-        backgroundColor: isDark ? "rgba(99, 102, 241, 0.7)" : "rgba(59, 130, 246, 0.7)",
+        backgroundColor: "rgba(59, 130, 246, 0.7)", // Base color, adjust if needed for dark mode via props
       },
     ],
   };
@@ -30,18 +30,18 @@ export function AttendanceSummary({ isDark }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg shadow-lg rounded-xl p-6 border border-white/20 dark:border-gray-700/20`}
+      className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-lg shadow-lg rounded-xl p-6 border border-white/20 dark:border-gray-700/20"
     >
-      <h2 className="text-xl font-semibold mb-4">Attendance Summary</h2>
+      <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-200">Attendance Summary</h2>
       <div className="flex justify-between mb-6">
         {attendance.map(({ status, percent }) => (
           <div key={status} className="text-center">
-            <p className="text-2xl font-bold">{percent}%</p>
-            <p className="text-gray-600 dark:text-gray-300">{status}</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-gray-200">{percent}%</p>
+            <p className="text-gray-600 dark:text-gray-400">{status}</p>
           </div>
         ))}
       </div>
-      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-6 overflow-hidden flex">
+      <div className="w-full bg-gray-200 dark:bg-gray-800 rounded-full h-6 overflow-hidden flex">
         {attendance.map(({ percent, color }) => (
           <motion.div
             key={color}

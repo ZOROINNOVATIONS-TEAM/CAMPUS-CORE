@@ -16,6 +16,14 @@ const EventCalendar = ({ selectedType, setSelectedType }) => (
       <label>
         <input
           type="checkbox"
+          checked={selectedType === "Meeting"}
+          onChange={() => setSelectedType("Meeting")}
+        />
+        <span className="ml-2 text-purple-600">Meeting</span>
+      </label>
+      <label>
+        <input
+          type="checkbox"
           checked={selectedType === "Lecture"}
           onChange={() => setSelectedType("Lecture")}
         />
@@ -37,6 +45,7 @@ const EventCalendar = ({ selectedType, setSelectedType }) => (
         />
         <span className="ml-2 text-purple-600">Coaching</span>
       </label>
+      
     </div>
   </div>
 );
