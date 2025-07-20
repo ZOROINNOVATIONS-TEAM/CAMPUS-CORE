@@ -1,9 +1,17 @@
-import mongoose from 'mongoose';
-import * as auth from './auth';
 
-(async () => {
-  await mongoose.connect(process.env.MONGODB_URL!);
-})();
+import * as auth from './auth';
+import mongoose from 'mongoose';
+
+export const connectToDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URL!);
+    console.log("Connected to MongoDB Atlas");
+  } catch (error) {
+    console.error(" Failed to connect to MongoDB:", error);
+    process.exit(1);
+  }
+};
+
 
 export interface User {
   _id?: string;
