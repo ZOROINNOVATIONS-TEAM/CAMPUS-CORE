@@ -144,3 +144,4 @@ node_modules/
 # Ignore dist/build folders (if any)
 dist/
 build/
+.env

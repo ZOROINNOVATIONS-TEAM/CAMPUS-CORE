@@ -1,8 +1,8 @@
 import express from 'express';
 import { z } from 'zod';
 
-import * as db from '#lib/db.ts';
-import * as auth from '#lib/auth.ts';
+import * as db from '#lib/db';
+import * as auth from '#lib/auth';
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ const create_user_schema = z.object({
   type: z.enum(['student','faculty','admin']),
 });
 
-router.post('/admin/create_user', async (req, res) =>
+router.post('/create_user', async (req, res) =>
 {
   try
   {
