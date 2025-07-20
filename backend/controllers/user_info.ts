@@ -1,4 +1,4 @@
-import * as db from '#lib/db.ts';
+import * as db from '../lib/db';
 
 export const userInfo=async (req : any, res: any, next: any) =>
 {
