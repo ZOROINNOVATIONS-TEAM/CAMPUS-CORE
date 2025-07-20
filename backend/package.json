@@ -10,9 +10,13 @@
 		"cookie-parser": "^1.4.7",
 		"dotenv": "^16.6.1",
 		"express": "^5.1.0",
+		"fast-glob": "^3.3.3",
 		"jsonwebtoken": "^9.0.2",
 		"mongoose": "^8.15.1",
 		"nodemailer": "^7.0.5",
+		"swagger-autogen": "^2.23.7",
+		"swagger-jsdoc": "^6.2.8",
+		"swagger-ui-express": "^5.0.1",
 		"zod": "^3.25.64"
 	},
 	"devDependencies": {
@@ -21,9 +25,10 @@
 		"@types/jsonwebtoken": "^9.0.9",
 		"@types/node": "^24.0.12",
 		"ts-node": "^10.9.2",
+		"tsx": "^4.20.3",
 		"typescript": "^5.8.3"
 	},
 	"scripts": {
-		"start": "node app.ts"
+		"start": "tsx app.ts"
 	}
 }
