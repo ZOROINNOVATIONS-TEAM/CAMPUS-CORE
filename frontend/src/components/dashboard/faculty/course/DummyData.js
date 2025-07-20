@@ -1,20 +1,56 @@
+// src/pages/faculty/DummyData.js
+
 export const dummyCourses = [
   {
     id: 1,
     title: "Introduction to Computer Science",
     code: "CS101",
     department: "Computer Science",
-    timing: "Mon, Wed, Fri - 10:00 AM",
-    room: "Room 101",
-    enrolled: 42
+    timing: "Mon, Wed • 10:00 AM - 11:30 AM",
+    room: "101",
+    enrolled: 42,
+    active: true,
+    materials: 12,
+    assignments: 4,
+    type: "Assignments",
   },
   {
     id: 2,
     title: "Advanced Mathematics",
     code: "MATH302",
     department: "Mathematics",
-    timing: "Tue, Thu - 11:30 AM",
-    room: "Room 203",
-    enrolled: 28
-  }
+    timing: "Tue, Thu • 11:30 AM - 1:30 PM",
+    room: "203",
+    enrolled: 28,
+    active: true,
+    materials: 8,
+    assignments: 3,
+    type: "Assignments",
+  },
+  {
+    id: 3,
+    title: "Physics Laboratory",
+    code: "PHYS201L",
+    department: "Physics",
+    timing: "Wed • 2:00 PM - 5:00 PM",
+    room: "Lab Building B",
+    enrolled: 18,
+    active: true,
+    materials: 6,
+    assignments: 2,
+    type: "Lab Reports",
+  },
+  {
+    id: 4,
+    title: "English Literature",
+    code: "ENG205",
+    department: "English",
+    timing: "Tue, Thu • 3:30 PM - 5:00 PM",
+    room: "305",
+    enrolled: 35,
+    active: true,
+    materials: 10,
+    assignments: 5,
+    type: "Assignments",
+  },
 ];

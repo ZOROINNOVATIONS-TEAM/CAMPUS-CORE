@@ -16,7 +16,6 @@ export function FacultyNavTabs({ activeTab, onChange }) {
     { label: "Course Setup", icon: Calendar, target: "courses" },
     { label: "Attendance", icon: CheckSquare, target: "attendance" },
     { label: "Assignment", icon: ClipboardList, target: "assignment" },
-    { label: "Map", icon: MapIcon, target: "map" },
     { label: "Duties", icon: Briefcase, target: "duties" },
     { label: "Mentor", icon: Users, target: "mentor" },
   ];

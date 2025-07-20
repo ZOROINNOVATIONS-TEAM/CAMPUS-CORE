@@ -45,7 +45,7 @@ export default function FacultyDashboard() {
               </div>
             )}
 
-            {activeTab === "map" && <FacultyMapDashboard />}
+            {activeTab === "duties" && <FacultyMapDashboard />}
             {activeTab === "mentor" && <FacultyMentoring />}
             {activeTab === "courses" && <CourseSetup />}
             {activeTab === "attendance" && <AttendanceMarkingPage />}
