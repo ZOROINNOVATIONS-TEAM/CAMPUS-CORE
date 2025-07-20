@@ -5,8 +5,9 @@
   "main": "app.ts",
   "type": "module",
   "imports": {
-    "#lib/*": "./backend/lib/*",
-    "#routes/*": "./backend/routes/*"
+    "#lib/*": "./lib/*",
+    "#routes/*": "./routes/*",
+    "#controllers/*": "./controllers/*"
   },
   "dependencies": {
     "argon2": "^0.43.0",
@@ -19,12 +20,13 @@
     "zod": "^3.25.64"
   },
   "devDependencies": {
+    "@types/argon2": "^0.19.0",
     "@types/cookie-parser": "^1.4.9",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.9",
-    "@types/node": "^20.14.9",
-    "@types/argon2": "^0.19.0",
+    "@types/node": "^24.0.10",
     "ts-node": "^10.9.2",
+    "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   },
   "scripts": {
@@ -33,4 +35,3 @@
     "test": "echo \"No backend tests specified\" && exit 0"
   }
 }
-

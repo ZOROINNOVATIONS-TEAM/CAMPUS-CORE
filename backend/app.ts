@@ -1,11 +1,10 @@
 import 'dotenv/config';
 import express from 'express';
-import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
 
 import { faculty_only, admin_only, student_only } from '#lib/middlewares.ts';
 
-// Controllers / Routes
 import login from '#routes/login.ts';
 import user_info from '#routes/user_info.ts';
 import verify_email from '#routes/verify_email.ts';
