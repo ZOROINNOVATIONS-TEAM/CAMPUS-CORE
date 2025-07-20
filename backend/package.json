@@ -29,7 +29,7 @@
   },
   "scripts": {
     "start": "ts-node app.ts",
-    "dev": "nodemon --exec ts-node app.ts"
+    "dev": "nodemon --exec ts-node app.ts",
     "test": "echo \"No backend tests specified\" && exit 0"
   }
 }
