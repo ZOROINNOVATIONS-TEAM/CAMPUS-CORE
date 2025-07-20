@@ -2,10 +2,10 @@ import { Route, Routes } from "react-router-dom";
 import './App.css';
 import AdminPage from "./components/auth/AdminPage";
 import AuthPage from './components/auth/AuthPage';
-import ProtectedRoute from "./components/ProtectedRoutes/ProtectedRoute";
+// import ProtectedRoute from "./components/ProtectedRoutes/ProtectedRoute";
 import AdminDashboard from './pages/AdminDashboard';
 import FacultyDashboard from './pages/FacultyDashboard';
-import StudentDashboard from "./components/StudentDashboard/StudentDashboard ";
+import StudentDashboard from "./pages/StudentDashboard";
 
 function App() {
   return (
@@ -13,13 +13,9 @@ function App() {
       <Routes>
         <Route path="/" element={<AuthPage />} />
         <Route path="/admin" element={<AdminPage />} />
-        <Route path="/admin/dashboard/*" element={
-          // <ProtectedRoute>
-            <AdminDashboard />
-          // </ProtectedRoute>
-        } />
+        <Route path="/admin/dashboard/*" element={<AdminDashboard />} />
         <Route path="/faculty/dashboard/*" element={<FacultyDashboard />} />
-            <Route path="/StudentDash" element={<StudentDashboard/>} />
+        <Route path="/student/dashboard/*" element={<StudentDashboard />} />
       </Routes>
     </div>
   );

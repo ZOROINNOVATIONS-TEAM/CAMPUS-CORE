@@ -45,7 +45,7 @@ const LoginForm = ({ userType }) => {
       } else {
         setMessage('Student login successful!');
         setTimeout(() => {
-          navigate('/dashboard');
+          navigate('/student/dashboard');
         }, 1000);
       }
     } catch (error) {
