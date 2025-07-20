@@ -1,37 +1,29 @@
-import { Navigate, Route, Routes } from 'react-router';
+import FacultyAnnouncements from '../components/faculty/FacultyAnnouncements';
+import FacultyAttendance from '../components/faculty/FacultyAttendance';
 import FacultyDashboardLayout from '../components/faculty/FacultyDashboardLayout';
-import DashboardMain from '../components/faculty/DashboardMain';
-import Assignment from '../components/faculty/Assignment';
-import FacultyCoursesDashboard from '../components/faculty/FacultyCoursesDashboard';
-import Duties from '../components/faculty/Duties';
-import Exam from '../components/faculty/Exam';
-import Grading from '../components/faculty/Grading';
-import Mentor from '../components/faculty/Mentor';
-import Footer from './footer';
-import CampusMap from '../components/faculty/CampushMap';
-
-
+import FacultySchedule from '../components/faculty/FacultySchedule';
+import FacultyUpcomingEvents from '../components/faculty/FacultyUpcomingEvents';
 
 const FacultyDashboard = () => {
   return (
     <FacultyDashboardLayout>
-     <Routes>
-      <Route path="/" element={<Navigate to="home" replace />} />
-      <Route path='home' element={<DashboardMain />} />
-      <Route path='campushmap' element={<CampusMap />} />
-      <Route path='assignment' element={<Assignment/>} />
-      <Route path='courses' element={<FacultyCoursesDashboard/>} />
-      <Route path='duties' element={<Duties/>} />
-      <Route path='exam' element={<Exam/>} />
-      <Route path='grading' element={<Grading/>} />
-      <Route path='mentor' element={<Mentor/>} />
-      
-     </Routes>
-       <Footer/>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Main Content - Left Side */}
+        <div className="lg:col-span-2">
+          <FacultyAttendance />
+          <div className="mt-6">
+            <FacultySchedule />
+          </div>
+        </div>
 
+        {/* Sidebar - Right Side */}
+        <div className="space-y-6">
+          <FacultyUpcomingEvents />
+          <FacultyAnnouncements />
+        </div>
+      </div>
     </FacultyDashboardLayout>
   );
 };
 
 export default FacultyDashboard;
-

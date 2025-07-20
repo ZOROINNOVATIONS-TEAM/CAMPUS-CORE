@@ -1,64 +1,37 @@
 import express from 'express';
-import * as controllers from '#controllers/admin/create_user.ts';
+import { z } from 'zod';
+
+import * as db from '#lib/db';
+import * as auth from '#lib/auth';
+
 const router = express.Router();
-/**
- * @openapi
- * /api/admin/user:
- *   post:
- *     summary: Create a new user
- *     description: Allows admin to create a new user (student, faculty, or admin).
- *     tags:
- *       - Admin
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - name
- *               - email
- *               - pass
- *               - type
- *             properties:
- *               name:
- *                 type: string
- *                 example: "Alice Smith"
- *               email:
- *                 type: string
- *                 format: email
- *                 example: "alice@example.com"
- *               rollno:
- *                 type: string
- *                 example: "23CS1021"
- *               pass:
- *                 type: string
- *                 minLength: 8
- *                 example: "strongPassword123"
- *               type:
- *                 type: string
- *                 enum: [student, faculty, admin]
- *                 example: "student"
- *     responses:
- *       200:
- *         description: User successfully created
- *       400:
- *         description: Invalid request or user already exists
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   examples:
- *                     invalid:
- *                       summary: Invalid request body
- *                       value: "invalid request"
- *                     exists:
- *                       summary: User already exists
- *                       value: "user already exists"
- */
-router.post('/admin/create_user',controllers.createUser);
+
+const create_user_schema = z.object({
+  name: z.string(),
+  email: z.string().email(),
+  rollno: z.string().optional(),
+  pass: z.string().min(8),
+  type: z.enum(['student','faculty','admin']),
+});
+
+router.post('/create_user', async (req, res) =>
+{
+  try
+  {
+    const {name, email, rollno, pass, type} = create_user_schema.parse(req.body);
+    const pass_hash = await auth.calc_password_hash(name, pass);
+    try
+    {
+      const uid = await db.add_user({name, email, rollno, pass_hash, type});
+      res.sendStatus(200);
+    }
+    catch (err) {
+      res.status(400).json({error: 'user already exists'});
+    }
+  }
+  catch (err) {
+    res.status(400).json({error: 'invalid request'});
+  }
+});
 
 export default router;
