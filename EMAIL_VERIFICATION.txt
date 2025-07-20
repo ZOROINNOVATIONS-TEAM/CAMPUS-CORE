@@ -12,8 +12,6 @@
             --> it contains a createTraNsport() for using Gmail
             --> sendVerification(to,token) for clickable links
 
-
-
 4> To create SMTP password make sure you have TURN ON the 2step verification in your myGoogleAccount.com 
             -->https://myaccount.google.com/?pli=1
 
