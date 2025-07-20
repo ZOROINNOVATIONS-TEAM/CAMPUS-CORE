@@ -3,6 +3,32 @@ import * as auth from '#lib/auth.ts';
 
 await mongoose.connect(process.env.MONGODB_URL!);
 
+//Analytics Dashboard's Schema
+
+export const Analytics = mongoose.model('Analytics', new mongoose.Schema({
+  weeklyActiveUsers: [{ week: String, users: Number }],
+  userDistribution: [{ name: String, value: Number }],
+  studentSatisfaction: [{ sem: String, score: Number }],
+  coursePopularity: [{ name: String, value: Number }],
+  metrics: {
+    totalStudents: Number,
+    newEnrollments: Number,
+    activeCourses: Number,
+    graduationRate: Number,
+    facultyCount: Number,
+  },
+  activities: [{
+    iconType: String,  // 'book', 'email', 'poll', etc.
+    title: String,
+    desc: String,
+    time: String,
+  }],
+}, { timestamps: true }));
+
+
+/////////////////////////////////////////////////////////////////////////
+
+
 export interface User {
   _id?: string;
   rollno?: string;
