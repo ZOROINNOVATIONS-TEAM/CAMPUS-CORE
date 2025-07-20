@@ -21,10 +21,10 @@ const HomePage = () => {
   return (
     <div className="space-y-6">
       {/* Welcome Banner */}
-      {/* <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg p-6 text-white">
+      <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg p-6 text-white">
         <h1 className="text-2xl font-semibold mb-2">Welcome, Admin</h1>
         <p className="text-blue-100">{formattedDate}</p>
-      </div> */}
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">

@@ -1,70 +1,28 @@
 import express from 'express';
-import * as controllers from '#controllers/faculty/attendance.ts';
+
+import * as db from '#lib/db';
+import * as auth from '#lib/auth';
 
 const router = express.Router();
-/**
- * @openapi
- * /api/v1/faculty/mark-attendance:
- *   post:
- *     summary: Mark student attendance
- *     description: Allows a faculty member to mark a student's attendance for a specific course on a given date.
- *     tags:
- *       - Attendance
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - course_id
- *               - student_id
- *               - date
- *             properties:
- *               course_id:
- *                 type: string
- *                 example: "COURSE123"
- *               student_id:
- *                 type: string
- *                 example: "STUDENT456"
- *               date:
- *                 type: string
- *                 format: date
- *                 example: "2025-07-16"
- *     responses:
- *       200:
- *         description: Attendance successfully marked
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 attendance_id:
- *                   type: string
- *                   example: "att_789xyz"
- *       400:
- *         description: Missing fields or invalid data
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: "Missing required fields"
- *       403:
- *         description: Unauthorized access (not a faculty member)
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: "Only faculty allowed"
- *       500:
- *         description: Server or unknown error
- */
-router.post('/mark-attendance',controllers.attendance);
+
+router.post('/mark-attendance', async (req :any , res : any) => {
+  const faculty = await db.get_user_from_token(req.cookies.session_token);
+  if (!faculty || faculty.type !== 'faculty') return res.status(403).json({ error: 'Only faculty allowed' });
+
+  const { course_id, student_id, date } = req.body;
+  if (!course_id || !student_id || !date) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  try {
+    const att_id = await db.mark_attendance(course_id, student_id, new Date(date), faculty._id!);
+    res.json({ attendance_id: att_id });
+  } catch (err) {
+if (err instanceof Error) {
+  res.status(400).json({ error: err.message });
+} else {
+  res.status(400).json({ error: 'Unknown error occurred' });
+}  }
+});
 
 export default router;

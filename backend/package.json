@@ -1,4 +1,8 @@
 {
+  "name": "campus-core-backend",
+  "version": "1.0.0",
+  "description": "Backend for Campus Core application",
+  "main": "app.ts",
   "type": "module",
   "imports": {
     "#lib/*": "./lib/*",
@@ -20,15 +24,18 @@
     "zod": "^3.25.64"
   },
   "devDependencies": {
+    "@types/argon2": "^0.19.0",
     "@types/cookie-parser": "^1.4.9",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^24.0.12",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.3",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "nodemon": "^3.1.10"
   },
   "scripts": {
-    "start": "tsx app.ts"
+    "start": "ts-node app.ts",
+    "dev": "nodemon --exec ts-node app.ts"
   }
 }
