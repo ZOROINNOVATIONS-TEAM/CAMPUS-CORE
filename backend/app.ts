@@ -13,6 +13,10 @@ import student_course from '#routes/student/course.ts';
 import faculty_attendance from '#routes/faculty/attendance.ts';
 import analyticsRoutes from './routes/analytics';
 import  fallbackHandler  from './lib/fallback.ts';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './swagger/swaggerConfig';
+
+
 import * as db from '#lib/db.ts';
 import * as auth from '#lib/auth.ts';
 
@@ -36,7 +40,7 @@ import * as auth from '#lib/auth.ts';
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
-
+app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/v1/student', student_only, student_course);  
 app.use('/api/v1/faculty', faculty_only, faculty_attendance);
 app.use('/api/v1', login);
