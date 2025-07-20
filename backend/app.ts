@@ -3,23 +3,28 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 
+// Middleware
 import { faculty_only, admin_only, student_only } from '#lib/middlewares.ts';
 
+// Routes
 import login from '#routes/login.ts';
 import user_info from '#routes/user_info.ts';
-import verify_email from '#routes/verify_email.ts'; // Added for email verification
+import verify_email from '#routes/verify_email.ts';
 import admin_create_user from '#routes/admin/create_user.ts';
 import admin_course from '#routes/admin/course.ts';
 import student_course from '#routes/student/course.ts';
 import faculty_attendance from '#routes/faculty/attendance.ts';
 import analyticsRoutes from './routes/analytics';
+
+// Swagger setup
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './swagger/swaggerConfig';
 
+// DB and Auth
 import * as db from '#lib/db.ts';
 import * as auth from '#lib/auth.ts';
 
-// (Optional) Database testing code -- Remove or comment for production
+// (Optional) Database testing code — Remove before production
 const password = 'password';
 const user: db.User = {
   name: 'Admin',
@@ -37,25 +42,25 @@ console.log(await db.get_user_from_uid(uid));
 const jwt = await auth.jwt_create(uid, user.type);
 console.log("Admin JWT:", jwt);
 
+// Initialize Express
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
+
+// Swagger docs: view at /api/api-docs
 app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// API routes
+// Route Registrations
 app.use('/api/v1/student', student_only, student_course);
 app.use('/api/v1/faculty', faculty_only, faculty_attendance);
 app.use('/api/v1', login);
 app.use('/api/v1', user_info);
-// Add verify_email before 404 handler
 app.use('/api/v1', verify_email);
 app.use('/api/v1', admin_only, admin_create_user);
 app.use('/api/v1', admin_only, admin_course);
-
-// Analytics and any extra routes
 app.use('/api/analytics', analyticsRoutes);
 
-// 404 handler
+// 404 fallback
 app.use((req, res) => {
   res.status(404).json({ error: 'Route not found', path: req.originalUrl });
 });
@@ -70,8 +75,8 @@ mongoose.connect(process.env.MONGODB_URL as string)
     process.exit(1);
   });
 
-// Start Server
+// Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Express running on port ${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
