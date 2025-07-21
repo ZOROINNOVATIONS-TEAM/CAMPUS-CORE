@@ -18,8 +18,9 @@ export default function HomePage() {
       {/* Header */}
       <header className="w-full px-8 py-6 flex justify-between items-center bg-white shadow-md z-10">
         <div className="flex items-center gap-2">
-          {/* <svg width={38} height={38} viewBox="0 0 38 38" fill="none"><circle cx="19" cy="19" r="19" fill="#3666F6"/><text x="50%" y="55%" textAnchor="middle" fill="white" fontSize="20" fontWeight="bold" dominantBaseline="middle" fontFamily="sans-serif">SC</text></svg>
-          <span className="text-2xl font-bold text-[#3666F6] tracking-wide">SmartCampus</span> */}
+          {/* <svg width={38} height={38} viewBox="0 0 38 38" fill="none"><circle cx="19" cy="19" r="19" fill="#3666F6"/><text x="50%" y="55%" textAnchor="middle" fill="white" fontSize="20" fontWeight="bold" dominantBaseline="middle" fontFamily="sans-serif">SC</text></svg>*/}
+          <span className="text-2xl font-bold text-[#3666F6] tracking-wide">SmartCampus</span> 
+         
         </div>
         <nav className="hidden md:flex gap-6 items-center">
           {/* <a href="#about" className="text-gray-600 hover:text-[#3666F6] transition font-medium">About</a> */}
@@ -29,7 +30,7 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="flex-1 flex flex-col items-center justify-center text-center relative z-10">
+      <section className="flex-1 flex flex-col pt-6 items-center justify-center text-center relative z-10">
         <h1 className="text-4xl md:text-6xl font-extrabold text-[#222] mb-6 animate-fadein-down">
           Welcome to <span className="text-[#3666F6]">SmartCampus</span>
         </h1>

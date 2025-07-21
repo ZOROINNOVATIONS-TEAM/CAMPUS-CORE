@@ -7,13 +7,14 @@ import AuthPage from './components/auth/AuthPage';
 import AdminDashboard from './pages/AdminDashboard';
 import FacultyDashboard from './pages/FacultyDashboard';
 import StudentDashboard from "./pages/StudentDashboard";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/auth" element={<AuthPage />} />
+        {/* <Route path="/" element={<HomePage />} /> */}
+        <Route path="/" element={<AuthPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/admin/dashboard/*" element={<AdminDashboard />} />
         <Route path="/faculty/dashboard/*" element={<FacultyDashboard />} />

@@ -9,13 +9,14 @@ import Mentor from '../components/StudentDashboard/Mentor'
 import StudentDashboardLayout from '../components/StudentDashboard/StudentDashboardLayout'
 import { Navigate, Route, Routes } from 'react-router'
 import Footer from './footer'
+import StudentHome from '../components/StudentDashboard/StudentHome'
 
 const StudentDashboard = () => {
   return (
     <StudentDashboardLayout>
       <Routes>
         <Route path="/" element={<Navigate to="home" replace />} />
-        <Route path='home' element={<DashboardMain />} />
+        <Route path='home' element={<StudentHome />} />
         <Route path='schedule' element={<Schedule/>} />
         <Route path='courses' element={<CourseSetup/>} />
         <Route path='result' element={<Result />} />

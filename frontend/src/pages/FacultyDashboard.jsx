@@ -10,16 +10,16 @@ const FacultyDashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Content - Left Side */}
         <div className="lg:col-span-2">
-          <FacultyAttendance />
+          {/* <FacultyAttendance /> */}
           <div className="mt-6">
-            <FacultySchedule />
+            {/* <FacultySchedule /> */}
           </div>
         </div>
 
         {/* Sidebar - Right Side */}
         <div className="space-y-6">
-          <FacultyUpcomingEvents />
-          <FacultyAnnouncements />
+          {/* <FacultyUpcomingEvents /> */}
+          {/* <FacultyAnnouncements /> */}
         </div>
       </div>
     </FacultyDashboardLayout>
