@@ -40,8 +40,5 @@
 .read-the-docs {
   color: #888;
 } */
-.mb-6 w-40 {
-  width: 150px;
-  height: auto;
-  margin: 10px;
-}
+ @import "tailwindcss";
+ 
