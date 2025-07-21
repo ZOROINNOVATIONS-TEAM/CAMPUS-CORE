@@ -11,7 +11,7 @@ const CampusMap = ({
     eventsToday
 }) => {
     return (
-        <div className="w-full min-h-screen p-4 bg-white dark:bg-gray-900 ">
+        <div className="w-full min-h-screen p-4  ">
             <div className="w-full p-6 sm:p-6 lg:p-8 bg-white dark:bg-gray-800 shadow-2xl border-violet-400 rounded-xl border dark:border-violet-700">
 
                 <div className="flex flex-wrap gap-4">

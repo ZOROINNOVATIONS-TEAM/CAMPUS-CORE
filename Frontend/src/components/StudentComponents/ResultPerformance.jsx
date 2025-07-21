@@ -8,7 +8,7 @@ const OverallResult = ({ pieData, lineData, subjects, externalAssessment }) => {
     return (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-4 text-gray-800 dark:text-gray-100 ">
 
-            <div className="col-span-1 lg:col-span-2 bg-white dark:bg-gray-800 p-6 rounded-xl shadow space-y-6 border dark:border-violet-700" >
+            <div className="col-span-1 lg:col-span-2 bg-white dark:bg-gray-800 p-6 rounded-xl shadow space-y-6 dark:border dark:border-violet-700" >
                 <div>
                     <h2 className="text-2xl font-bold">Overall Performance</h2>
                     <p className="text-gray-500 dark:text-gray-400">Summary of your performance across assessments.</p>
@@ -70,7 +70,7 @@ const OverallResult = ({ pieData, lineData, subjects, externalAssessment }) => {
             </div>
 
             <div className="space-y-6">
-                <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow border dark:border-violet-700">
+                <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow dark:border dark:border-violet-700">
                     <h3 className="font-semibold mb-2">Assignment Results</h3>
                     <PieChart width={300} height={250}>
                         <Pie
@@ -92,7 +92,7 @@ const OverallResult = ({ pieData, lineData, subjects, externalAssessment }) => {
                     </button>
                 </div>
 
-                <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow border dark:border-violet-700">
+                <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow dark:border dark:border-violet-700">
                     <h3 className="font-semibold mb-2">SGPA/CGPA</h3>
                     <LineChart width={300} height={200} data={lineData}>
                         <CartesianGrid strokeDasharray="3 3" />

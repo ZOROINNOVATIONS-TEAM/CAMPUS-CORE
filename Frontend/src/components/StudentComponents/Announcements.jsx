@@ -1,6 +1,6 @@
 const Announcements = ({ announcements }) => {
     return (
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 w-full lg:w-[80%] transition-colors duration-300 border dark:border-violet-700">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 w-full lg:w-[80%] transition-colors duration-300 dark:border dark:border-violet-700">
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Announcements</h2>
                 <a href="#" className="text-sm text-blue-500 dark:text-blue-400 font-medium">View All</a>

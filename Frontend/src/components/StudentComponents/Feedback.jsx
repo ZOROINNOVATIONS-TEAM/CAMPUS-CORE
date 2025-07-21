@@ -24,7 +24,7 @@ const Feedback = ({ feedbacks }) => {
 
     return (
         <div className="max-w-7xl  mx-auto px-4 py-6 space-y-6">
-            <div className="bg-white dark:bg-gray-800 dark:text-gray-100 p-10 rounded-xl shadow space-y-4 border dark:border-violet-700">
+            <div className="bg-white dark:bg-gray-800 dark:text-gray-100 p-10 rounded-xl shadow space-y-4 dark:border dark:border-violet-700">
                 <div className="flex flex-wrap gap-4 items-center justify-between">
                     <div className="flex flex-wrap gap-2 items-center">
                         <input type="date" className="border dark:border-gray-700 dark:bg-gray-800 px-3 py-1 rounded text-sm" />

@@ -23,7 +23,7 @@ const ChatPanel = () => {
 
     return (
         <div className="w-full min-h-screen p-4 ">
-            <div className="w-full min-h-[80vh] p-4 sm:p-6 lg:p-8 bg-white dark:bg-gray-900 shadow-2xl border dark:border-violet-700 rounded-xl flex justify-center items-start">
+            <div className="w-full min-h-[80vh] p-4 sm:p-6 lg:p-8 bg-white dark:bg-gray-900 shadow-2xl dark:border dark:border-violet-700 rounded-xl flex justify-center items-start">
                 <div className="w-full max-w-7xl flex flex-col md:flex-row overflow-hidden">
                     <ChatSidebar
                         contacts={contacts}

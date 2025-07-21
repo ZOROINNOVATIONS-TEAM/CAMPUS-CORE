@@ -1,6 +1,6 @@
 const HelpSupport = ({ support }) => {
     return (
-        <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-md space-y-4 text-gray-700 dark:text-gray-200 border dark:border-violet-700">
+        <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-md space-y-4 text-gray-700 dark:text-gray-200 dark:border dark:border-violet-700">
             <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Help & Support</h2>
             <div className="space-y-3 text-sm">
                 <div>

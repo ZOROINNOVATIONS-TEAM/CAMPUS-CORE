@@ -1,6 +1,6 @@
 const UpcomingDues = ({ dues }) => {
     return (
-        <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-md text-gray-800 dark:text-gray-100 border dark:border-violet-700">
+        <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-md text-gray-800 dark:text-gray-100 dark:border dark:border-violet-700">
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-semibold">Upcoming Dues</h2>
                 <span className="text-sm text-blue-600 dark:text-blue-400 cursor-pointer hover:underline">
