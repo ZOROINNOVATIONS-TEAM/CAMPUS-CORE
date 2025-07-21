@@ -1,3 +1,4 @@
+
 import { Route, Routes } from "react-router-dom";
 import './App.css';
 import AdminPage from "./components/auth/AdminPage";
@@ -11,7 +12,8 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<AuthPage />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/auth" element={<AuthPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/admin/dashboard/*" element={<AdminDashboard />} />
         <Route path="/faculty/dashboard/*" element={<FacultyDashboard />} />
