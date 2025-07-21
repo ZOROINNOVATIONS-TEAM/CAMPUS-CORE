@@ -2,7 +2,7 @@ import { FaBookOpen, FaClock, FaMapMarkerAlt } from "react-icons/fa";
 
 const TodaySchedule = ({ schedule }) => {
     return (
-        <div className="bg-white dark:bg-gray-800 border dark:border-violet-700 rounded-2xl p-6 w-full max-w-6xl mx-auto lg:ml-14 shadow transition-colors duration-300">
+        <div className="bg-white dark:bg-gray-800 dark:border dark:border-violet-700 rounded-2xl p-6 w-full max-w-6xl mx-auto lg:ml-14 shadow transition-colors duration-300">
             <div className="flex justify-between items-center mb-4 ">
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Today's Schedule</h2>
                 <a href="#" className="text-sm text-blue-500 dark:text-blue-400 font-medium">Full Schedule</a>

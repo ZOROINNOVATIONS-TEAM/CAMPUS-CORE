@@ -34,7 +34,7 @@ const NavBar = ({
     return (
         <>
             <div className="sm:hidden">
-                <div className="fixed top-0 left-0 h-screen w-12 bg-white dark:bg-gray-800 border dark:border-violet-700 shadow-lg z-50 flex flex-col items-center pt-4 gap-6">
+                <div className="fixed top-0 left-0 h-screen w-12 bg-white dark:bg-gray-800 dark:border dark:border-violet-700 shadow-lg z-50 flex flex-col items-center pt-4 gap-6">
                     <div className="mb-2">
                         <img
                             src={logo}

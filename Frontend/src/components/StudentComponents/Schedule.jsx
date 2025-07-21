@@ -19,7 +19,7 @@ const Schedule = ({ templates, eventTypes }) => {
 
     return (
         <div className="w-full min-h-screen p-4">
-            <div className="w-full p-6 sm:p-6 lg:p-8 bg-white dark:bg-gray-800 shadow-2xl rounded-xl flex flex-col md:flex-row gap-8 transition-colors border dark:border-violet-700">
+            <div className="w-full p-6 sm:p-6 lg:p-8 bg-white dark:bg-gray-800 shadow-2xl rounded-xl flex flex-col md:flex-row gap-8 transition-colors dark:border dark:border-violet-700">
                 <div className="flex-1">
                     <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-1">Calendar</h2>
                     <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">Spring Summer</p>

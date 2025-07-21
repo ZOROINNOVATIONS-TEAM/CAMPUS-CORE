@@ -1,6 +1,6 @@
 const QuickPay = ({ methods }) => {
     return (
-        <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-md text-gray-700 dark:text-gray-200 border dark:border-violet-700">
+        <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-md text-gray-700 dark:text-gray-200 dark:border dark:border-violet-700">
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Quick Pay</h2>
                 <button className="bg-blue-600 text-white px-4 py-1 rounded-md text-sm hover:bg-blue-700">

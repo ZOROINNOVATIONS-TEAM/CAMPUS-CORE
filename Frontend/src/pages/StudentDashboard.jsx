@@ -361,7 +361,7 @@ const StudentDashboard = ({ darkMode, setDarkMode }) => {
 
             <div className="w-full max-w-7xl mx-auto px-4 sm:px-2 py-6 flex flex-col lg:flex-row gap-6">
                 <div className="w-full lg:w-3/4">
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 w-full lg:ml-15 border dark:border-violet-700">
+                    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 w-full lg:ml-15 dark:border dark:border-violet-700">
                         <AttendanceSummary summaryData={summaryData} chartData={chartData} />
                     </div>
                 </div>

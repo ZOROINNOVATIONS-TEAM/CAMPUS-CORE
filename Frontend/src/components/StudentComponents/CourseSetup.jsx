@@ -45,7 +45,7 @@ const CourseCard = ({ course }) => (
 const CourseSetup = ({ courses }) => {
     return (
         <div className="w-full min-h-screen p-4">
-            <div className="w-full p-6 lg:p-8 bg-white dark:bg-gray-800 shadow-2xl border-violet-400  rounded-xl border dark:border-violet-700">
+            <div className="w-full p-6 lg:p-8 bg-white dark:bg-gray-800 shadow-2xl border-violet-400  rounded-xl dark:border dark:border-violet-700">
                 <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">Enrolled Courses</h2>
                 <div className="flex flex-col gap-6">
                     {courses.map((course, idx) => (
