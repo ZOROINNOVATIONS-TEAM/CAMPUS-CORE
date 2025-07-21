@@ -11,6 +11,7 @@ import { UserManagementCard } from "../../components/dashboard/admin/UserManagem
 import { FileText, BarChart2, BookOpen, DollarSign } from "lucide-react";
 import CourseSetupPage from "../../components/dashboard/admin/CourseSetupPage";
 import AnalyticsDashboard from "../../components/dashboard/admin/analytics/AnalyticsDashboard";
+import ResultsPage from "../../components/dashboard/admin/results/ResultsPage";
 
 // Mock Data
 const notifications = [
@@ -101,7 +102,7 @@ export default function AdminDashboard() {
           {activeTab === "schedule" && <div className="text-gray-700 dark:text-gray-300">Schedule content here</div>}
           {activeTab === "courses" && <CourseSetupPage />}
           {activeTab === "analytics" && <AnalyticsDashboard />}
-          {activeTab === "notification" && <div className="text-gray-700 dark:text-gray-300">Notifications content here</div>}
+          {activeTab === "results" && <ResultsPage />}
           {activeTab === "message" && <div className="text-gray-700 dark:text-gray-300">Messages content here</div>}
           {activeTab === "mentor" && <div className="text-gray-700 dark:text-gray-300">Mentor content here</div>}
         </section>
