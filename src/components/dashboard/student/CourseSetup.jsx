@@ -48,17 +48,17 @@ const enrolledCourses = [
 
 const CourseSetup = () => {
   return (
-    <div className="course-setup p-6 bg-grey dark:bg-gray-100 rounded-lg shadow-md">
+    <div className="course-setup p-6 bg-gray-500 dark:bg-white rounded-lg shadow-md">
       {/* Header Section */}
       <div className="header-section bg-indigo-600 text-white p-3 rounded-lg mb-6">
-        <div className="next-class-notification bg-yellow-500 text-white p-2 rounded-lg flex items-center space-x-2 mt-0">
+        <div className="next-class-notification bg-yellow-400 text-black p-2 rounded-lg flex items-center space-x-2 mt-0">
           <FontAwesomeIcon icon={faBook} className="text-white" />
           <span>Next Class: Advanced Mathematics in 45 minutes</span>
         </div>
       </div>
 
       {/* Enrolled Courses Section - ROW-WISE */}
-      <div className="enrolled-courses p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+      <div className="enrolled-courses p-6 bg-gray-400 dark:bg-gray-800 rounded-lg shadow-md">
         <h2 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-gray-200">Enrolled Courses</h2>
 
         {/* Search Bar */}

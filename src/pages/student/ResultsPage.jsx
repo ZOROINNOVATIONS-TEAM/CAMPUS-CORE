@@ -1,3 +1,4 @@
+// src/pages/student/ResultsPage.jsx (assumed path)
 import React from 'react';
 import OverallPerformance from '@/components/dashboard/student/results/OverallPerformance';
 import SubjectCard from '@/components/dashboard/student/results/SubjectCard';
@@ -35,27 +36,27 @@ export default function ResultsPage() {
   const lineLabels = ["Sem 1", "Sem 2", "Sem 3", "Sem 4"];
 
   return (
-    <div className="min-h-screen bg-gray-100 py-1 px-2 md:px-0">
+    <div className="min-h-screen bg-gray-500 dark:bg-gray-900 py-1 px-2 md:px-0">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Left: Overall Performance and Assessments */}
         <div className="md:col-span-2 flex flex-col gap-6">
-          <div className="bg-white rounded-2xl shadow p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-4">
             <OverallPerformance
               averageScore={averageScore}
               passedSubjects={passedSubjects}
               failedSubjects={failedSubjects}
             />
             {/* ISA Section */}
-            <h3 className="text-lg font-semibold mb-2 mt-2">Internal Summative Assessment (ISA)</h3>
-            <p className="text-sm text-gray-500 mb-2">View your ISA results for the semester.</p>
+            <h3 className="text-lg font-semibold mb-2 mt-2 text-gray-900 dark:text-gray-200">Internal Summative Assessment (ISA)</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">View your ISA results for the semester.</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
               {isaSubjects.map((sub) => (
                 <SubjectCard key={sub.name} {...sub} />
               ))}
             </div>
             {/* ESA Section */}
-            <h3 className="text-lg font-semibold mb-2 mt-2">External Summative Assessment (ESA)</h3>
-            <p className="text-sm text-gray-500 mb-2">View your ESA results for the end semester exam.</p>
+            <h3 className="text-lg font-semibold mb-2 mt-2 text-gray-900 dark:text-gray-200">External Summative Assessment (ESA)</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">View your ESA results for the end semester exam.</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {esaSubjects.map((sub) => (
                 <SubjectCard key={sub.name} {...sub} />
@@ -66,9 +67,9 @@ export default function ResultsPage() {
         {/* Right: Charts and Actions */}
         <div className="flex flex-col gap-6">
           {/* Assignment Results (Pie Chart) */}
-          <div className="bg-white rounded-2xl shadow p-6">
-            <h3 className="text-lg font-semibold mb-2">Assignment Results</h3>
-            <p className="text-sm text-gray-500 mb-4">View your performance in the assignment.</p>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-6">
+            <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-200">Assignment Results</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">View your performance in the assignment.</p>
             <Chart type="pie" data={pieData} />
             <div className="flex gap-2 mt-4">
               <Button>Print Assignment Results</Button>
@@ -76,8 +77,8 @@ export default function ResultsPage() {
             </div>
           </div>
           {/* CGPA Line Chart */}
-          <div className="bg-white rounded-2xl shadow p-6">
-            <h3 className="text-lg font-semibold mb-2">View SGPA/CGPA</h3>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-6">
+            <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-200">View SGPA/CGPA</h3>
             <Chart type="line" data={lineData} labels={lineLabels} />
             <div className="flex gap-2 mt-4">
               <Button>Print SGPA/CGPA</Button>
@@ -89,6 +90,3 @@ export default function ResultsPage() {
     </div>
   );
 }
-
-
-

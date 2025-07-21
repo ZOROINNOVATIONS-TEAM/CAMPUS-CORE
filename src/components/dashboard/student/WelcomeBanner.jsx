@@ -41,11 +41,11 @@ export function WelcomeBanner({ studentName, studentId }) {
   });
 
   return (
-    <div className="mb-1 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+    <div className="mb-1 bg-white dark:bg-black-900 p-6 rounded-lg shadow-md">
       <h1 className="text-3xl font-bold mb-2">
         {greeting}, {studentName}!
       </h1>
-      <p className="text-gray-600 dark:text-gray-300 mb-4">
+      <p className="text-black-600 dark:text-gray-300 mb-4">
         Student ID: {studentId} | Spring Semester 2025
       </p>
 

@@ -20,7 +20,7 @@ const EventPage = () => {
   };
 
   return (
-    <div className="flex gap-6 p-6 bg-gray-100 min-h-screen">
+    <div className="flex gap-6 p-6 bg-gray-500 min-h-screen">
       <div className="bg-white rounded-lg shadow-md p-6 w-2/3">
         <EventCalendar selectedType={selectedType} setSelectedType={setSelectedType} />
         <UpcomingEvents events={filteredEvents} />

@@ -9,7 +9,7 @@ import CourseCard from "../../components/dashboard/faculty/CourseCard.jsx";
 
 const FacultyDashboard = () => {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-blue-100 dark:bg-slate-500 p-10">
       {/* Navigation Bar */}
       <FacultyHeader/>
 

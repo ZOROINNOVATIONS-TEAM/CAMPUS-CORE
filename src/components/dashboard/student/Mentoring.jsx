@@ -23,7 +23,7 @@ export default function Mentoring() {
   return (
     <div className="h-screen bg-gray-100 flex flex-col">
       {/* Top Navigation */}
-      <div className="flex items-center justify-between bg-white shadow px-6 py-3">
+      <div className="flex items-center justify-between bg-slate-400 shadow px-6 py-3">
         <div className="flex gap-6 items-center">  
         </div>
       </div>

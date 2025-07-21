@@ -22,7 +22,7 @@ const AdminDashboard = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-200">
+    <div className="min-h-screen bg-gray-200 text-gray-900 dark:bg-stone-900 dark:border-t border-blue-500 dark:text-gray-900 transition-colors duration-200">
       {/* Sticky Top Nav */}
       <AdminTopBar />
 

@@ -17,7 +17,7 @@ const SchedulePage = () => {
   const [selectedDay, setSelectedDay] = useState("Today"); // State for day selection
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div className="min-h-screen bg-gray-50 dark:bg-stone-900 text-gray-900 dark:text-gray-900">
       {/* Sticky top bar */}
       <AdminTopBar />
 
@@ -27,7 +27,7 @@ const SchedulePage = () => {
       {/* Schedule content */}
       <main className="max-w-6xl mx-auto px-4 py-8">
         {/* Weekly Overview */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6 mb-8">
+        <div className="bg-red-50 dark:bg-gray-600 rounded-xl shadow p-6 mb-8">
           <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Weekly Schedule</h2>
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
             {weeklySchedule.map((day, index) => (
@@ -37,7 +37,7 @@ const SchedulePage = () => {
                 onClick={() => setSelectedDay(day.day)}
               >
                 <h3 className="font-semibold text-gray-900 dark:text-gray-100">{day.day}</h3>
-                <ul className="text-sm text-gray-600 dark:text-gray-300">
+                <ul className="text-sm text-gray-600 dark:text-gray-900">
                   {day.events.map((event, i) => (
                     <li key={i}>{event}</li>
                   ))}
@@ -51,8 +51,8 @@ const SchedulePage = () => {
 
             
         {/* Detailed View (reusing TodaySchedule for "Today") */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-          <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">{selectedDay}'s Schedule</h2>
+        <div className="bg-white dark:bg-gray-600 rounded-xl shadow p-6">
+          <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-300">{selectedDay}'s Schedule</h2>
           {selectedDay === "Today" ? (
             <UpcomingEventsCard/> // Reuse your existing component
           ) : (

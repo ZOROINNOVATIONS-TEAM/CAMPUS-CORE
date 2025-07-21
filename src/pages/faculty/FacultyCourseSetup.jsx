@@ -49,7 +49,7 @@ const FacultyCourseSetup = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100 p-10">
+    <div className="min-h-screen bg-blue-100 dark:bg-slate-500 p-10">
       {/* Faculty Header */}
       <FacultyHeader />
 

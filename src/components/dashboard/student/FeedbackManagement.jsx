@@ -59,7 +59,7 @@ export default function FeedbackManagement() {
   const statuses = ["Open", "Pending", "Resolved"];
 
   return (
-    <div className="p-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div className="p-6 bg-gray-400 dark:bg-gray-900 min-h-screen">
       <h1 className="text-2xl font-bold mb-2 flex items-center gap-2 text-gray-900 dark:text-gray-200">
         <FontAwesomeIcon icon={faCommentDots} />
         Feedback Management

@@ -1,7 +1,7 @@
 // src/pages/admin/CourseSetupPage.jsx
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBuilding, faUsers, faChalkboardTeacher, faBook, faPlus, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faBuilding, faUsers, faChalkboardTeacher, faBook, faPlus, faEdit, faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { AdminTopBar, AdminBannerAndTabs } from "../../components/dashboard/admin/AdminHeader";
 
 // Sample data (replace with API)
@@ -17,71 +17,65 @@ const departments = [
     ],
   },
   {
-  "name": "Electrical Engineering",
-  "students": 400,
-  "faculties": 22,
-  "courses": [
-    { "name": "Circuit Theory", "students": 130, "faculties": 5 },
-    { "name": "Electromagnetics", "students": 110, "faculties": 4 },
-    { "name": "Power Systems", "students": 160, "faculties": 6 }
-  ],
-},
-
-{
-  "name": "Mechanical Engineering",
-  "students": 350,
-  "faculties": 20,
-  "courses": [
-    { "name": "Thermodynamics", "students": 120, "faculties": 5 },
-    { "name": "Fluid Mechanics", "students": 100, "faculties": 4 },
-    { "name": "Machine Design", "students": 130, "faculties": 5 }
-  ],
-},
-
-{
-  "name": "Civil Engineering",
-  "students": 280,
-  "faculties": 16,
-  "courses": [
-    { "name": "Structural Analysis", "students": 90, "faculties": 4 },
-    { "name": "Geotechnical Engineering", "students": 80, "faculties": 3 },
-    { "name": "Transportation Engineering", "students": 110, "faculties": 4 }
-  ],
-},
-
-{
-  "name": "Fine Arts",
-  "students": 220,
-  "faculties": 12,
-  "courses": [
-    { "name": "Drawing Fundamentals", "students": 70, "faculties": 3 },
-    { "name": "Painting Techniques", "students": 60, "faculties": 3 },
-    { "name": "Sculpture", "students": 90, "faculties": 4 }
-  ],
-},
-
-{
-  "name": "Performing Arts",
-  "students": 180,
-  "faculties": 10,
-  "courses": [
-    { "name": "Theater Acting", "students": 60, "faculties": 3 },
-    { "name": "Music Theory", "students": 50, "faculties": 2 },
-    { "name": "Dance Fundamentals", "students": 70, "faculties": 3 }
-  ],
-},
-
-{
-  "name": "Liberal Arts",
-  "students": 260,
-  "faculties": 14,
-  "courses": [
-    { "name": "Philosophy", "students": 80, "faculties": 4 },
-    { "name": "Literature Studies", "students": 90, "faculties": 4 },
-    { "name": "History of Art", "students": 90, "faculties": 3 }
-  ],
-},
-
+    name: "Electrical Engineering",
+    students: 400,
+    faculties: 22,
+    courses: [
+      { name: "Circuit Theory", students: 130, faculties: 5 },
+      { name: "Electromagnetics", students: 110, faculties: 4 },
+      { name: "Power Systems", students: 160, faculties: 6 },
+    ],
+  },
+  {
+    name: "Mechanical Engineering",
+    students: 350,
+    faculties: 20,
+    courses: [
+      { name: "Thermodynamics", students: 120, faculties: 5 },
+      { name: "Fluid Mechanics", students: 100, faculties: 4 },
+      { name: "Machine Design", students: 130, faculties: 5 },
+    ],
+  },
+  {
+    name: "Civil Engineering",
+    students: 280,
+    faculties: 16,
+    courses: [
+      { name: "Structural Analysis", students: 90, faculties: 4 },
+      { name: "Geotechnical Engineering", students: 80, faculties: 3 },
+      { name: "Transportation Engineering", students: 110, faculties: 4 },
+    ],
+  },
+  {
+    name: "Fine Arts",
+    students: 220,
+    faculties: 12,
+    courses: [
+      { name: "Drawing Fundamentals", students: 70, faculties: 3 },
+      { name: "Painting Techniques", students: 60, faculties: 3 },
+      { name: "Sculpture", students: 90, faculties: 4 },
+    ],
+  },
+  {
+    name: "Performing Arts",
+    students: 180,
+    faculties: 10,
+    courses: [
+      { name: "Theater Acting", students: 60, faculties: 3 },
+      { name: "Music Theory", students: 50, faculties: 2 },
+      { name: "Dance Fundamentals", students: 70, faculties: 3 },
+    ],
+  },
+  {
+    name: "Liberal Arts",
+    students: 260,
+    faculties: 14,
+    courses: [
+      { name: "Philosophy", students: 80, faculties: 4 },
+      { name: "Literature Studies", students: 90, faculties: 4 },
+      { name: "History of Art", students: 90, faculties: 3 },
+    ],
+  },
   {
     name: "Mathematics",
     students: 300,
@@ -108,7 +102,7 @@ const CourseSetupPage = () => {
   const [expandedDept, setExpandedDept] = useState(null);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       {/* Sticky top bar */}
       <AdminTopBar />
 
@@ -118,10 +112,10 @@ const CourseSetupPage = () => {
       {/* Course Setup content */}
       <main className="max-w-6xl mx-auto px-4 py-8">
         {/* Admin Tools */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6 mb-6 flex justify-between items-center">
+        <div className="bg-white dark:bg-gray-600 rounded-xl shadow p-6 mb-6 flex justify-between items-center">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Course Setup</h2>
           <div className="flex gap-4">
-            <button className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            <button className="flex items-center gap-2 bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-900">
               <FontAwesomeIcon icon={faPlus} />
               Add Department
             </button>
@@ -142,38 +136,39 @@ const CourseSetupPage = () => {
                   <FontAwesomeIcon icon={faEdit} />
                 </button>
               </div>
-              <div className="flex justify-around text-center">
-                <div>
-                  <FontAwesomeIcon icon={faUsers} className="text-2xl text-blue-500 mb-2" />
-                  <p className="text-lg font-semibold">{dept.students}</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-300">Students</p>
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <div className="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg text-center">
+                  <FontAwesomeIcon icon={faUsers} className="text-2xl text-blue-500 dark:text-blue-400 mb-2" />
+                  <p className="text-lg font-semibold text-gray-900 dark:text-gray-200">{dept.students}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-200">Students</p>
                 </div>
-                <div>
-                  <FontAwesomeIcon icon={faChalkboardTeacher} className="text-2xl text-green-500 mb-2" />
-                  <p className="text-lg font-semibold">{dept.faculties}</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-300">Faculties</p>
+                <div className="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg text-center">
+                  <FontAwesomeIcon icon={faChalkboardTeacher} className="text-2xl text-green-500 dark:text-green-400 mb-2" />
+                  <p className="text-lg font-semibold text-gray-900 dark:text-gray-200">{dept.faculties}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-200">Faculties</p>
                 </div>
               </div>
               <button
                 onClick={() => setExpandedDept(expandedDept === index ? null : index)}
-                className="mt-4 w-full bg-gray-100 dark:bg-gray-700 py-2 rounded-lg text-center text-sm font-medium"
+                className="mt-4 w-full bg-blue-600 dark:bg-blue-900 text-white py-2 rounded-lg text-center text-sm font-medium hover:bg-blue-700 dark:hover:bg-blue-800 flex items-center justify-center gap-2"
               >
                 {expandedDept === index ? "Hide Courses" : "View Courses"}
+                <FontAwesomeIcon icon={expandedDept === index ? faChevronUp : faChevronDown} />
               </button>
               {expandedDept === index && (
                 <ul className="mt-4 space-y-3">
                   {dept.courses.map((course, cIndex) => (
-                    <li key={cIndex} className="border-t dark:border-gray-700 pt-3">
+                    <li key={cIndex} className="border-t dark:border-gray-600 pt-3">
                       <div className="flex justify-between">
-                        <div>
-                          <FontAwesomeIcon icon={faBook} className="text-blue-500 mr-2" />
-                          <span className="font-medium">{course.name}</span>
+                        <div className="flex items-center">
+                          <FontAwesomeIcon icon={faBook} className="text-blue-500 dark:text-blue-400 mr-2" />
+                          <span className="font-medium text-gray-900 dark:text-gray-200">{course.name}</span>
                         </div>
-                        <button className="text-blue-600 dark:text-blue-300 text-sm">
+                        <button className="text-blue-900 dark:text-blue-300 text-sm">
                           <FontAwesomeIcon icon={faEdit} />
                         </button>
-                      </div>
-                      <div className="flex justify-around text-sm text-gray-600 dark:text-gray-300 mt-2">
+                      </div>  
+                      <div className="flex justify-around text-sm text-gray-600 dark:text-gray-400 mt-2">
                         <p>Students: {course.students}</p>
                         <p>Faculties: {course.faculties}</p>
                       </div>

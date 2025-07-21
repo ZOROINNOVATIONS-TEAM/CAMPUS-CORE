@@ -7,7 +7,7 @@ import InfoCardsSection from "@/components/dashboard/student/map/InfoCardsSectio
 
 export default function CampusMap() {
   return (
-    <div className="bg-gray-50 min-h-screen p-6">
+    <div className="bg-blue-100 dark:bg-blue-900 min-h-screen p-6">
       <div className="flex justify-between items-center mb-4">
         <div>
           <h1 className="text-2xl font-bold">Campus Map</h1>

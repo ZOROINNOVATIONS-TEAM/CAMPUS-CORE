@@ -8,7 +8,7 @@ import HelpSupport from '../../components/dashboard/student/FeesPage/HelpSupport
 
 const FeesPage = () => {
   return (
-    <div className="fees-page p-6">
+    <div className="fees-page p-6 bg-slate-400">
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Left Column: Fees Overview + Payment History */}

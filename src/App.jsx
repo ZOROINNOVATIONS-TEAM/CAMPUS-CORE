@@ -24,6 +24,8 @@ import CourseCard from './components/dashboard/faculty/CourseCard';
 import FacultyCourseSetup from "./pages/faculty/FacultyCourseSetup";
 import AdminAnalytics from "./pages/admin/AdminAnalytics"
 import FacultyAssignmentsPage from "./pages/faculty/FacultyAssignmentsPage"
+import FacultyDutiesPage from "./pages/faculty/FacultyDutiesPage"
+import FacultyMentorPage from "./pages/faculty/FacultyMentorPage"
 
 function App() {
   const { user } = useAuth();
@@ -50,6 +52,8 @@ function App() {
       <Route path="/faculty/exam" element={<FacultyExamPage />} />
       <Route path="/faculty/grading" element={<FacultyGradingPage />} />
       <Route path="/faculty/assignment" element={<FacultyAssignmentsPage />} />
+      <Route path="/faculty/duties" element={<FacultyDutiesPage />} />
+       <Route path="/faculty/mentor" element={<FacultyMentorPage />} />
       <Route
         path="/facultydashboard"
         element={

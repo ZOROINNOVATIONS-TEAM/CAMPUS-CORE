@@ -24,7 +24,7 @@ export default function StudentDashboard() {
   const [isDark, setIsDark] = useState(false);
 
   return (
-    <div className={`min-h-screen flex ${isDark ? "bg-stone-900 text-gray-300" : "bg-gray-100 text-zinc-900"}`}>
+    <div className={`min-h-screen flex ${isDark ? "bg-stone-500 text-black-900" : "bg-gray-100 text-zinc-900"}`}>
       {/* Sidebar for navigation */}
       <Sidebar activeTab={activeTab} onChange={setActiveTab} />
       <div className="flex-1 overflow-auto">

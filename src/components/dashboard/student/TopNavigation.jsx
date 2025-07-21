@@ -18,7 +18,7 @@ export function TopNavigation({ isDark, setIsDark }) {
   }, []);
 
   return (
-    <nav className="flex items-center justify-between p-4 bg-white/90 dark:bg-purple-600/90 backdrop-blur-lg shadow-md">
+    <nav className="flex items-center justify-between p-4 bg-white/50 dark:bg-purple-300/50 backdrop-blur-lg shadow-md dark:border-t border-blue-500">
       {/* Logo or App Name */}
       <div className="font-bold text-xl">CAMPUS-CORE</div>
       {/* User Controls */}

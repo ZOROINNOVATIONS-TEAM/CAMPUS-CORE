@@ -46,7 +46,7 @@ export const AdminTopBar = () => {
   };
 
   return (
-    <div className="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm">
+    <div className="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-blue-700 shadow-sm">
       <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
         <div className="flex items-center gap-2">
           <img src="/camplogo.jpg" alt="Campus Core Logo" className="h-15 w-14 rounded-full" />
@@ -56,32 +56,32 @@ export const AdminTopBar = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <button className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
-            <FontAwesomeIcon icon={faSearch} />
+          <button className="p-2 rounded-full bg-gray-100 dark:bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-300 transition">
+            <FontAwesomeIcon icon={faSearch} className="text-black" />
           </button>
-          <button className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 relative transition">
-            <FontAwesomeIcon icon={faBell} />
-            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 text-white text-xs flex items-center justify-center">
+          <button className="p-2 rounded-full bg-gray-100 dark:bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-300 relative transition">
+            <FontAwesomeIcon icon={faBell} className="text-black"  />
+            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 text-black text-xs flex items-center justify-center">
               3
             </span>
           </button>
           {/* 🌙 / ☀️ */}
-          <button onClick={toggleDarkMode} className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
-            <FontAwesomeIcon icon={darkMode ? faSun : faMoon} />
+          <button onClick={toggleDarkMode} className="p-2 rounded-full bg-gray-100 dark:bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-300 transition">
+            <FontAwesomeIcon icon={darkMode ? faSun : faMoon} className="text-black"/>
           </button>
           {/* Profile dropdown */}
           <div className="relative">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex items-center gap-2 px-3 py-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+              className="flex items-center gap-2 px-3 py-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-300 transition"
             >
-              <FontAwesomeIcon icon={faUser} className="w-5 h-5" />
-              <span className="text-sm">San</span>
+              <FontAwesomeIcon icon={faUser} className="w-5 h-5 text-indigo-700" />
+              <span className="text-lg text-indigo-700">San</span>
               <FontAwesomeIcon icon={faCaretDown} />
             </button>
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-50">
-                <Link to="/profile" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+              <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-300 rounded-lg shadow-lg z-50">
+                <Link to="/profile" className="block px-4 py-2  hover:bg-gray-100 dark:hover:bg-gray-700">
                   Profile
                 </Link>
                 <Link to="/settings" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -120,7 +120,6 @@ export const AdminBannerAndTabs = () => {
   { label: "Analytics", path: "/admin/analytics", icon: faChartBar },
   { label: "Fees", path: "/admin/fees", icon: faFileContract },
   { label: "Other", path: "/admin/map", icon: faEllipsisH },
-  { label: "Mentor", path: "/admin/mentor", icon: faChalkboardTeacher },
 ];
 
 
@@ -143,10 +142,10 @@ export const AdminBannerAndTabs = () => {
               <Link
                 key={tab.label}
                 to={tab.path}
-                className={`flex gap-2 items-center px-4 py-2 rounded-lg transition text-sm font-medium whitespace-nowrap
+                className={`flex gap-2 items-center px-10 py-4 rounded-lg transition text-sm font-medium whitespace-nowrap 
                   ${isActive
-                    ? "bg-blue-100 dark:bg-blue-700 text-blue-700 dark:text-white shadow"
-                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    ? "bg-blue-200 dark:bg-blue-700 text-blue-700 dark:text-white shadow"
+                    : "text-stone-900 dark:text-gray-300 hover:bg-blue-300 dark:hover:bg-gray-700"
                   }`}
               >
                 <FontAwesomeIcon icon={tab.icon} />

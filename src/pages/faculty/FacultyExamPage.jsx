@@ -41,7 +41,7 @@ const exams = [
 
 const FacultyExamPage = () => {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div className="min-h-screen bg-blue-100 dark:bg-slate-500 text-gray-900 dark:text-gray-100 p-10">
       {/* Faculty Header */}
       <FacultyHeader />
 

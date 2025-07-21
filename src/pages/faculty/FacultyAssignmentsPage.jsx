@@ -2,46 +2,52 @@
 import React from "react";
 import FacultyHeader from "@/components/dashboard/faculty/FacultyHeader"; // Adjust path as needed
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClipboard, faEdit, faTrash, faPlus, faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faClipboard, faEdit, faTrash, faPlus, faCheck, faTimes, faUsers } from "@fortawesome/free-solid-svg-icons";
 
-// Sample assignment data (replace with API fetch, integrating course/department info from memory[3])
+// Sample assignment data with detailed types (replace with API fetch)
 const assignments = [
   {
     id: 1,
     title: "Homework 1 - Loops and Arrays",
+    type: "Written Assignment",
     course: "CS101 - Introduction to Computer Science",
     department: "Computer Science",
     dueDate: "July 10, 2025",
-    submissions: 45,
-    graded: 30,
+    totalStudents: 50,
+    submitted: 45,
+    notSubmitted: 5,
     status: "Ongoing",
   },
   {
     id: 2,
-    title: "Quiz 2 - Derivatives",
+    title: "Tutorial - Derivatives Practice",
+    type: "Tutorial",
     course: "MATH301 - Advanced Mathematics",
     department: "Mathematics",
     dueDate: "July 18, 2025",
-    submissions: 28,
-    graded: 25,
+    totalStudents: 30,
+    submitted: 28,
+    notSubmitted: 2,
     status: "Completed",
   },
   {
     id: 3,
-    title: "Lab Report - Circuits",
+    title: "Group Presentation - Circuit Analysis",
+    type: "Presentation",
     course: "PHY201 - Physics Laboratory",
     department: "Physics",
     dueDate: "July 25, 2025",
-    submissions: 35,
-    graded: 0,
-    status: "Pending",
+    totalStudents: 35,
+    submitted: 35,
+    notSubmitted: 0,
+    status: "Pending Review",
   },
   // Add more as needed
 ];
 
 const FacultyAssignmentsPage = () => {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div className="min-h-screen bg-blue-100 dark:bg-slate-500 text-gray-900 dark:text-gray-100 p-10">
       {/* Faculty Header */}
       <FacultyHeader />
 
@@ -62,9 +68,11 @@ const FacultyAssignmentsPage = () => {
             <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
                 <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-200">Title</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-200">Type</th>
                 <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-200">Course/Department</th>
                 <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-200">Due Date</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-200">Submissions/Graded</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-200">Total Students</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-200">Submitted/Not Submitted</th>
                 <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-200">Status</th>
                 <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-200">Actions</th>
               </tr>
@@ -74,11 +82,19 @@ const FacultyAssignmentsPage = () => {
                 <tr key={assignment.id}>
                   <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-200">{assignment.title}</td>
                   <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-200">
+                    <FontAwesomeIcon icon={faClipboard} className="mr-1 text-gray-500 dark:text-gray-400" />
+                    {assignment.type}
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-200">
                     {assignment.course} ({assignment.department})
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-200">{assignment.dueDate}</td>
                   <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-200">
-                    {assignment.submissions} / {assignment.graded}
+                    <FontAwesomeIcon icon={faUsers} className="mr-1 text-gray-500 dark:text-gray-400" />
+                    {assignment.totalStudents}
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-200">
+                    {assignment.submitted} Submitted / {assignment.notSubmitted} Not Submitted
                   </td>
                   <td className="px-6 py-4 text-sm">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -97,7 +113,7 @@ const FacultyAssignmentsPage = () => {
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
                     <button className="text-green-500 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 ml-2">
-                      <FontAwesomeIcon icon={faCheck} /> Grade
+                      <FontAwesomeIcon icon={faCheck} /> Review
                     </button>
                   </td>
                 </tr>

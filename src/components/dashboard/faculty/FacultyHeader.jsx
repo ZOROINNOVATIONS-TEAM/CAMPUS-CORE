@@ -85,7 +85,7 @@ const FacultyHeader = () => {
   return (
     <>
       {/* Top Header */}
-    <header className="bg-white dark:bg-gray-900 shadow-md sticky top-0 z-10">
+    <header className="bg-white dark:bg-gray-900 shadow-md sticky top-0 z-10 dark:border-t border-blue-500">
         <div className="max-w-6xl mx-auto px-4 py-2 flex justify-between items-center border-b border-gray-200 dark:border-gray-700">
           {/* Logo and Title (Logo on left) */}
           <div className="flex items-center space-x-2">
@@ -152,7 +152,7 @@ const FacultyHeader = () => {
       </header>
 
       {/* Welcome Banner */}
-      <div className="bg-indigo-500 dark:bg-indigo-700 text-white max-w-6xl mx-auto py-8 p-6 rounded-lg shadow-md mb-8 mt-4">
+      <div className="bg-indigo-400 dark:bg-indigo-900 text-white max-w-6xl mx-auto py-8 p-6 rounded-lg shadow-md mb-8 mt-4">
         <div className="flex justify-between items-start">
           <div>
             <h2 className="text-2xl font-bold mb-2">{greeting}, Dr. San</h2>
