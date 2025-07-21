@@ -2,7 +2,7 @@ import {
   Home,
   Calendar,
   BarChart2,
-  Bell,
+  FileText,
   MessageCircle,
   Users,
   BookOpen,
@@ -14,7 +14,7 @@ export function NavMenu({ activeTab, onChange }) {
     { label: "Schedule", icon: Calendar, target: "schedule" },
     { label: "Courses", icon: BookOpen, target: "courses" },
     { label: "Analytics", icon: BarChart2, target: "analytics" },
-    { label: "Notifications", icon: Bell, target: "notification" },
+    { label: "Results", icon: FileText, target: "results" },
     { label: "Messages", icon: MessageCircle, target: "message" },
     { label: "Mentor", icon: Users, target: "mentor" },
   ];
