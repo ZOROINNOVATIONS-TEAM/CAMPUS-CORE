@@ -24,5 +24,35 @@ if (err instanceof Error) {
   res.status(400).json({ error: 'Unknown error occurred' });
 }  }
 });
+router.get('/students', async (req, res) => {
+  const course_title = req.query.course_title as string;
+
+  if (!course_title) {
+    return res.status(400).json({ error: 'Missing course_title' });
+  }
+
+  try {
+    const course = await db.CourseModel.findOne({ title: course_title });
+    if (!course) {
+      return res.status(404).json({ error: 'Course not found' });
+    }
+
+    const students = await db.get_students_by_course(course._id.toString());
+    res.json({ students });
+  } catch (err) {
+    console.error('Failed to fetch students:', err);
+    res.status(500).json({ error: 'Failed to fetch students' });
+  }
+});
+
+router.get('/courses', async (req, res) => {
+  try {
+    const courses = await db.get_all_courses();
+    res.json({ courses });
+  } catch (err) {
+    console.error('Failed to fetch courses:', err);
+    res.status(500).json({ error: 'Failed to fetch courses' });
+  }
+});
 
 export default router;
