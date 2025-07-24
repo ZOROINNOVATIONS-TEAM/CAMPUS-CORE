@@ -87,3 +87,7 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
 });
+
+
+// "start": "ts-node app.ts",
+// "dev": "nodemon --exec ts-node app.ts"

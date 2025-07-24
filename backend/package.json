@@ -14,21 +14,21 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.15.1",
+    "mongoose": "^8.16.4",
     "nodemon": "^3.1.10",
     "zod": "^3.25.64"
   },
   "devDependencies": {
+    "@types/argon2": "^0.15.4",
     "@types/cookie-parser": "^1.4.9",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.9",
-    "@types/node": "^20.14.9",
-    "@types/argon2": "^0.19.0",
+    "@types/node": "^20.19.9",
     "ts-node": "^10.9.2",
+    "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   },
   "scripts": {
-    "start": "ts-node app.ts",
-    "dev": "nodemon --exec ts-node app.ts"
+    "start": "tsx app.ts"
   }
 }
