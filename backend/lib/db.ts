@@ -86,6 +86,10 @@ export async function update_course(course_id: string, data: Partial<Course>): P
   const updated = await CourseModel.findByIdAndUpdate(course_id, data);
   return !!updated;
 }
+export async function get_all_courses(): Promise<Course[]> {
+  return CourseModel.find().lean<Course[]>().exec();
+}
+
 
 export async function register_student_to_course(student_id: string, course_id: string): Promise<boolean> {
   const course = await CourseModel.findById(course_id);
@@ -138,6 +142,22 @@ export function get_user_from_email(email: string): Promise<User | null> {
 
 export function get_user_from_rollno(rollno: string): Promise<User | null> {
   return UserModel.findOne({ rollno }).lean<User>().exec();
+}
+
+export async function get_students_by_course(course_id: string) {
+  const courseObjectId = new mongoose.Types.ObjectId(course_id);
+
+  const students = await UserModel.find({
+    type: 'student',
+    courses: courseObjectId,
+  })
+    .select({ _id: 1, name: 1 })
+    .lean();
+
+  return students.map((student) => ({
+    id: student._id.toString(),
+    name: student.name,
+  }));
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -368,24 +388,40 @@ export async function deleteResultRecord(resultId: string): Promise<boolean> {
   return !!deleted;
 }
 
+/////////////////////////////////////////////////////////////////////////////
+// ANALYTICS SCHEMA
 
 
-////////////////////////////////////////////////////////////////////////Analytics
 export interface Analytics {
   _id?: mongoose.Types.ObjectId;
-  totalStudents: number;
-  totalFaculty: number;
-  totalCourses: number;
-  feeCollected: number;
-  generatedAt: Date;
+  totalUsers: number;
+  activeUsers: number;
+  students: number;
+  faculty: number;
+  studentGrowth: number;
+  facultyGrowth: number;
+  monthlyLabels: string[];
+  monthlyUserData: number[];
+  timestamp: Date;
+  createdAt?: Date; // optional (auto-added by timestamps)
+  updatedAt?: Date; // optional (auto-added by timestamps)
 }
 
-const AnalyticsSchema = new mongoose.Schema<Analytics>({
-  totalStudents: { type: Number, required: true },
-  totalFaculty: { type: Number, required: true },
-  totalCourses: { type: Number, required: true },
-  feeCollected: { type: Number, required: true },
-  generatedAt: { type: Date, required: true, default: Date.now }
-});
+const AnalyticsSchema = new mongoose.Schema<Analytics>(
+  {
+    totalUsers: { type: Number, required: true },
+    activeUsers: { type: Number, required: true },
+    students: { type: Number, required: true },
+    faculty: { type: Number, required: true },
+    studentGrowth: { type: Number, required: true },
+    facultyGrowth: { type: Number, required: true },
+    monthlyLabels: { type: [String], required: true },
+    monthlyUserData: { type: [Number], required: true },
+    timestamp: { type: Date, required: true, default: Date.now }
+  },
+  {
+    timestamps: true // ✅ This adds createdAt and updatedAt fields automatically
+  }
+);
 
 export const AnalyticsModel = mongoose.model<Analytics>('analytics', AnalyticsSchema);
