@@ -367,3 +367,25 @@ export async function deleteResultRecord(resultId: string): Promise<boolean> {
   const deleted = await ResultModel.findByIdAndDelete(resultId);
   return !!deleted;
 }
+
+
+
+////////////////////////////////////////////////////////////////////////Analytics
+export interface Analytics {
+  _id?: mongoose.Types.ObjectId;
+  totalStudents: number;
+  totalFaculty: number;
+  totalCourses: number;
+  feeCollected: number;
+  generatedAt: Date;
+}
+
+const AnalyticsSchema = new mongoose.Schema<Analytics>({
+  totalStudents: { type: Number, required: true },
+  totalFaculty: { type: Number, required: true },
+  totalCourses: { type: Number, required: true },
+  feeCollected: { type: Number, required: true },
+  generatedAt: { type: Date, required: true, default: Date.now }
+});
+
+export const AnalyticsModel = mongoose.model<Analytics>('analytics', AnalyticsSchema);

@@ -26,26 +26,62 @@
  *                   type: string
  *                   example: "Unexpected error occurred"
  */
-import express from 'express';
+// import express from 'express';
+// import { getAnalyticsData, generateReport } from '../lib/analytics';
+
+// const router = express.Router();
+
+// router.get('/', async (req, res) => {
+//   try {
+//     const data = await getAnalyticsData();
+//     res.json(data || { error: "No analytics data found" });
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
+
+// router.post('/report', async (req, res) => {
+//   try {
+//     const report = await generateReport();
+//     res.json(report);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
+
+// export default router;
+
+import express, { Request, Response, NextFunction } from 'express';
 import { getAnalyticsData, generateReport } from '../lib/analytics';
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+/**
+ * @route   GET /api/v1/analytics/
+ * @desc    Get the latest analytics data
+ */
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const data = await getAnalyticsData();
-    res.json(data || { error: "No analytics data found" });
+    if (!data) {
+      return res.status(404).json({ error: "No analytics data found" });
+    }
+    res.json(data);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error); // Pass to global error handler
   }
 });
 
-router.post('/report', async (req, res) => {
+/**
+ * @route   POST /api/v1/analytics/report
+ * @desc    Generate and store a new analytics report
+ */
+router.post('/report', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const report = await generateReport();
     res.json(report);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error); // Pass to global error handler
   }
 });
 

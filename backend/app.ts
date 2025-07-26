@@ -14,6 +14,7 @@ import admin_create_user from './routes/admin/create_user';
 import admin_course from './routes/admin/course';
 import admin_fee from './routes/admin/fee';
 import admin_result from './routes/admin/result';
+import analytics from './routes/analytics';
 
 // Student routes
 import student_login from './routes/student/login';
@@ -55,6 +56,7 @@ app.use('/api/v1/admin', admin_only, admin_create_user);
 app.use('/api/v1/admin', admin_only, admin_course);
 app.use('/api/v1/admin', admin_only, admin_fee);
 app.use('/api/v1/admin', admin_only, admin_result);
+app.use('/api/v1/analytics', admin_only, analytics);
 
 // Demo route for full login/token/role flow
 import * as auth_flow_demo_router from './routes/auth_flow_demo';
