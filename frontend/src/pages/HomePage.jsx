@@ -44,6 +44,13 @@ export default function HomePage() {
         >
           Get Started
         </a>
+         {/* NEW ADMIN REGISTER LINK */}
+  <Link
+    to="/register-admin"
+    className="mt-4 inline-block px-8 py-3 rounded-full border border-[#3666F6] text-[#3666F6] text-lg font-semibold hover:bg-[#3666F6] hover:text-white transition-colors"
+  >
+    Register as Admin
+  </Link>
       </section>
 
      

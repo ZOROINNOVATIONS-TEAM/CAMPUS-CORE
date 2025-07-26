@@ -8,6 +8,9 @@ import AdminDashboard from './pages/AdminDashboard';
 import FacultyDashboard from './pages/FacultyDashboard';
 import StudentDashboard from "./pages/StudentDashboard";
 import HomePage from "./pages/HomePage";
+import AdminRegisterForm from './components/auth/AdminRegisterForm';
+
+
 
 function App() {
   return (
@@ -19,6 +22,8 @@ function App() {
         <Route path="/admin/dashboard/*" element={<AdminDashboard />} />
         <Route path="/faculty/dashboard/*" element={<FacultyDashboard />} />
         <Route path="/student/dashboard/*" element={<StudentDashboard />} />
+        
+<Route path="/register-admin" element={<AdminRegisterForm />} />
       </Routes>
     </div>
   );
