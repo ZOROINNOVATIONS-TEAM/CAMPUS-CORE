@@ -388,7 +388,6 @@ export async function deleteResultRecord(resultId: string): Promise<boolean> {
   return !!deleted;
 }
 
-/////////////////////////////////////////////////////////////////////////////
 // ANALYTICS SCHEMA
 
 
