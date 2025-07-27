@@ -62,9 +62,38 @@ const RegisterForm = ({ userType }) => {
     try {
       setIsLoading(true);
       // Handle form submission
-      console.log('Form submitted:', formData);
-      // Add your registration logic here
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated API call
+      // console.log('Form submitted:', formData);
+      // // Add your registration logic here
+      // await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated API call
+      const payload = {
+  firstName: formData.firstName,
+  lastName: formData.lastName,
+  email: formData.email,
+  password: formData.password,
+  role: userType || 'student' // default to student, set as admin when needed
+};
+
+console.log('Payload to submit:', payload);
+
+try {
+  const response = await fetch('http://localhost:5000/api/register', { // adjust the URL
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+
+  const result = await response.json();
+
+  if (response.ok) {
+    alert('Admin registered successfully!');
+  } else {
+    alert(result.message || 'Registration failed!');
+  }
+} catch (err) {
+  console.error('Error:', err);
+  alert('Something went wrong!');
+}
+
     } catch (error) {
       console.error('Registration error:', error);
     } finally {

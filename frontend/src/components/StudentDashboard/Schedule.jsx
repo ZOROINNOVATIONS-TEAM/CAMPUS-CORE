@@ -1,135 +1,254 @@
 import React, { useState } from "react";
-import Calendar from "react-calendar";
-import { CalendarDays, MapPin } from "lucide-react";
-import { format } from "date-fns";
-import "react-calendar/dist/Calendar.css";
+import { FaRegCircle, FaRegDotCircle } from "react-icons/fa";
+import { FiChevronLeft, FiChevronRight, FiFilter } from "react-icons/fi";
 
-const Schedule = () => {
-  const [date, setDate] = useState(new Date());
+// Dummy calendar for January 2025 (simple, not dynamic)
+const calendarDays = [
+  ["", "", "", "", "", "1", "2"],
+  ["3", "4", "5", "6", "7", "8", "9"],
+  ["10", "11", "12", "13", "14", "15", "16"],
+  ["17", "18", "19", "20", "21", "22", "23"],
+  ["24", "25", "26", "27", "28", "29", "30"],
+  ["31", "", "", "", "", "", ""],
+];
 
-  const events = [
-    {
-      title: "Registration Complete!",
-      date: new Date(2025, 0, 17),
-      time: "11:00 AM",
-      location: "Lecture at Craft Pavilion",
-      type: "Lecture",
-    },
-    {
-      title: "Personal Coaching With Yasmin",
-      date: new Date(2025, 1, 5),
-      time: "11:00 AM",
-      location: "Coaching on College",
-      type: "Coaching",
-    },
-  ];
+const eventTypes = [
+  { label: "Lecture", color: "bg-purple-500", value: "lecture" },
+  { label: "Group Study", color: "bg-gray-400", value: "group" },
+  { label: "Coaching", color: "bg-blue-400", value: "coaching" },
+];
 
-  const filteredEvents = events.filter(
-    (event) => format(event.date, "yyyy-MM-dd") === format(date, "yyyy-MM-dd")
-  );
+const initialEvents = [
+  {
+    type: "lecture",
+    title: "Registration Completes!",
+    date: "JAN 17, 2025, 11:00 AM",
+    desc: "Lecture Confirmation",
+  },
+  {
+    type: "coaching",
+    title: "Personal Coaching With Yasmine!",
+    date: "JAN 29, 2025, 11:00 AM",
+    desc: "Coaching in College",
+  },
+];
+
+const templates = [
+  {
+    type: "coaching",
+    label: "Personal Coaching",
+    date: "JAN 17, 2025, 11:00 AM",
+  },
+  {
+    type: "group",
+    label: "Group Study",
+    date: "FEB 12, 2025, 5:00 PM",
+  },
+  {
+    type: "lecture",
+    label: "Introductory Lecture",
+    date: "FEB 17, 2025, 10:00 AM",
+  },
+  {
+    type: "assignment",
+    label: "Assignment Deadline",
+    date: "MAR 1, 2025, 12:00 AM",
+  },
+  {
+    type: "presentation",
+    label: "Presentation Day",
+    date: "JUN 21, 2025, 3:00 PM",
+  },
+];
+
+export default function Schedule() {
+  const [selectedType, setSelectedType] = useState("");
+  const [selectedDate, setSelectedDate] = useState("17");
+  const [upcomingEvents, setUpcomingEvents] = useState(initialEvents);
+
+  // Add event (demo: just pushes a simple event)
+  function handleAddEvent() {
+    const newEvent = {
+      type: "group",
+      title: "New Group Study Event",
+      date: `JAN ${selectedDate}, 2025, 1:00 PM`,
+      desc: "Added via + Add New Event",
+    };
+    setUpcomingEvents([...upcomingEvents, newEvent]);
+  }
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6 p-4 sm:p-6 bg-gray-100 min-h-screen text-gray-800">
-      {/* Left Section */}
-      <div className="w-full lg:w-2/3 bg-white rounded-2xl shadow-md p-4 sm:p-6 space-y-6 lg:h-[calc(100vh-3rem)] flex flex-col">
-        {/* Header */}
-        <div className="flex justify-between items-center">
-          <h2 className="text-3xl font-bold">📅 Calendar</h2>
-          <span className="text-lg font-semibold text-gray-600">Spring Summer</span>
-        </div>
-
-        {/* Calendar */}
-        <div className="bg-gray-100 p-4 rounded-xl grow">
-          <Calendar
-            onChange={setDate}
-            value={date}
-            calendarType="gregory"
-            className="w-full h-full"
-            tileClassName={({ date: d }) =>
-              format(d, "yyyy-MM-dd") === format(date, "yyyy-MM-dd")
-                ? "bg-blue-600 text-white rounded-md"
-                : "hover:bg-gray-200 rounded-md"
-            }
-          />
-        </div>
-
-        {/* Event Filters */}
-        <div className="flex flex-wrap items-center gap-4">
-          <span className="font-semibold text-gray-700">Event Type:</span>
-          {["Lecture", "Group Study", "Coaching"].map((type, i) => (
-            <label key={i} className="flex items-center gap-2 text-sm font-medium">
-              <input type="checkbox" className="form-checkbox text-blue-600" />
-              <span
-                className={`${
-                  type === "Lecture"
-                    ? "text-violet-600"
-                    : type === "Group Study"
-                    ? "text-blue-600"
-                    : "text-rose-600"
-                }`}
-              >
-                {type}
+    <div className="min-h-screen bg-[#ededed] p-0 flex flex-col">
+      <main className="w-full max-w-[1200px] mx-auto px-4 py-8 flex-1">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          {/* Calendar Section */}
+          <div className="bg-white rounded-xl shadow p-6 flex-1 col-span-2">
+            <div className="flex items-center justify-between mb-2">
+              <span className="font-bold text-xl tracking-tight">Calendar</span>
+              <span className="font-bold text-xl tracking-tight">Spring Summer</span>
+            </div>
+            {/* Calendar */}
+            <div className="bg-[#fafafa] rounded-xl border border-gray-200 p-4 w-[340px] mx-auto mb-5">
+              <div className="flex items-center justify-between mb-2">
+                <button className="p-1 rounded hover:bg-gray-100">
+                  <FiChevronLeft />
+                </button>
+                <span className="font-semibold text-gray-800">January 2025</span>
+                <button className="p-1 rounded hover:bg-gray-100">
+                  <FiChevronRight />
+                </button>
+              </div>
+              <table className="w-full text-center text-xs">
+                <thead>
+                  <tr className="text-gray-400">
+                    <th>Mo</th>
+                    <th>Tu</th>
+                    <th>We</th>
+                    <th>Th</th>
+                    <th>Fr</th>
+                    <th>Sa</th>
+                    <th>Su</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {calendarDays.map((week, wi) => (
+                    <tr key={wi}>
+                      {week.map((day, di) => (
+                        <td key={di} className="py-1">
+                          {day ? (
+                            <button
+                              onClick={() => setSelectedDate(day)}
+                              className={`w-7 h-7 rounded-full transition ${
+                                selectedDate === day
+                                  ? "bg-[#3666F6] text-white font-bold"
+                                  : "hover:bg-gray-100 text-gray-700"
+                              }`}
+                            >
+                              {day}
+                            </button>
+                          ) : (
+                            ""
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {/* Event Type Filter */}
+            <div className="flex items-center gap-6 mb-4">
+              <span className="text-lg">
+                <span className="border border-black rounded-[4px] inline-block w-[22px] h-[22px] align-middle mr-2" />
+                Event Type
               </span>
-            </label>
-          ))}
-        </div>
-
-        {/* Events */}
-        <div className="overflow-auto">
-          <h3 className="text-xl font-semibold text-blue-600 mb-3">Scheduled Events</h3>
-          {filteredEvents.length > 0 ? (
-            <div className="space-y-4">
-              {filteredEvents.map((event, i) => (
-                <div
-                  key={i}
-                  className="bg-gray-50 border border-gray-200 p-4 rounded-xl shadow-sm hover:shadow-md transition"
+              <span className="flex items-center gap-2 text-gray-500">
+                Filter Event <FiFilter />
+              </span>
+            </div>
+            {/* Event Types */}
+            <div className="flex items-center gap-6 mb-4">
+              {eventTypes.map((et) => (
+                <label
+                  key={et.value}
+                  className="flex items-center gap-2 text-base font-semibold cursor-pointer"
                 >
-                  <h4 className="font-bold text-gray-800 mb-1">{event.title}</h4>
-                  <div className="flex items-center text-sm text-gray-600 gap-2">
-                    <CalendarDays size={16} />
-                    {format(event.date, "MMM dd, yyyy")}, {event.time}
+                  <span
+                    className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                      selectedType === et.value
+                        ? et.color
+                        : "border-gray-400 bg-white"
+                    }`}
+                    onClick={() => setSelectedType(et.value)}
+                  >
+                    {selectedType === et.value && (
+                      <FaRegDotCircle className="text-white text-lg" />
+                    )}
+                  </span>
+                  <span
+                    className={`${
+                      et.color
+                    } inline-block w-3 h-3 rounded-full mr-1 align-middle`}
+                  ></span>
+                  {et.label}
+                </label>
+              ))}
+            </div>
+            {/* Upcoming Events */}
+            <div className="mb-2 font-semibold text-[#3666F6] text-lg">
+              Upcoming Events
+            </div>
+            <div className="flex flex-col gap-4">
+              {upcomingEvents
+                .filter((ev) => !selectedType || ev.type === selectedType)
+                .map((ev, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-[#fafafa] rounded-lg px-4 py-3 shadow-sm border border-gray-200"
+                  >
+                    <div className="flex items-center gap-2 mb-1">
+                      <span
+                        className={`inline-block w-3 h-3 rounded-full ${
+                          eventTypes.find((et) => et.value === ev.type)?.color
+                        }`}
+                      ></span>
+                      <span className="font-semibold text-base">
+                        {ev.title}
+                      </span>
+                    </div>
+                    <div className="text-xs text-gray-500">{ev.date}</div>
+                    <div className="text-xs text-gray-400">{ev.desc}</div>
                   </div>
-                  <div className="flex items-center text-sm text-gray-600 gap-2 mt-1">
-                    <MapPin size={16} />
-                    {event.location}
+                ))}
+            </div>
+          </div>
+          {/* Add Event Section */}
+          <div className="bg-white rounded-xl shadow p-6 flex-1">
+            <div className="font-semibold text-lg mb-4">Add Event</div>
+            <button
+              className="w-full bg-[#3666F6] hover:bg-blue-600 text-white font-bold py-3 rounded-lg shadow mb-4 transition"
+              onClick={handleAddEvent}
+            >
+              + Add New Event
+            </button>
+            <div className="font-semibold text-base mb-2">Saved Templates</div>
+            <div className="flex flex-col gap-2">
+              {templates.map((tpl, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-center gap-3 bg-gray-100 px-3 py-2 rounded-lg"
+                >
+                  <span
+                    className={`inline-block w-6 h-6 rounded-full flex items-center justify-center ${
+                      tpl.type === "lecture"
+                        ? "bg-purple-500 text-white"
+                        : tpl.type === "group"
+                        ? "bg-gray-400 text-white"
+                        : tpl.type === "coaching"
+                        ? "bg-blue-400 text-white"
+                        : tpl.type === "assignment"
+                        ? "bg-yellow-400 text-white"
+                        : tpl.type === "presentation"
+                        ? "bg-pink-400 text-white"
+                        : "bg-gray-300 text-white"
+                    }`}
+                  >
+                    {tpl.type === "lecture" && <FaRegDotCircle />}
+                    {tpl.type === "group" && <FaRegCircle />}
+                    {tpl.type === "coaching" && <FaRegDotCircle />}
+                    {tpl.type === "assignment" && <FaRegCircle />}
+                    {tpl.type === "presentation" && <FaRegCircle />}
+                  </span>
+                  <div>
+                    <div className="font-semibold text-base">{tpl.label}</div>
+                    <div className="text-xs text-gray-500">{tpl.date}</div>
                   </div>
                 </div>
               ))}
             </div>
-          ) : (
-            <p className="text-sm text-gray-500">No events scheduled for this day.</p>
-          )}
+          </div>
         </div>
-      </div>
-
-      {/* Right Section */}
-      <div className="w-full lg:w-1/3 bg-white rounded-2xl shadow-md p-4 sm:p-6 space-y-6 lg:h-[calc(100vh-3rem)] overflow-auto">
-        <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg transition text-sm">
-          + Schedule New Event
-        </button>
-
-        <h3 className="text-lg font-semibold text-gray-800">Saved Templates</h3>
-
-        <div className="space-y-3 text-sm">
-          {[
-            { title: "🎯 Personal Coaching", time: "Jan 17, 2025, 11:00 AM" },
-            { title: "👥 Group Study", time: "Feb 25, 2025, 5:00 PM" },
-            { title: "📘 Introductory Lecture", time: "Feb 27, 2025, 10:00 AM" },
-            { title: "📄 Assignment Deadline", time: "Mar 12, 2025, 9:00 AM" },
-            { title: "🎤 Presentation Day", time: "Apr 29, 2025, 3:00 PM" },
-          ].map((item, i) => (
-            <div
-              key={i}
-              className="p-4 border border-gray-200 rounded-xl hover:bg-gray-50 shadow-sm transition"
-            >
-              <p className="font-medium text-gray-800">{item.title}</p>
-              <p className="text-gray-500">{item.time}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      </main>
     </div>
   );
-};
-
-export default Schedule;
+}
