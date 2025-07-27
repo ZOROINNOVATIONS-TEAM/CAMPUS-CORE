@@ -12,6 +12,7 @@ import FacultyGradingPage from '../components/faculty/FacultyGradingPage';
 import FacultyAssignmentPage from '../components/faculty/FacultyAssignmentPage';
 import FacultyDutiesPage from '../components/faculty/FacultyDutiesPage';
 import FacultyMentorPage from '../components/faculty/FacultyMentorPage';
+import FacultyCreateUser from '../components/faculty/FaculyCreateUser';
 
 const FacultyDashboard = () => {
   return (
@@ -27,6 +28,7 @@ const FacultyDashboard = () => {
         <Route path='assignment' element={<FacultyAssignmentPage />} />
         <Route path='duties' element={<FacultyDutiesPage />} />
         <Route path='mentor' element={<FacultyMentorPage/>} />
+        <Route path='create-user' element={<FacultyCreateUser/>}/>
       </Routes>
       <Footer/>
     </FacultyDashboardLayout >

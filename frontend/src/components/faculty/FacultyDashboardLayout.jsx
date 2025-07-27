@@ -5,6 +5,7 @@ import {
   UserGroupIcon,
   Bars3Icon,
   XMarkIcon,
+  UserIcon,
 } from '@heroicons/react/24/outline';
 import { FaBookOpen, FaClipboardList, FaChartBar, FaRegFileAlt, FaBriefcase } from 'react-icons/fa';
 import { PiStudentFill } from "react-icons/pi";
@@ -21,6 +22,8 @@ const facultyNavigationItems = [
   { name: 'Assignment', icon: FaRegFileAlt, href: '/faculty/dashboard/assignment' },
   { name: 'Duties', icon: FaBriefcase, href: '/faculty/dashboard/duties' },
   { name: 'Mentor', icon: UserGroupIcon, href: '/faculty/dashboard/mentor' },
+  { name: 'Create user', icon: UserIcon, href: '/faculty/dashboard/create-user' },
+
 ];
 
 const FacultyDashboardLayout = ({ children }) => {
