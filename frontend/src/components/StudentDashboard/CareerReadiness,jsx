@@ -1,0 +1,150 @@
+import React, { useState } from "react";
+
+const skills = [
+"Python",
+"Cloud",
+"React",
+"SQL",
+"Communication",
+"Git"
+];
+
+export default function CareerReadiness(){
+
+const [selected,setSelected]=useState([]);
+
+const toggleSkill=(skill)=>{
+if(selected.includes(skill)){
+setSelected(
+selected.filter(
+s=>s!==skill
+)
+);
+}else{
+setSelected([
+...selected,
+skill
+]);
+}
+};
+
+const score=Math.round(
+(selected.length/skills.length)*100
+);
+
+const missing=
+skills.filter(
+s=>!selected.includes(s)
+);
+
+return(
+
+<div className="bg-white rounded-xl shadow p-6 mt-8">
+
+<h2 className="text-2xl font-bold mb-4">
+
+Career Readiness Hub
+
+</h2>
+
+<p className="text-gray-500 mb-6">
+
+Evaluate your current skills and identify growth opportunities.
+
+</p>
+
+<div className="grid grid-cols-2 gap-3">
+
+{
+skills.map(skill=>(
+
+<button
+key={skill}
+onClick={()=>toggleSkill(skill)}
+className={`p-3 rounded-lg border
+
+${
+selected.includes(skill)
+
+?
+
+"bg-blue-600 text-white"
+
+:
+
+"bg-gray-50"
+
+}
+`}
+>
+
+{skill}
+
+</button>
+
+))
+}
+
+</div>
+
+<div className="mt-8">
+
+<h3 className="font-semibold">
+
+Readiness Score
+
+</h3>
+
+<div className="w-full h-4 bg-gray-200 rounded">
+
+<div
+className="h-4 bg-green-500 rounded"
+style={{
+width:${score}%
+}}
+/>
+
+</div>
+
+<p className="mt-2">
+
+{score}/100
+
+</p>
+
+</div>
+
+<div className="mt-6">
+
+<h3 className="font-semibold">
+
+Recommended Next Skills
+
+</h3>
+
+<ul className="mt-3">
+
+{
+missing.map((s,index)=>(
+
+<li
+key={index}
+className="mb-2"
+>
+
+→ {s}
+
+</li>
+
+))
+}
+
+</ul>
+
+</div>
+
+</div>
+
+)
+
+}
