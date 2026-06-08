@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CareerReadiness from "./ CareerReadiness";
+import CareerReadiness from "./CareerReadiness";
 import {
   FaBookOpen,
   FaRegCalendarAlt,
