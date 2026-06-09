@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
 const skills = [
-  "Python",
-  "Cloud",
-  "React",
-  "SQL",
-  "Communication",
-  "Git",
+{ name:"Python", category:"Technical"},
+{ name:"Cloud", category:"Industry"},
+{ name:"React", category:"Frontend"},
+{ name:"SQL", category:"Database"},
+{ name:"Communication", category:"Soft Skill"},
+{ name:"Git", category:"Development"}
 ];
 
 export default function CareerReadiness() {
