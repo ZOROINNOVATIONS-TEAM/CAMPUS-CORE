@@ -148,7 +148,7 @@ export default function CareerReadiness() {
 
           {missing.length === 0 ? (
 
-            <div className="bg-green-100 text-green-700 p-5 rounded-2xl font-semibold">
+            <div className="bg-gradient-to-r from-green-400 to-blue-500 h-4 rounded transition-all duration-1000">
 
               🎉 Outstanding! All tracked skills selected.
 
