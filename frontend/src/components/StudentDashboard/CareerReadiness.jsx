@@ -72,11 +72,24 @@ export default function CareerReadiness() {
 
         {/* Skill Selection */}
 
-        <h3 className="font-bold text-lg mb-4">
+        <div className="flex justify-between items-center mb-5">
 
-          Select Current Skills
+          <h3 className="font-bold text-lg">
 
-        </h3>
+            Select Current Skills
+
+          </h3>
+
+          <button
+            onClick={() => setSelected([])}
+            className="px-4 py-2 rounded-xl bg-red-100 text-red-600 hover:bg-red-200"
+          >
+
+            Reset
+
+          </button>
+
+        </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
 
@@ -85,7 +98,7 @@ export default function CareerReadiness() {
             <button
               key={skill.name}
               onClick={() => toggleSkill(skill.name)}
-              className={`rounded-2xl p-4 transition-all duration-300 text-left
+              className={`rounded-2xl p-4 text-left transition-all duration-300
 
               ${
                 selected.includes(skill.name)
@@ -140,22 +153,18 @@ export default function CareerReadiness() {
 
             <div
               className="h-6 rounded-full bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 transition-all duration-700"
-              style={{
-                width: score + "%" }}
+              style={{ width: score + "%" }}
+            ></div>
 
-          ></div></div>
+          </div>
 
           <p className="mt-3 text-gray-600">
 
-            {score < 30 &&
-              "Start building your foundations"}
-
-            {score >= 30 &&
-              score < 70 &&
-              "Good progress. Continue improving"}
-
-            {score >= 70 &&
-              "Excellent readiness level"}
+            {score < 30
+              ? "Start building your foundations"
+              : score < 70
+              ? "Good progress. Continue improving"
+              : "Excellent readiness level"}
 
           </p>
 
