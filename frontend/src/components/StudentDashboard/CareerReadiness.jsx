@@ -72,63 +72,48 @@ export default function CareerReadiness() {
 
         {/* Skill Selection */}
 
-        <div className="flex justify-between items-center mb-5">
+        {/* Skill Selection */}
 
-          <h3 className="font-bold text-lg">
+<div className="flex justify-between items-center mb-5">
 
-            Select Current Skills
+  <h3 className="font-bold text-lg">
 
-          </h3>
+    Select Current Skills
 
-          <button
-            onClick={() => setSelected([])}
-            className="px-4 py-2 rounded-xl bg-red-100 text-red-600 hover:bg-red-200"
-          >
+  </h3>
 
-            Reset
+  <button
+    onClick={() => setSelected([])}
+    className="px-4 py-2 rounded-xl bg-red-100 text-red-600 hover:bg-red-200"
+  >
 
-          </button>
+    Reset
 
-        </div>
+  </button>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+</div>
 
-          {skills.map((skill) => (
+{/* Selected Skills Counter */}
 
-            <button
-              key={skill.name}
-              onClick={() => toggleSkill(skill.name)}
-              className={`rounded-2xl p-4 text-left transition-all duration-300
+<div className="mb-4 flex justify-between items-center">
 
-              ${
-                selected.includes(skill.name)
-                  ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl scale-105"
-                  : "bg-gray-100 hover:bg-blue-50"
-              }`}
-            >
+  <span className="text-gray-600 font-medium">
 
-              <div className="font-bold">
+    Selected Skills
 
-                {selected.includes(skill.name)
-                  ? "✓ "
-                  : ""}
+  </span>
 
-                {skill.name}
+  <span className="bg-blue-100 text-blue-700 px-4 py-1 rounded-full font-bold shadow-sm">
 
-              </div>
+    {selected.length} / {skills.length}
 
-              <div className="text-sm opacity-80">
+  </span>
 
-                {skill.category}
+</div>
 
-              </div>
-
-            </button>
-
-          ))}
-
-        </div>
-
+<div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+  
+</div>
         {/* Score */}
 
         <div className="mt-10">
