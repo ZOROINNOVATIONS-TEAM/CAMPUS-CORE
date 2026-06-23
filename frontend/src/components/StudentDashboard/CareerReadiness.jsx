@@ -10,204 +10,279 @@ const skills = [
 ];
 
 export default function CareerReadiness() {
-  const [selected, setSelected] = useState([]);
 
-  const toggleSkill = (skillName) => {
-    if (selected.includes(skillName)) {
-      setSelected(selected.filter((s) => s !== skillName));
-    } else {
-      setSelected([...selected, skillName]);
-    }
-  };
+const [selected, setSelected] = useState([]);
 
-  const score = Math.round(
-    (selected.length / skills.length) * 100
-  );
+const toggleSkill = (skillName) => {
 
-  const missing = skills.filter(
-    (skill) => !selected.includes(skill.name)
-  );
+if (selected.includes(skillName)) {
 
-  const level =
-    score < 30
-      ? "Explorer"
-      : score < 60
-      ? "Builder"
-      : score < 85
-      ? "Achiever"
-      : "Industry Ready";
+setSelected(
+selected.filter(
+(s) => s !== skillName
+)
+);
 
-  return (
-    <div className="mt-10 rounded-3xl p-[2px] bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 shadow-2xl">
+}
 
-      <div className="bg-white rounded-3xl p-8">
+else {
 
-        {/* Header */}
+setSelected([
+...selected,
+skillName
+]);
 
-        <div className="flex justify-between items-center mb-8">
+}
 
-          <div>
+};
 
-            <h2 className="text-3xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+const resetSkills = () => {
 
-              🚀 Career Readiness Hub
+setSelected([]);
 
-            </h2>
+};
 
-            <p className="text-gray-500 mt-2">
+const score = Math.round(
+(selected.length / skills.length) * 100
+);
 
-              Track skills • Measure readiness • Build your future
+const missing = skills.filter(
+(skill) =>
+!selected.includes(
+skill.name
+)
+);
 
-            </p>
+const level =
+score < 30
+? "Explorer"
+: score < 60
+? "Builder"
+: score < 85
+? "Achiever"
+: "Industry Ready";
 
-          </div>
+return (
 
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-5 py-3 rounded-full font-bold">
+<div className="mt-10 rounded-3xl p-[2px] bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 shadow-2xl">
 
-            {level}
+<div className="bg-white rounded-3xl p-8">
 
-          </div>
+<div className="flex justify-between items-center mb-8">
 
-        </div>
+<div>
 
-        {/* Skill Selection */}
+<h2 className="text-3xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
 
-        {/* Skill Selection */}
+🚀 Career Readiness Hub
 
-<div className="flex justify-between items-center mb-5">
+</h2>
 
-  <h3 className="font-bold text-lg">
+<p className="text-gray-500 mt-2">
 
-    Select Current Skills
+Track skills • Measure readiness • Build your future
 
-  </h3>
-
-  <button
-    onClick={() => setSelected([])}
-    className="px-4 py-2 rounded-xl bg-red-100 text-red-600 hover:bg-red-200"
-  >
-
-    Reset
-
-  </button>
+</p>
 
 </div>
 
-{/* Selected Skills Counter */}
+<div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-5 py-3 rounded-full font-bold">
 
-<div className="mb-4 flex justify-between items-center">
+{level}
 
-  <span className="text-gray-600 font-medium">
+</div>
 
-    Selected Skills
+</div>
 
-  </span>
+<div className="flex justify-between items-center mb-5">
 
-  <span className="bg-blue-100 text-blue-700 px-4 py-1 rounded-full font-bold shadow-sm">
+<div>
 
-    {selected.length} / {skills.length}
+<h3 className="font-bold text-lg">
 
-  </span>
+Select Current Skills
+
+</h3>
+
+<p className="text-sm text-gray-500">
+
+Selected:
+{selected.length}
+/
+{skills.length}
+
+</p>
+
+</div>
+
+<button
+onClick={resetSkills}
+className="px-4 py-2 rounded-xl bg-red-100 text-red-600 hover:bg-red-200"
+>
+
+Reset
+
+</button>
 
 </div>
 
 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-  
+
+{skills.map((skill) => (
+
+<button
+key={skill.name}
+onClick={() =>
+toggleSkill(skill.name)
+}
+className={`rounded-2xl p-4 text-left transition-all duration-300
+
+${
+selected.includes(skill.name)
+
+? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl scale-105"
+
+: "bg-gray-100 hover:bg-blue-50"
+
+}`}
+
+>
+
+<div className="font-bold">
+
+{selected.includes(skill.name)
+? "✓ "
+: ""}
+
+{skill.name}
+
 </div>
-        {/* Score */}
 
-        <div className="mt-10">
+<div className="text-sm opacity-80">
 
-          <div className="flex justify-between mb-3">
+{skill.category}
 
-            <span className="font-bold text-lg">
+</div>
 
-              Employability Score
+</button>
 
-            </span>
+))}
 
-            <span className="font-bold text-blue-600">
+</div>
 
-              {score}%
+<div className="mt-10">
 
-            </span>
+<div className="flex justify-between mb-3">
 
-          </div>
+<span className="font-bold text-lg">
 
-          <div className="w-full bg-gray-200 h-6 rounded-full overflow-hidden">
+Employability Score
 
-            <div
-              className="h-6 rounded-full bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 transition-all duration-700"
-              style={{ width: score + "%" }}
-            ></div>
+</span>
 
-          </div>
+<span className="font-bold text-blue-600">
 
-          <p className="mt-3 text-gray-600">
+{score}%
 
-            {score < 30
-              ? "Start building your foundations"
-              : score < 70
-              ? "Good progress. Continue improving"
-              : "Excellent readiness level"}
+</span>
 
-          </p>
+</div>
 
-        </div>
+<div className="w-full bg-gray-200 h-6 rounded-full overflow-hidden">
 
-        {/* Recommendations */}
+<div
+className="h-6 rounded-full bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 transition-all duration-700"
+style={{
+width:
+score + "%"
+}}
+></div>
 
-        <div className="mt-10">
+</div>
 
-          <h3 className="font-bold text-lg mb-4">
+<p className="mt-3 text-gray-600">
 
-            🎯 Recommended Next Skills
+{
+score < 30
+? "Start building your foundations"
 
-          </h3>
+: score < 70
 
-          {missing.length === 0 ? (
+? "Good progress. Continue improving"
 
-            <div className="rounded-2xl bg-gradient-to-r from-green-500 to-blue-500 text-white p-5 font-semibold">
+: "Excellent readiness level"
+}
 
-              🎉 Amazing! You completed all tracked skills.
+</p>
 
-            </div>
+</div>
 
-          ) : (
+<div className="mt-10">
 
-            <div className="grid gap-3">
+<h3 className="font-bold text-lg mb-4">
 
-              {missing.map((skill) => (
+🎯 Recommended Next Skills
 
-                <div
-                  key={skill.name}
-                  className="rounded-2xl p-4 bg-gradient-to-r from-purple-50 to-blue-50 hover:shadow-lg transition"
-                >
+</h3>
 
-                  <div className="font-semibold">
+{
 
-                    ✨ Learn {skill.name}
+missing.length === 0
 
-                  </div>
+?
 
-                  <div className="text-sm text-gray-500">
+(
 
-                    {skill.category}
+<div className="rounded-2xl bg-gradient-to-r from-green-500 to-blue-500 text-white p-5">
 
-                  </div>
+🎉 Amazing! You completed all tracked skills.
 
-                </div>
+</div>
 
-              ))}
+)
 
-            </div>
+:
 
-          )}
+(
 
-        </div>
+<div className="grid gap-3">
 
-      </div>
+{
 
-    </div>
-  );
+missing.map(
+(skill) => (
+
+<div
+key={skill.name}
+className="rounded-2xl p-4 bg-gradient-to-r from-purple-50 to-blue-50"
+>
+
+✨ Learn
+
+{" "}
+
+{skill.name}
+
+</div>
+
+)
+
+)
+
+}
+
+</div>
+
+)
+
+}
+
+</div>
+
+</div>
+
+</div>
+
+);
+
 }
