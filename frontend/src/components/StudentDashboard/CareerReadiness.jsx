@@ -9,6 +9,31 @@ const skills = [
   { name: "Git", category: "Development Tool" },
 ];
 
+const getCategoryColor = (category) => {
+  switch (category) {
+    case "Programming":
+      return "bg-blue-100 text-blue-700";
+
+    case "Industry":
+      return "bg-green-100 text-green-700";
+
+    case "Frontend":
+      return "bg-purple-100 text-purple-700";
+
+    case "Database":
+      return "bg-orange-100 text-orange-700";
+
+    case "Soft Skill":
+      return "bg-pink-100 text-pink-700";
+
+    case "Development Tool":
+      return "bg-gray-200 text-gray-700";
+
+    default:
+      return "bg-gray-100 text-gray-700";
+  }
+};
+
 export default function CareerReadiness() {
   const [selected, setSelected] = useState([]);
 
@@ -47,11 +72,9 @@ export default function CareerReadiness() {
       <div className="bg-white rounded-3xl p-8">
 
         {/* Header */}
-
         <div className="flex justify-between items-center mb-8">
 
           <div>
-
             <h2 className="text-3xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               🚀 Career Readiness Hub
             </h2>
@@ -59,21 +82,18 @@ export default function CareerReadiness() {
             <p className="text-gray-500 mt-2">
               Track skills • Measure readiness • Build your future
             </p>
-
           </div>
 
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-5 py-3 rounded-full font-bold">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-5 py-3 rounded-full font-bold shadow-lg">
             {level}
           </div>
 
         </div>
 
         {/* Top Actions */}
-
         <div className="flex justify-between items-center mb-6">
 
           <div>
-
             <h3 className="font-bold text-lg">
               Select Current Skills
             </h3>
@@ -81,7 +101,6 @@ export default function CareerReadiness() {
             <p className="text-sm text-gray-500">
               Selected: {selected.length}/{skills.length}
             </p>
-
           </div>
 
           <button
@@ -94,7 +113,6 @@ export default function CareerReadiness() {
         </div>
 
         {/* Skills */}
-
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
 
           {skills.map((skill) => (
@@ -102,9 +120,7 @@ export default function CareerReadiness() {
             <button
               key={skill.name}
               onClick={() => toggleSkill(skill.name)}
-              className={`rounded-2xl p-4 text-left transition-all duration-300
-
-              ${
+              className={`rounded-2xl p-4 text-left transition-all duration-300 ${
                 selected.includes(skill.name)
                   ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl scale-105"
                   : "bg-gray-100 hover:bg-blue-50"
@@ -116,7 +132,11 @@ export default function CareerReadiness() {
                 {skill.name}
               </div>
 
-              <div className="text-sm opacity-80">
+              <div
+                className={`inline-block mt-2 px-3 py-1 rounded-full text-xs font-semibold ${getCategoryColor(
+                  skill.category
+                )}`}
+              >
                 {skill.category}
               </div>
 
@@ -127,7 +147,6 @@ export default function CareerReadiness() {
         </div>
 
         {/* Score */}
-
         <div className="mt-10">
 
           <div className="flex justify-between mb-3">
@@ -146,7 +165,7 @@ export default function CareerReadiness() {
 
             <div
               className="h-6 rounded-full bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 transition-all duration-700"
-              style={{ width: '${score}%' }}
+              style={{ width: '${score}% '}}
             />
 
           </div>
@@ -168,7 +187,6 @@ export default function CareerReadiness() {
         </div>
 
         {/* Recommendations */}
-
         <div className="mt-10">
 
           <h3 className="font-bold text-lg mb-4">
