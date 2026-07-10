@@ -49,9 +49,7 @@ export default function CareerReadiness() {
     setSelected([]);
   };
 
-  const score = Math.round(
-    (selected.length / skills.length) * 100
-  );
+  const score = Math.round((selected.length / skills.length) * 100);
 
   const missing = skills.filter(
     (skill) => !selected.includes(skill.name)
@@ -66,14 +64,42 @@ export default function CareerReadiness() {
       ? "Achiever"
       : "Industry Ready";
 
+  // Career Suggestion
+  const careerSuggestion =
+    score < 30
+      ? {
+          title: "Start Learning",
+          message:
+            "Focus on Programming and Git before moving to advanced technologies.",
+          color: "border-red-400 bg-red-50",
+        }
+      : score < 60
+      ? {
+          title: "Keep Improving",
+          message:
+            "Strengthen your React, SQL and Cloud skills to become job-ready.",
+          color: "border-yellow-400 bg-yellow-50",
+        }
+      : score < 85
+      ? {
+          title: "Almost Ready",
+          message:
+            "Work on projects and internships to improve your employability.",
+          color: "border-blue-400 bg-blue-50",
+        }
+      : {
+          title: "Industry Ready",
+          message:
+            "Excellent! Focus on interview preparation and certifications.",
+          color: "border-green-400 bg-green-50",
+        };
+
   return (
     <div className="mt-10 rounded-3xl p-[2px] bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 shadow-2xl">
-
       <div className="bg-white rounded-3xl p-8">
 
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
-
           <div>
             <h2 className="text-3xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               🚀 Career Readiness Hub
@@ -87,12 +113,10 @@ export default function CareerReadiness() {
           <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-5 py-3 rounded-full font-bold shadow-lg">
             {level}
           </div>
-
         </div>
 
         {/* Top Actions */}
         <div className="flex justify-between items-center mb-6">
-
           <div>
             <h3 className="font-bold text-lg">
               Select Current Skills
@@ -109,14 +133,11 @@ export default function CareerReadiness() {
           >
             Reset
           </button>
-
         </div>
 
         {/* Skills */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-
           {skills.map((skill) => (
-
             <button
               key={skill.name}
               onClick={() => toggleSkill(skill.name)}
@@ -126,7 +147,6 @@ export default function CareerReadiness() {
                   : "bg-gray-100 hover:bg-blue-50"
               }`}
             >
-
               <div className="font-bold">
                 {selected.includes(skill.name) ? "✓ " : ""}
                 {skill.name}
@@ -139,18 +159,13 @@ export default function CareerReadiness() {
               >
                 {skill.category}
               </div>
-
             </button>
-
           ))}
-
         </div>
 
         {/* Score */}
         <div className="mt-10">
-
           <div className="flex justify-between mb-3">
-
             <span className="font-bold text-lg">
               Employability Score
             </span>
@@ -158,20 +173,16 @@ export default function CareerReadiness() {
             <span className="font-bold text-blue-600">
               {score}%
             </span>
-
           </div>
 
           <div className="w-full bg-gray-200 h-6 rounded-full overflow-hidden">
-
             <div
               className="h-6 rounded-full bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 transition-all duration-700"
-              style={{ width: '${score}% '}}
+              style={{ width: `${score}%` }}
             />
-
           </div>
 
           <p className="mt-3 text-gray-600">
-
             {score < 30 &&
               "Start building your foundations."}
 
@@ -181,35 +192,45 @@ export default function CareerReadiness() {
 
             {score >= 70 &&
               "Excellent readiness level."}
-
           </p>
+        </div>
 
+        {/* Career Suggestions */}
+        <div className="mt-8">
+          <h3 className="font-bold text-lg mb-4">
+            💡 Career Suggestion
+          </h3>
+
+          <div
+            className={`rounded-2xl p-5 border-l-4 ${careerSuggestion.color}`}
+          >
+            <h4 className="font-bold text-lg">
+              {careerSuggestion.title}
+            </h4>
+
+            <p className="text-gray-600 mt-2">
+              {careerSuggestion.message}
+            </p>
+          </div>
         </div>
 
         {/* Recommendations */}
         <div className="mt-10">
-
           <h3 className="font-bold text-lg mb-4">
             🎯 Recommended Next Skills
           </h3>
 
           {missing.length === 0 ? (
-
             <div className="rounded-2xl bg-gradient-to-r from-green-500 to-blue-500 text-white p-5 font-semibold">
               🎉 Amazing! You completed all tracked skills.
             </div>
-
           ) : (
-
             <div className="grid gap-3">
-
               {missing.map((skill) => (
-
                 <div
                   key={skill.name}
                   className="rounded-2xl p-4 bg-gradient-to-r from-purple-50 to-blue-50 hover:shadow-lg transition"
                 >
-
                   <div className="font-semibold">
                     ✨ Learn {skill.name}
                   </div>
@@ -217,19 +238,13 @@ export default function CareerReadiness() {
                   <div className="text-sm text-gray-500">
                     {skill.category}
                   </div>
-
                 </div>
-
               ))}
-
             </div>
-
           )}
-
         </div>
 
       </div>
-
     </div>
   );
 }
