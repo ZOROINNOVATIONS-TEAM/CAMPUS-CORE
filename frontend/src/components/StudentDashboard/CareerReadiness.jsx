@@ -64,6 +64,18 @@ export default function CareerReadiness() {
       ? "Achiever"
       : "Industry Ready";
 
+  // Dashboard Summary
+  const completedSkills = selected.length;
+
+  const remainingSkills = skills.length - selected.length;
+
+  const progressColor =
+    score < 30
+      ? "text-red-600"
+      : score < 70
+      ? "text-yellow-600"
+      : "text-green-600";
+
   // Career Suggestion
   const careerSuggestion =
     score < 30
@@ -133,6 +145,41 @@ export default function CareerReadiness() {
           >
             Reset
           </button>
+        </div>
+
+        {/* Dashboard Summary */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+
+          <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-5 shadow">
+            <p className="text-gray-500 text-sm">
+              Skills Selected
+            </p>
+
+            <h2 className="text-3xl font-bold text-blue-700 mt-2">
+              {completedSkills}
+            </h2>
+          </div>
+
+          <div className="bg-gradient-to-r from-purple-50 to-pink-100 rounded-2xl p-5 shadow">
+            <p className="text-gray-500 text-sm">
+              Skills Remaining
+            </p>
+
+            <h2 className="text-3xl font-bold text-purple-700 mt-2">
+              {remainingSkills}
+            </h2>
+          </div>
+
+          <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-2xl p-5 shadow">
+            <p className="text-gray-500 text-sm">
+              Career Level
+            </p>
+
+            <h2 className={`text-2xl font-bold mt-2 ${progressColor}`}>
+              {level}
+            </h2>
+          </div>
+
         </div>
 
         {/* Skills */}
@@ -246,5 +293,6 @@ export default function CareerReadiness() {
 
       </div>
     </div>
-  );
+  )
 }
+
