@@ -261,7 +261,7 @@ export default function CareerReadiness() {
           </div>
         </div>
 
-        {/* Recommendations */}
+                {/* Recommendations */}
         <div className="mt-10">
           <h3 className="font-bold text-lg mb-4">
             🎯 Recommended Next Skills
@@ -291,8 +291,44 @@ export default function CareerReadiness() {
           )}
         </div>
 
+        {/* Career Tips */}
+        <div className="mt-10">
+
+          <h3 className="font-bold text-lg mb-4">
+            💡 Career Tips
+          </h3>
+
+          <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-2xl p-6 border border-yellow-200">
+
+            <ul className="space-y-3 text-gray-700">
+
+              <li>
+                ✅ Build at least one real-world project every semester.
+              </li>
+
+              <li>
+                ✅ Keep your GitHub profile active with regular commits.
+              </li>
+
+              <li>
+                ✅ Practice aptitude and coding for placements every week.
+              </li>
+
+              <li>
+                ✅ Improve communication and interview skills.
+              </li>
+
+              <li>
+                ✅ Learn one new industry skill every 3 months.
+              </li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
       </div>
     </div>
-  )
+  );
 }
-
