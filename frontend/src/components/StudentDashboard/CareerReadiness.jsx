@@ -59,10 +59,20 @@ export default function CareerReadiness() {
     score < 30
       ? "Explorer"
       : score < 60
-      ? "Builder"
-      : score < 85
-      ? "Achiever"
-      : "Industry Ready";
+        ? "Builder"
+        : score < 85
+          ? "Achiever"
+          : "Industry Ready";
+  // Career Insight
+  const insight =
+    score < 30
+      ? "Focus on learning fundamental technical skills."
+      : score < 60
+        ? "You are making good progress. Continue building projects."
+        : score < 85
+          ? "Great progress! Focus on interview preparation."
+          : "Excellent! You are almost industry ready.";
+
 
   // Dashboard Summary
   const completedSkills = selected.length;
@@ -73,38 +83,38 @@ export default function CareerReadiness() {
     score < 30
       ? "text-red-600"
       : score < 70
-      ? "text-yellow-600"
-      : "text-green-600";
+        ? "text-yellow-600"
+        : "text-green-600";
 
   // Career Suggestion
   const careerSuggestion =
     score < 30
       ? {
-          title: "Start Learning",
-          message:
-            "Focus on Programming and Git before moving to advanced technologies.",
-          color: "border-red-400 bg-red-50",
-        }
+        title: "Start Learning",
+        message:
+          "Focus on Programming and Git before moving to advanced technologies.",
+        color: "border-red-400 bg-red-50",
+      }
       : score < 60
-      ? {
+        ? {
           title: "Keep Improving",
           message:
             "Strengthen your React, SQL and Cloud skills to become job-ready.",
           color: "border-yellow-400 bg-yellow-50",
         }
-      : score < 85
-      ? {
-          title: "Almost Ready",
-          message:
-            "Work on projects and internships to improve your employability.",
-          color: "border-blue-400 bg-blue-50",
-        }
-      : {
-          title: "Industry Ready",
-          message:
-            "Excellent! Focus on interview preparation and certifications.",
-          color: "border-green-400 bg-green-50",
-        };
+        : score < 85
+          ? {
+            title: "Almost Ready",
+            message:
+              "Work on projects and internships to improve your employability.",
+            color: "border-blue-400 bg-blue-50",
+          }
+          : {
+            title: "Industry Ready",
+            message:
+              "Excellent! Focus on interview preparation and certifications.",
+            color: "border-green-400 bg-green-50",
+          };
 
   return (
     <div className="mt-10 rounded-3xl p-[2px] bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 shadow-2xl">
@@ -188,11 +198,10 @@ export default function CareerReadiness() {
             <button
               key={skill.name}
               onClick={() => toggleSkill(skill.name)}
-              className={`rounded-2xl p-4 text-left transition-all duration-300 ${
-                selected.includes(skill.name)
-                  ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl scale-105"
-                  : "bg-gray-100 hover:bg-blue-50"
-              }`}
+              className={`rounded-2xl p-4 text-left transition-all duration-300 ${selected.includes(skill.name)
+                ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl scale-105"
+                : "bg-gray-100 hover:bg-blue-50"
+                }`}
             >
               <div className="font-bold">
                 {selected.includes(skill.name) ? "✓ " : ""}
@@ -240,6 +249,19 @@ export default function CareerReadiness() {
             {score >= 70 &&
               "Excellent readiness level."}
           </p>
+
+          {/* Career Insight */}
+          <div className="mt-5 rounded-2xl bg-blue-50 border border-blue-200 p-4">
+
+            <h4 className="font-semibold text-blue-700 mb-2">
+              📈 Career Insight
+            </h4>
+
+            <p className="text-gray-700">
+              {insight}
+            </p>
+
+          </div>
         </div>
 
         {/* Career Suggestions */}
@@ -261,7 +283,7 @@ export default function CareerReadiness() {
           </div>
         </div>
 
-                {/* Recommendations */}
+        {/* Recommendations */}
         <div className="mt-10">
           <h3 className="font-bold text-lg mb-4">
             🎯 Recommended Next Skills
@@ -332,3 +354,4 @@ export default function CareerReadiness() {
     </div>
   );
 }
+
