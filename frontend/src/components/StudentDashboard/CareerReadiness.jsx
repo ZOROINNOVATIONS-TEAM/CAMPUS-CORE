@@ -63,6 +63,12 @@ export default function CareerReadiness() {
         : score < 85
           ? "Achiever"
           : "Industry Ready";
+          const status =
+  score < 30
+    ? "Needs Improvement"
+    : score < 70
+      ? "On Track"
+      : "Excellent";
   // Career Insight
   const insight =
     score < 30
@@ -237,6 +243,37 @@ export default function CareerReadiness() {
               style={{ width: `${score}%` }}
             />
           </div>
+          <div className="flex justify-between items-center mt-5">
+
+  <div>
+
+    <p className="text-sm text-gray-500">
+      Completion
+    </p>
+
+    <p className="font-bold text-lg">
+      {score}%
+    </p>
+
+  </div>
+
+  <div>
+
+    <span
+      className={`px-4 py-2 rounded-full text-sm font-semibold ${
+        score < 30
+          ? "bg-red-100 text-red-700"
+          : score < 70
+            ? "bg-yellow-100 text-yellow-700"
+            : "bg-green-100 text-green-700"
+      }`}
+    >
+      {status}
+    </span>
+
+  </div>
+
+</div>
 
           <p className="mt-3 text-gray-600">
             {score < 30 &&
