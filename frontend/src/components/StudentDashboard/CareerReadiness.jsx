@@ -386,6 +386,58 @@ export default function CareerReadiness() {
           </div>
 
         </div>
+                {/* Career Summary */}
+        <div className="mt-10 rounded-2xl border border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 p-6">
+
+          <h3 className="text-xl font-bold text-blue-700 mb-4">
+            📋 Career Summary
+          </h3>
+
+          <div className="space-y-3">
+
+            <div className="flex justify-between">
+              <span>Employability Score</span>
+              <span className="font-bold">{score}%</span>
+            </div>
+
+            <div className="flex justify-between">
+              <span>Current Level</span>
+              <span className="font-bold">{level}</span>
+            </div>
+
+            <div className="flex justify-between">
+              <span>Skills Completed</span>
+              <span className="font-bold">
+                {selected.length} / {skills.length}
+              </span>
+            </div>
+
+            <div className="flex justify-between">
+              <span>Skills Remaining</span>
+              <span className="font-bold">
+                {missing.length}
+              </span>
+            </div>
+
+            <div className="mt-4 p-4 rounded-xl bg-white border">
+
+              <p className="font-semibold text-blue-700">
+                Recommendation
+              </p>
+
+              <p className="text-gray-600 mt-2">
+                {missing.length === 0
+                  ? "Excellent! You are Industry Ready based on the tracked skills."
+                  : `Focus on ${missing
+                      .map((skill) => skill.name)
+                      .join(", ")} to improve your career readiness.`}
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
 
       </div>
     </div>
